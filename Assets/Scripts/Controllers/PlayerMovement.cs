@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+
+        m_Rigidbody.AddForce(Vector3.forward * m_Velocity, ForceMode.Acceleration);
+
         float axisHorizontal = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
         float axisVertical = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
 
@@ -32,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.z = axisVertical * m_Velocity;
 
         m_Rigidbody.velocity = velocity;
+
 
     }
 }
