@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraManager : MonoBehaviour
 {
-    private Vector2 m_Delta;
+    
     private void Update()
     {
-        m_Delta = Vector2.zero;
-        if (Input.GetKey("q")) m_Delta.x = 1;
+        RotateCamera();
+    }
+
+    private void RotateCamera()
+    {
+        Vector3 directionRotation = Vector3.zero;
+        if (Input.GetKey(KeyCode.Q)) directionRotation = Vector3.up;
+        if (Input.GetKey(KeyCode.E)) directionRotation = Vector3.down;
+
+        transform.Rotate(directionRotation, Space.World);
     }
 }

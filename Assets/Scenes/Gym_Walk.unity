@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 10
-  m_CameraPivot: {fileID: 963194228}
+  m_CameraTransform: {fileID: 963194228}
 --- !u!4 &973883808
 Transform:
   m_ObjectHideFlags: 0

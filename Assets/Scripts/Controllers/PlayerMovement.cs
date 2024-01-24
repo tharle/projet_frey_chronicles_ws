@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float m_Speed = 10;
 
     [SerializeField]
-    Transform m_CameraPivot;
+    Transform m_CameraTransform;
 
     Rigidbody m_Rigidbody;
 
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         float vDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
 
         //obtient la nouvelle direction ( (avant/arrièrre) + (gauche/droite) )
-        Vector3 directionDep = m_CameraPivot.forward * vDeplacement + m_CameraPivot.right * hDeplacement;
+        Vector3 directionDep = m_CameraTransform.forward * vDeplacement + m_CameraTransform.right * hDeplacement;
         directionDep.y = 0; //pas de valeur en y , le cas où la caméra regarde vers le bas ou vers le haut
         Vector3 velocity = Vector3.zero;
         if (directionDep != Vector3.zero) //change de direction s’il y a un changement
