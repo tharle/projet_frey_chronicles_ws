@@ -1,41 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField]
-    private float m_Velocity = 10;
+    private float m_Speed = 10;
+
+    [SerializeField]
+    Transform m_CameraPivot;
 
     Rigidbody m_Rigidbody;
+
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Debug.DrawLine(transform.position, transform.forward * 1 + transform.position, Color.red);
         Move();
     }
 
-    private void Move()
+    void Move()
     {
+        // obtient les valeurs des touches horizontales et verticales
+        float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
+        float vDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
 
-        m_Rigidbody.AddForce(Vector3.forward * m_Velocity, ForceMode.Acceleration);
-
-        float axisHorizontal = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
-        float axisVertical = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
-
-
-        Vector3 velocity = m_Rigidbody.velocity;
-        velocity.x = axisHorizontal * m_Velocity;
-        velocity.z = axisVertical * m_Velocity;
+        //obtient la nouvelle direction ( (avant/arrièrre) + (gauche/droite) )
+        Vector3 directionDep = m_CameraPivot.forward * vDeplacement + m_CameraPivot.right * hDeplacement;
+        directionDep.y = 0; //pas de valeur en y , le cas où la caméra regarde vers le bas ou vers le haut
+        Vector3 velocity = Vector3.zero;
+        if (directionDep != Vector3.zero) //change de direction s’il y a un changement
+        {
+            //Oriente le personnage vers la direction de déplacement, et applique la vélocité dans la même direction
+            transform.forward = directionDep;
+            velocity = directionDep * m_Speed;
+        }
 
         m_Rigidbody.velocity = velocity;
-
-
     }
+
 }
