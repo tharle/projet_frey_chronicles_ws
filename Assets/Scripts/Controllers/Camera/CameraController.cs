@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CameraRotationController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     
     private void Update()
