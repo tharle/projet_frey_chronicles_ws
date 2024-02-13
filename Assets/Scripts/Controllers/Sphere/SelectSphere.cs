@@ -15,6 +15,8 @@ public class SelectSphere : MonoBehaviour
     private static SelectSphere m_Instance;
     public static SelectSphere GetInstance() { return m_Instance; }
 
+    //
+
     private void Awake()
     {
         if (m_Instance != null)
