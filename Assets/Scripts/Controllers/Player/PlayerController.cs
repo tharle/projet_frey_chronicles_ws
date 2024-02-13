@@ -32,10 +32,10 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController GetInstance() { return m_Instance; }
 
-    public void AttackMode(bool atackMode)
+    public void ShowInterractionMode(bool interractMode)
     {
 
-        if (atackMode) SpawnSelectSphere();
+        if (interractMode) SpawnSelectSphere();
         else DespawnSelectSphere();
     }
 

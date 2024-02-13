@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-public class NoneState : IGameState
+using UnityEngine;
+
+public class NoneState : AGameState
 {
-    public void OnEnter(GameStateController controller)
+    public NoneState(GameStateController stateController, GameController gameController) : base(stateController, gameController)
     {
-        // Ouvre la sphere d'interaction
     }
 
-    public void OnExit(GameStateController controller)
+    public override void OnEnter()
     {
-        // Ferme la sphere d'iteraction
+        Time.timeScale = 1.0f;
+    }
+
+    public override void OnExit()
+    {
 
     }
 
-    public void UpdateState(GameStateController controller)
+    public override void UpdateState()
     {
-        // ??
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Change to interaction
+            m_StateController.ChangeState(m_StateController.m_InteractionState);
+        }
     }
 }
