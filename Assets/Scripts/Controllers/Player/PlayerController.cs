@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
      * Variables de configuration du Player 
      * **********************************************
      */
-    private float m_DistanceAttack = 5f;
+    [SerializeField] private float m_DistanceAttack = 5f;
     public float GetDistanceAttack() 
     { 
         return m_DistanceAttack;
@@ -30,20 +30,22 @@ public class PlayerController : MonoBehaviour
         m_Instance = this;
     }
 
-    private void Start()
-    {
-        SelectSphere m_SelectSphere =  Resources.Load<SelectSphere>("GameObjects/SelectSphere");
-    }
     public static PlayerController GetInstance() { return m_Instance; }
 
     public void AttackMode(bool atackMode)
     {
 
         if (atackMode) SpawnSelectSphere();
+        else DespawnSelectSphere();
     }
 
     private void SpawnSelectSphere()
     {
-        
+        SelectSphere.GetInstance().ShowSphere(m_DistanceAttack);
+    }
+
+    private void DespawnSelectSphere()
+    {
+        SelectSphere.GetInstance().HideSphere();
     }
 }

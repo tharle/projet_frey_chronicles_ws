@@ -2766,13 +2766,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1830622294}
+    - target: {fileID: 1027384208480118622, guid: 28abe8e805eeb8a4fae62c066c2beb6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1741599520218643551, guid: 28abe8e805eeb8a4fae62c066c2beb6a, type: 3}
       propertyPath: m_Name
       value: SelectShpere
       objectReference: {fileID: 0}
     - target: {fileID: 1741599520218643551, guid: 28abe8e805eeb8a4fae62c066c2beb6a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2836117969127446284, guid: 28abe8e805eeb8a4fae62c066c2beb6a, type: 3}
       propertyPath: m_LocalPosition.x

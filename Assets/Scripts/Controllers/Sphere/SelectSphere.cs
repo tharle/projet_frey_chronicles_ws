@@ -6,21 +6,30 @@ using UnityEngine.ProBuilder;
 
 public class SelectSphere : MonoBehaviour
 {
-    private float m_SphereRadius = 0.1f;
+    private float m_SphereRadius;
+    private float m_SphereRadiusMin = 0.1f;
     private float m_SphereRadiusMax = 0.1f;
+
+    [SerializeField] private GameObject m_Model;
+
+    private static SelectSphere m_Instance;
+    public static SelectSphere GetInstance() { return m_Instance; }
+
     private void Awake()
     {
-        transform.localScale = new Vector3(m_SphereRadius, m_SphereRadius, m_SphereRadius);
+        if (m_Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        m_Instance = this;
     }
 
-    public void SetSphereRadius(float sphereRadius) 
+    private void Update()
     {
-        m_SphereRadiusMax = sphereRadius;
-
-        //TODO Ajouter un courotine pour faire le lerp entre le sphre Radius actuel vers le Max
+        FollowPlayer();
     }
-
-
 
     private void FollowPlayer()
     {
@@ -29,18 +38,23 @@ public class SelectSphere : MonoBehaviour
         transform.position = playerTransform.position;
     }
 
-    private void DrawSphere(float radius)
+    public void ShowSphere(float radius)
     {
-        //transform.localScale = new Vector3(m_SphereRadius, m_SphereRadius, m_SphereRadius);
-
-        // TODO: Ajouter animation sphere_enable
-        //m_Model.SetActive(true);
+        //transform.localScale = new Vector3(m_SphereRadius, m_SphereRadius, m_SphereRadius);   
+        m_SphereRadiusMax = radius;
+        m_SphereRadius = m_SphereRadiusMax;
+        DrawSphere(); // TODO: Ajouter animation sphere_enable ou Lerp
+        m_Model.SetActive(true);
     }
-
     public void HideSphere() 
     {
-        // TODO: Ajouter animation sphere_disable
-        //m_Model.SetActive(false);
+        m_SphereRadius = m_SphereRadiusMin;
+        DrawSphere(); // TODO: Ajouter animation sphere_disable ou Lerp
+        m_Model.SetActive(false);
 
+    }
+    private void DrawSphere()
+    {
+        transform.localScale = new Vector3(m_SphereRadius, m_SphereRadius, m_SphereRadius);
     }
 }
