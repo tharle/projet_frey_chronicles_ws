@@ -26,7 +26,7 @@ public class NoneState : AGameState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Change to interaction
-            m_StateController.ChangeState(m_StateController.m_InteractionState);
+            m_StateController.ChangeState(EGameState.Interaction);
         }
     }
 }

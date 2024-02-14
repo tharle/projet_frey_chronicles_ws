@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStateController: MonoBehaviour
@@ -6,22 +7,20 @@ public class GameStateController: MonoBehaviour
 
     private AGameState m_CurrentState;
 
-    public NoneState m_NoneState;
-    public MenuState m_MenuState;
-    public InteractionState m_InteractionState;
-    public ComboState m_ComboState;
-    public SpellState m_SpellState;
+    private Dictionary<EGameState, AGameState> GameStates;
 
     private void Start()
     {
+        GameStates = new Dictionary<EGameState, AGameState>();
         m_GameController = GetComponent<GameController>();
-        m_NoneState = new NoneState(this, m_GameController);
-        m_MenuState = new MenuState(this, m_GameController);
-        m_InteractionState = new InteractionState(this, m_GameController);
-        m_ComboState = new ComboState(this, m_GameController);
-        m_SpellState = new SpellState(this, m_GameController);
 
-        ChangeState(m_NoneState);
+        GameStates.Add(EGameState.None, new NoneState(this, m_GameController));
+        GameStates.Add(EGameState.Menu, new MenuState(this, m_GameController));
+        GameStates.Add(EGameState.Interaction, new InteractionState(this, m_GameController));
+        GameStates.Add(EGameState.Combo, new ComboState(this, m_GameController));
+        GameStates.Add(EGameState.Spell, new SpellState(this, m_GameController));
+
+        ChangeState(EGameState.None);
     }
 
     void Update()
@@ -29,10 +28,10 @@ public class GameStateController: MonoBehaviour
         if (m_CurrentState != null)  m_CurrentState.UpdateState();
     }
 
-    public void ChangeState(AGameState newState) 
+    public void ChangeState(EGameState newState) 
     {
         if(m_CurrentState != null)  m_CurrentState.OnExit();
-        m_CurrentState = newState;
+        m_CurrentState = GameStates[newState];
         m_CurrentState.OnEnter();
     }
 }

@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 velocity = Vector3.zero;
         if (directionDep != Vector3.zero) //change de direction s’il y a un changement
         {
-            //Oriente le personnage vers la direction de déplacement, et applique la vélocité dans la même direction
+            //Oriente le personnage vers la direction de déplacement et applique la vélocité dans la même direction
             transform.forward = directionDep;
             velocity = directionDep * m_Speed;
         }

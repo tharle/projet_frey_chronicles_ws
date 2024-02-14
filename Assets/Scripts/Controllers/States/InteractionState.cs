@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InteractionState : AGameState
 {
@@ -28,7 +23,7 @@ public class InteractionState : AGameState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Change to NONE
-            m_StateController.ChangeState(m_StateController.m_NoneState);
+            m_StateController.ChangeState(EGameState.None);
         }
     }
 }
