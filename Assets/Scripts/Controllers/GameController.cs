@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public event Action<bool> OnInterractionState;
 
     private void Start()
     {
@@ -17,7 +18,9 @@ public class GameController : MonoBehaviour
 
     public void OnInterationMode(bool inInterraction)
     {
-        PlayerController.GetInstance().ShowInterractionMode(inInterraction);
+
+        //OnInterractionState?.Invoke(inInterraction);
+        //PlayerController.GetInstance().ShowInterractionMode(inInterraction);
     }
 
 }

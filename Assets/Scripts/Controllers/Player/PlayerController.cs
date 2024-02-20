@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
      * **********************************************
      */
     [SerializeField] private float m_DistanceAttack = 5f;
+
     public float GetDistanceAttack() 
     { 
         return m_DistanceAttack;
@@ -32,7 +33,12 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController GetInstance() { return m_Instance; }
 
-    public void ShowInterractionMode(bool interractMode)
+    private void Start()
+    {
+        EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
+    }
+
+    private void OnInterractionMode(bool interractMode)
     {
 
         if (interractMode) SpawnSelectSphere();

@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-public class ComboState : AGameState
+public class ComboState : IGameState
 {
-    public ComboState(GameStateController stateController, GameController gameController) : base(stateController, gameController)
-    {
-    }
 
-    public override void OnEnter()
+    public void OnEnter(GameStateController stateController)
     {
         // Ouvre la sphere d'interaction
     }
 
-    public override void OnExit()
+    public void OnExit(GameStateController stateController)
     {
         // Ferme la sphere d'iteraction
 
     }
 
-    public override void UpdateState()
+    public void UpdateState(GameStateController stateController)
     {
         // ??
     }

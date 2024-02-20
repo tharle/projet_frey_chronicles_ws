@@ -5,28 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class NoneState : AGameState
+public class NoneState : IGameState
 {
-    public NoneState(GameStateController stateController, GameController gameController) : base(stateController, gameController)
-    {
-    }
 
-    public override void OnEnter()
+    public void OnEnter(GameStateController stateController)
     {
         Time.timeScale = 1.0f;
     }
 
-    public override void OnExit()
+    public void OnExit(GameStateController stateController)
     {
 
     }
 
-    public override void UpdateState()
+    public void UpdateState(GameStateController stateController)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Change to interaction
-            m_StateController.ChangeState(EGameState.Interaction);
+            stateController.ChangeState(EGameState.Interaction);
         }
     }
 }

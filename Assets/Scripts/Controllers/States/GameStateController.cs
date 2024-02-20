@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,34 +6,34 @@ public class GameStateController: MonoBehaviour
 {
     private GameController m_GameController;
 
-    private AGameState m_CurrentState;
+    private IGameState m_CurrentState;
 
-    private Dictionary<EGameState, AGameState> GameStates;
+    private Dictionary<EGameState, IGameState> GameStates;
 
     private void Start()
     {
-        GameStates = new Dictionary<EGameState, AGameState>();
+        GameStates = new Dictionary<EGameState, IGameState>();
         m_GameController = GetComponent<GameController>();
 
-        GameStates.Add(EGameState.None, new NoneState(this, m_GameController));
-        GameStates.Add(EGameState.Menu, new MenuState(this, m_GameController));
-        GameStates.Add(EGameState.Interaction, new InteractionState(this, m_GameController));
-        GameStates.Add(EGameState.Combo, new ComboState(this, m_GameController));
-        GameStates.Add(EGameState.Spell, new SpellState(this, m_GameController));
+        GameStates.Add(EGameState.None, new NoneState());
+        GameStates.Add(EGameState.Menu, new MenuState());
+        GameStates.Add(EGameState.Interaction, new InteractionState());
+        GameStates.Add(EGameState.Combo, new ComboState());
+        GameStates.Add(EGameState.Spell, new SpellState());
 
         ChangeState(EGameState.None);
     }
 
     void Update()
     {
-        if (m_CurrentState != null)  m_CurrentState.UpdateState();
+        if (m_CurrentState != null)  m_CurrentState.UpdateState(this);
     }
 
     public void ChangeState(EGameState newState) 
     {
-        if(m_CurrentState != null)  m_CurrentState.OnExit();
+        if(m_CurrentState != null)  m_CurrentState.OnExit(this);
         m_CurrentState = GameStates[newState];
-        m_CurrentState.OnEnter();
+        m_CurrentState.OnEnter(this);
     }
 }
 
@@ -47,20 +48,10 @@ public enum EGameState
     Spell       = 8
 }
 
-public abstract class AGameState
+public interface IGameState
 {
-    protected EGameState m_GameState;
-    protected GameStateController m_StateController;
-    protected GameController m_GameController;
-
-    public AGameState(GameStateController stateController, GameController gameController) 
-    {
-        m_StateController = stateController; 
-        m_GameController = gameController;
-    }
-
-    public abstract void OnEnter();
-    public abstract void UpdateState();
-    public abstract void OnExit();
+    public void OnEnter(GameStateController stateController);
+    public void UpdateState(GameStateController stateController);
+    public void OnExit(GameStateController stateController);
 }
 

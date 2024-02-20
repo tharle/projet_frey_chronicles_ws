@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +11,19 @@ public class PlayerMovement : MonoBehaviour
     private float m_Speed = 10;
 
     [SerializeField]
-    Transform m_CameraTransform;
+    private Transform m_CameraTransform;
 
-    Rigidbody m_Rigidbody;
+    private Rigidbody m_Rigidbody;
+
+    private bool m_IsMoving;
 
 
     void Start()
     {
+        m_IsMoving = true;
         m_Rigidbody = GetComponent<Rigidbody>();
+
+        EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
     void Update()
@@ -26,8 +32,10 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    void Move()
+    private void Move()
     {
+        if (!m_IsMoving) return;
+
         // obtient les valeurs des touches horizontales et verticales
         float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
         float vDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
@@ -46,4 +54,16 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.velocity = velocity;
     }
 
+    public void OnInterractionMode(bool interractMode)
+    {
+
+        m_IsMoving = !interractMode;
+
+        if (!m_IsMoving) StopMove();
+    }
+
+    private void StopMove()
+    {
+        m_Rigidbody.velocity = Vector3.zero;
+    }
 }
