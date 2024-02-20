@@ -54,10 +54,10 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.velocity = velocity;
     }
 
-    public void OnInterractionMode(bool interractMode)
+    private void OnInterractionMode(bool isEnterState)
     {
 
-        m_IsMoving = !interractMode;
+        m_IsMoving = !isEnterState;
 
         if (!m_IsMoving) StopMove();
     }

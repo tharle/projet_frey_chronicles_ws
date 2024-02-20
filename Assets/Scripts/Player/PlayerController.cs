@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
         EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
-    private void OnInterractionMode(bool interractMode)
+    private void OnInterractionMode(bool isEnterState)
     {
 
-        if (interractMode) SpawnSelectSphere();
+        if (isEnterState) SpawnSelectSphere();
         else DespawnSelectSphere();
     }
 
