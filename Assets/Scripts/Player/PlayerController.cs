@@ -13,13 +13,14 @@ public class PlayerController : MonoBehaviour
      * **********************************************
      */
     [SerializeField] private float m_DistanceAttack = 5f;
-
-    public float GetDistanceAttack() 
-    { 
-        return m_DistanceAttack;
+    public float DistanceAttack { 
+        get { return m_DistanceAttack; } 
+        set {  m_DistanceAttack = value; } 
     }
 
     private static PlayerController m_Instance;
+    public static PlayerController Instance { get { return m_Instance; } }
+
     private void Awake()
     {
         if (m_Instance != null)
@@ -31,11 +32,9 @@ public class PlayerController : MonoBehaviour
         m_Instance = this;
     }
 
-    public static PlayerController GetInstance() { return m_Instance; }
-
     private void Start()
     {
-        EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
     private void OnInterractionMode(bool isEnterState)

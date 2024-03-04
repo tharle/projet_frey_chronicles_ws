@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public event Action<bool> OnInterractionState;
+    //public event Action<bool> OnInterractionState;
 
     private void Start()
     {

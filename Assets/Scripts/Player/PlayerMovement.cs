@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         m_IsMoving = true;
         m_Rigidbody = GetComponent<Rigidbody>();
 
-        EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
     void Update()

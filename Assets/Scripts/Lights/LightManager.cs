@@ -10,8 +10,8 @@ public class LightManager : MonoBehaviour
     {
         m_Light = GetComponent<Light>();
 
-        EventSystem.GetInstance().SubscribeTo(EGameState.Interaction, OnInterractionMode);
-        EventSystem.GetInstance().SubscribeTo(EGameState.None, OnNoneMode);
+        EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        EventSystem.Instance.SubscribeTo(EGameState.None, OnNoneMode);
     }
 
     private void OnNoneMode(bool isEnterState)

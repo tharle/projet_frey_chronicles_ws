@@ -35,7 +35,7 @@ public class SelectSphere : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Transform playerTransform = PlayerController.GetInstance().transform;
+        Transform playerTransform = PlayerController.Instance.transform;
 
         transform.position = playerTransform.position;
     }
