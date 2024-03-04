@@ -57,6 +57,6 @@ public class SelectSphere : MonoBehaviour
     }
     private void DrawSphere()
     {
-        transform.localScale = new Vector3(m_SphereRadius, m_SphereRadius, m_SphereRadius);
+        transform.localScale = new Vector3(m_SphereRadius/2, m_SphereRadius/2, m_SphereRadius/2);
     }
 }

@@ -27,9 +27,9 @@ public class GameStateController: MonoBehaviour
 
     public void ChangeState(EGameState newState) 
     {
-        if(m_CurrentState != null)  m_CurrentState.OnExit();
+        m_CurrentState?.OnExit();
         m_CurrentState = GameStates[newState];
-        m_CurrentState.OnEnter();
+        m_CurrentState?.OnEnter();
     }
 }
 

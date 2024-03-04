@@ -32,9 +32,10 @@ public class DungeonEnemyManager: MonoBehaviour
     private void Start()
     {
         LoadEnemies();
+        SubscribeToEvents();
     }
 
-    private void Update()
+    private void SubscribeToEvents()
     {
         EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
@@ -81,6 +82,7 @@ public class DungeonEnemyManager: MonoBehaviour
         Vector3 position = Vector3.zero;
 
         position.x = Random.Range(m_SpawnPositionRange.x, m_SpawnPositionRange.y);
+        position.y = 1;
         position.z = Random.Range(m_SpawnPositionRange.x, m_SpawnPositionRange.y);
 
         return position;
