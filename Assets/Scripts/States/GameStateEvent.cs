@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
 
-public class EventSystem
+public class GameStateEvent
 {
-    private static EventSystem m_Instance;
-    public static EventSystem Instance {  
+    private Dictionary<EGameState, Action<bool>> m_Events;
+
+
+    private static GameStateEvent m_Instance;
+    public static GameStateEvent Instance {  
         get {
-            if (m_Instance == null) m_Instance = new EventSystem();
+            if (m_Instance == null) m_Instance = new GameStateEvent();
             return m_Instance; 
         } 
     }
 
-    private Dictionary<EGameState, Action<bool>> m_Events;
 
-    private EventSystem() 
+    private GameStateEvent() 
     {
         m_Events = new Dictionary<EGameState, Action<bool>>();
     }
@@ -29,7 +31,7 @@ public class EventSystem
         if (m_Events.ContainsKey(gameStateId)) m_Events[gameStateId] -= func;
     }
 
-    public void TriggerEvent(EGameState gameStateId, bool isActive)
+    public void Call(EGameState gameStateId, bool isActive)
     {
         if (m_Events.ContainsKey(gameStateId))
             m_Events[gameStateId]?.Invoke(isActive);

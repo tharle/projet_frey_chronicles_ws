@@ -59,13 +59,13 @@ public abstract class AGameState
     public virtual void OnEnter()
     {
         // Trigger le event de "enter state" dans le event system
-        EventSystem.Instance.TriggerEvent(m_GameStateId, true);
+        GameStateEvent.Instance.Call(m_GameStateId, true);
     }
 
     public virtual void OnExit() 
     {
         // Trigger le event de "exit state" dans le event system
-        EventSystem.Instance.TriggerEvent(m_GameStateId, false);
+        GameStateEvent.Instance.Call(m_GameStateId, false);
     }
 }
 

@@ -40,7 +40,7 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
 

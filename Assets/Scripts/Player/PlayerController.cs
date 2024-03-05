@@ -18,8 +18,20 @@ public class PlayerController : MonoBehaviour
         set {  m_DistanceAttack = value; } 
     }
 
+    private float m_HitPoints;
+    private float m_HitPointsMax;
+
+    private float m_TensionPoints;
+    private float m_TensionPointsMax;
+
+
+    // Events
+    public event Action<float> OnHitPoint;
+    public event Action<float> OnTensionPoint;
+
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
+
 
     private void Awake()
     {
@@ -34,7 +46,30 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        m_HitPointsMax = 100;
+        m_HitPoints = m_HitPointsMax;
+        m_TensionPointsMax = 100;
+        m_TensionPoints = 0;
+
+        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            TakeDamage(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            AddTension(7);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            ConsumeTension(25);
+        }
     }
 
     private void OnInterractionMode(bool isEnterState)
@@ -52,5 +87,34 @@ public class PlayerController : MonoBehaviour
     private void DespawnSelectSphere()
     {
         SelectSphere.GetInstance().HideSphere();
+    }
+
+    private void TakeDamage(float damage)
+    {
+        m_HitPoints -= damage;
+        // TODO : Add die
+
+        float ratio = m_HitPoints / m_HitPointsMax;
+        OnHitPoint?.Invoke(ratio);
+    }
+
+    private void AddTension(float tension)
+    {
+        m_TensionPoints += tension;
+
+        m_TensionPoints = m_TensionPoints > m_TensionPointsMax? m_TensionPointsMax : m_TensionPoints;
+
+        float ratio = m_TensionPoints / m_TensionPointsMax;
+        OnTensionPoint?.Invoke(ratio);
+    }
+
+    private void ConsumeTension(float tension)
+    {
+        m_TensionPoints -= tension;
+
+        m_TensionPoints = m_TensionPoints < 0 ? 0 : m_TensionPoints;
+
+        float ratio = m_TensionPoints / m_TensionPointsMax;
+        OnTensionPoint?.Invoke(ratio);
     }
 }
