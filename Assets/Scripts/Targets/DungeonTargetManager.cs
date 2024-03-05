@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DungeonEnemyManager: MonoBehaviour
+public class DungeonTargetManager: MonoBehaviour
 {
 
-    private static DungeonEnemyManager m_Instance;
+    private static DungeonTargetManager m_Instance;
 
-    public static DungeonEnemyManager Instance { 
+    public static DungeonTargetManager Instance { 
         get {
-            if (m_Instance == null) m_Instance = new DungeonEnemyManager();
+            if (m_Instance == null) m_Instance = new DungeonTargetManager();
 
             return m_Instance;
         } 
@@ -19,19 +19,22 @@ public class DungeonEnemyManager: MonoBehaviour
     /// <summary>
     /// Toute les Enemies de la dugeon
     /// </summary>
-    private List<EnemyController> m_Enemies;
+    private List<TargetController> m_Targets;
 
     /// <summary>
     /// Les ennemies qui sont dans le range du player dans la phase de iterration 
     /// </summary>
-    private List<EnemyController> m_EnemiesInRange;
+    private List<TargetController> m_TargetsInRange;
 
     [SerializeField] private EnemyData m_EnemiesData; // Temp
     [SerializeField] private Vector2 m_SpawnPositionRange; // Temp
 
     private void Start()
     {
-        LoadEnemies();
+        m_Targets = new List<TargetController>();
+        m_TargetsInRange = new List<TargetController>();
+
+        LoadAll();
         SubscribeToEvents();
     }
 
@@ -43,36 +46,43 @@ public class DungeonEnemyManager: MonoBehaviour
 
     // REFRESH
 
-    private void LoadEnemies()
+    private void LoadAll()
     {
-        m_Enemies = new List<EnemyController>();
-        m_EnemiesInRange = new List<EnemyController>();
 
-        foreach (EnemyData.Enemy enemy in m_EnemiesData.EnemyList)
+        foreach (ITarget target in m_EnemiesData.Enemies)
         {
-            GameObject go = LoadEnemyPrefab(enemy.enemyTypeId);
-            go.transform.position = CreateRandomPosition();
-            go = Instantiate(go);
-            go.name = enemy.Name;
-
-            EnemyController enemyController = go.AddComponent<EnemyController>();
-            enemyController.Enemy = enemy;
-            m_Enemies.Add(enemyController);
+            TargetController targetController = target is Enemy ? LoadEnemyPrefab((Enemy)target) : LoadThingrefab((Thing)target);
+            m_Targets.Add(targetController);
         }
     }
 
     // TODO changer ça pour un "PoolingPrefabs"
-    private GameObject LoadEnemyPrefab(EEnemyType enemyTypeId)
+    private TargetController LoadEnemyPrefab(Enemy enemy)
     {
+
         string urlPrefab = "Enemy/";
-        switch (enemyTypeId)
+        switch (enemy.enemyTypeId)
         {
             case EEnemyType.BAT:
             default:
                 urlPrefab += "Enemy";
                 break;
         }
-        return Resources.Load<GameObject>(urlPrefab);
+        GameObject go = Resources.Load<GameObject>(urlPrefab);
+        go.name = enemy.Name;
+        go.transform.position = CreateRandomPosition();
+        go = Instantiate(go);
+
+        EnemyController enemyController = go.AddComponent<EnemyController>();
+        enemyController.Enemy = enemy;
+
+        return enemyController;
+    }
+
+    // TODO changer ça pour un "PoolingPrefabs"
+    private TargetController LoadThingrefab(Thing thing)
+    {
+        return null;
     }
 
 
@@ -91,16 +101,10 @@ public class DungeonEnemyManager: MonoBehaviour
     private void SelectEnemiesInPlayerRange()
     {
         Debug.Log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        m_EnemiesInRange = m_Enemies.FindAll(enemy =>
+        m_TargetsInRange = m_Targets.FindAll(target =>
             {
-                // Change color for in range to Blue
-                Debug.Log("---------------------------------------------");
-                Debug.Log(enemy.name);
-                enemy.IsSelected = enemy.IsInPlayerRange();
-                Debug.Log(enemy.IsSelected);
-
-
-                return enemy.IsSelected;
+                target.IsSelected = target.IsInPlayerRange();
+                return target.IsSelected;
             }
         );
     }
@@ -108,7 +112,7 @@ public class DungeonEnemyManager: MonoBehaviour
     private void ClearSelectedEnemies()
     {
         Debug.Log("***********************CLEAR******************************");
-        m_EnemiesInRange.Clear();
+        m_TargetsInRange.Clear();
     }
 
     private void OnInterractionMode(bool isEnterState)
@@ -119,7 +123,7 @@ public class DungeonEnemyManager: MonoBehaviour
         }
         else
         {
-            foreach (EnemyController enemy in m_Enemies)
+            foreach (EnemyController enemy in m_Targets)
             {
                 enemy.IsSelected = false;
             }

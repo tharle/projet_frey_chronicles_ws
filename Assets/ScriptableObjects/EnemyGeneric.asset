@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b139fb51d905648a4ce15d30ef26cd, type: 3}
   m_Name: EnemyGeneric
   m_EditorClassIdentifier: 
-  EnemyList:
-  - id: 0
-    Name: Bat
-    SpeedMovement: 5
-    SpeedInitiative: 1
+  Enemies:
+  - id: 1
+    Name: BAT 1
+    SpeedMovement: 2
+    SpeedInitiative: 2
     enemyTypeId: 0
   - id: 1
-    Name: Bat 2
-    SpeedMovement: 5
-    SpeedInitiative: 1
+    Name: BAT 2
+    SpeedMovement: 2
+    SpeedInitiative: 2
     enemyTypeId: 0
-  - id: 2
-    Name: Bat 3
-    SpeedMovement: 5
-    SpeedInitiative: 1
+  - id: 1
+    Name: BAT 3
+    SpeedMovement: 2
+    SpeedInitiative: 2
     enemyTypeId: 0
+  Things: []

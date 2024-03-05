@@ -1,40 +1,32 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public abstract class TargetController : MonoBehaviour
 {
-    private Material m_Material; // temp
-
-    private EnemyData.Enemy m_Enemy;
-    public EnemyData.Enemy Enemy { set { m_Enemy = value; } }
-
+    Renderer m_Renderer;
     private Color m_DefaultColor;
     private Color m_SelectedColor;
 
     private bool m_IsSelected;
-    public bool IsSelected
-    {
-        get { 
-            return m_IsSelected; 
-        }
+
+    public bool IsSelected { 
+        get { return m_IsSelected; }
         set
         {
             m_IsSelected = value;
-            if(m_IsSelected) m_Material.color = m_SelectedColor;
-            else m_Material.color = m_DefaultColor;
+            if (m_IsSelected) m_Renderer.material.color = m_SelectedColor;
+            else m_Renderer.material.color = m_DefaultColor;
         }
     }
 
     private void Start()
     {
-        m_Material = GetComponentInChildren<Renderer>().material;
+        m_Renderer = GetComponentInChildren<Renderer>();
         m_IsSelected = false;
-        m_DefaultColor = m_Material.color;
+        m_DefaultColor = m_Renderer.material.color;
         m_SelectedColor = Color.blue;
     }
-
 
     public float DistanceFrom(Vector3 targetPosition)
     {
