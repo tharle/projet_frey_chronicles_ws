@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.Progress;
@@ -50,6 +51,7 @@ public class DungeonTargetManager: MonoBehaviour
     private void SubscribeToEvents()
     {
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        PlayerController.Instance.OnAttack += OnAttack;
     }
 
 
@@ -58,15 +60,23 @@ public class DungeonTargetManager: MonoBehaviour
     private void LoadAll()
     {
 
-        foreach (ITarget target in m_EnemiesData.Enemies)
+        foreach (Enemy enemy in m_EnemiesData.Enemies)
         {
-            TargetController targetController = target is Enemy ? LoadEnemyPrefab((Enemy)target) : LoadThingrefab((Thing)target);
+            TargetController targetController = LoadAndInstantieteEnemy(enemy);
             m_Targets.Add(targetController);
         }
+
+        foreach (Thing thing in m_EnemiesData.Things)
+        {
+            TargetController targetController = LoadAndInstantieteThing(thing);
+            m_Targets.Add(targetController);
+        }
+
+        
     }
 
     // TODO changer ça pour un "PoolingPrefabs"
-    private TargetController LoadEnemyPrefab(Enemy enemy)
+    private TargetController LoadAndInstantieteEnemy(Enemy enemy)
     {
 
         string urlPrefab = "Enemy/";
@@ -89,7 +99,7 @@ public class DungeonTargetManager: MonoBehaviour
     }
 
     // TODO changer ça pour un "PoolingPrefabs"
-    private TargetController LoadThingrefab(Thing thing)
+    private TargetController LoadAndInstantieteThing(Thing thing)
     {
         return null;
     }
@@ -118,10 +128,10 @@ public class DungeonTargetManager: MonoBehaviour
         );
 
         m_IndexSelected = 0;
-        OnSetSelected();
+        SelectTarget();
     }
 
-    private void ClearSelectedEnemies()
+    private void ClearSelectedTargets()
     {
         Debug.Log("***********************CLEAR******************************");
         m_TargetsInRange.Clear();
@@ -135,19 +145,53 @@ public class DungeonTargetManager: MonoBehaviour
         }
         else
         {
-            foreach (EnemyController enemy in m_Targets)
+            foreach (TargetController target in m_Targets)
             {
-                enemy.IsSelected = false;
+                target.IsSelected = false;
             }
-            ClearSelectedEnemies();
+            ClearSelectedTargets();
         }
     }
 
-    private void OnSetSelected()
+    private void SelectTarget()
     {
         TargetController target = m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
         SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
+
+    private void OnAttack(float damage)
+    {
+        if(m_TargetsInRange.Count == 0) {
+            Debug.Log("NO TARGETS AVAIBLES");
+            return;
+        }
+
+        TargetController target = m_TargetsInRange[m_IndexSelected];
+
+        if (target is EnemyController)
+        {
+            EnemyController enemy = (EnemyController)target;
+            float tension = enemy.TakeDamage(damage);
+            PlayerController.Instance.AddTension(tension);
+
+            
+
+        }
+
+        if (target.IsDestroyed()) TargetSelectedDestroyed();
+
+    }
+
+    private void TargetSelectedDestroyed()
+    {
+        m_Targets.Remove(m_TargetsInRange[m_IndexSelected]);// remove from targets
+        m_TargetsInRange.RemoveAt(m_IndexSelected); // remove from targets in range
+        NextSelected();
+    }
+
+    // -------------------------------------------
+    // INPUTS METHODES
+    // -------------------------------------------
 
     public void NextSelected()
     {
@@ -156,7 +200,7 @@ public class DungeonTargetManager: MonoBehaviour
         m_IndexSelected++;
         m_IndexSelected %= m_TargetsInRange.Count;
 
-        OnSetSelected();
+        SelectTarget();
     }
 
     public void PreviusSelected()
@@ -166,7 +210,7 @@ public class DungeonTargetManager: MonoBehaviour
         m_IndexSelected--; 
         m_IndexSelected = m_IndexSelected < 0? m_TargetsInRange.Count - 1 : m_IndexSelected;
 
-        OnSetSelected();
+        SelectTarget();
     }
 
 

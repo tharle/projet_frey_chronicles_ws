@@ -12,6 +12,8 @@ public abstract class TargetController : MonoBehaviour
 
     private bool m_IsSelected;
 
+    public abstract ITarget GetTarget();
+
     public bool IsSelected { 
         get { return m_IsSelected; }
         set

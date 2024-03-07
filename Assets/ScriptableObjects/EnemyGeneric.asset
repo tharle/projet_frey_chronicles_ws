@@ -15,16 +15,25 @@ MonoBehaviour:
   Enemies:
   - id: 1
     Name: BAT 1
+    HitPoints: 20
+    HitPointsMax: 20
+    TensionPoints: 5
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0
   - id: 1
     Name: BAT 2
+    HitPoints: 10
+    HitPointsMax: 10
+    TensionPoints: 2
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0
   - id: 1
     Name: BAT 3
+    HitPoints: 30
+    HitPointsMax: 30
+    TensionPoints: 14
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0

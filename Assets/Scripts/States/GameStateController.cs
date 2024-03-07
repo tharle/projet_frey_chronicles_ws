@@ -22,7 +22,7 @@ public class GameStateController: MonoBehaviour
 
     void Update()
     {
-        if (m_CurrentState != null)  m_CurrentState.UpdateState();
+        if (m_CurrentState != null) m_CurrentState.UpdateState();
     }
 
     public void ChangeState(EGameState newState) 

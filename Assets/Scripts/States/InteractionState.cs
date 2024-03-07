@@ -8,10 +8,16 @@ public class InteractionState : AGameState
 
     public override void UpdateState()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Change to NONE
             m_Controller.ChangeState(EGameState.None);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            // TODO: Enter in "choisir entre magie et combo"
+            PlayerController.Instance.AttackSelected();
         }
 
         if (Input.GetKeyDown(KeyCode.D))

@@ -18,16 +18,17 @@ public class PlayerController : MonoBehaviour
         set {  m_DistanceAttack = value; } 
     }
 
-    private float m_HitPoints;
-    private float m_HitPointsMax;
-
-    private float m_TensionPoints;
-    private float m_TensionPointsMax;
+    [SerializeField] private Vector2 m_DamageRange = new Vector2(3, 7);
+    [SerializeField] private float m_HitPoints = 100f;
+    [SerializeField]private float m_HitPointsMax = 100f;
+    [SerializeField] private float m_TensionPoints = 0f;
+    [SerializeField] private float m_TensionPointsMax = 100f;
 
 
     // Events
     public event Action<float> OnHitPoint;
     public event Action<float> OnTensionPoint;
+    public event Action<float> OnAttack;
 
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
@@ -46,11 +47,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        m_HitPointsMax = 100;
-        m_HitPoints = m_HitPointsMax;
-        m_TensionPointsMax = 100;
-        m_TensionPoints = 0;
-
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
 
@@ -89,7 +85,7 @@ public class PlayerController : MonoBehaviour
         SelectSphere.Instance.HideSphere();
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         m_HitPoints -= damage;
         // TODO : Add die
@@ -98,7 +94,7 @@ public class PlayerController : MonoBehaviour
         OnHitPoint?.Invoke(ratio);
     }
 
-    private void AddTension(float tension)
+    public void AddTension(float tension)
     {
         m_TensionPoints += tension;
 
@@ -108,7 +104,7 @@ public class PlayerController : MonoBehaviour
         OnTensionPoint?.Invoke(ratio);
     }
 
-    private void ConsumeTension(float tension)
+    public void ConsumeTension(float tension)
     {
         m_TensionPoints -= tension;
 
@@ -117,4 +113,17 @@ public class PlayerController : MonoBehaviour
         float ratio = m_TensionPoints / m_TensionPointsMax;
         OnTensionPoint?.Invoke(ratio);
     }
+
+    // TODO: jusqu'au comobo etre fait
+    public void AttackSelected()
+    {
+        OnAttack?.Invoke(RandomDamage());
+    }
+
+    private float RandomDamage()
+    {
+        return UnityEngine.Random.Range(m_DamageRange.x, m_DamageRange.y);
+    }
+
+
 }

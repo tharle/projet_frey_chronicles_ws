@@ -11,6 +11,8 @@ public class SelectSphere : MonoBehaviour
     private float m_SphereRadiusMax = 0.1f;
     private TargetController m_TargetSelected;
 
+    public Action<ITarget> OnTargetSelected;
+
     [SerializeField] private GameObject m_Model;
 
     private static SelectSphere m_Instance;
@@ -45,6 +47,7 @@ public class SelectSphere : MonoBehaviour
         m_TargetSelected = target;
 
         m_TargetSelected?.ShowSelected();
+        OnTargetSelected?.Invoke(m_TargetSelected?.GetTarget());
     }
 
     public void ShowSphere(float radius)
