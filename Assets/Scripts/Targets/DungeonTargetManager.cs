@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class DungeonTargetManager: MonoBehaviour
 {
@@ -10,29 +11,37 @@ public class DungeonTargetManager: MonoBehaviour
 
     public static DungeonTargetManager Instance { 
         get {
-            if (m_Instance == null) m_Instance = new DungeonTargetManager();
-
             return m_Instance;
         } 
     }
 
     /// <summary>
-    /// Toute les Enemies de la dugeon
+    /// Toute les targets de la dugeon
     /// </summary>
     private List<TargetController> m_Targets;
 
     /// <summary>
-    /// Les ennemies qui sont dans le range du player dans la phase de iterration 
+    /// Les targets qui sont dans le range du player dans la phase de iterration 
     /// </summary>
     private List<TargetController> m_TargetsInRange;
 
+    private int m_IndexSelected;
+
     [SerializeField] private EnemyData m_EnemiesData; // Temp
     [SerializeField] private Vector2 m_SpawnPositionRange; // Temp
+
+    private void Awake()
+    {
+        if (m_Instance != null) Destroy(gameObject);
+
+        m_Instance = this;
+    }
 
     private void Start()
     {
         m_Targets = new List<TargetController>();
         m_TargetsInRange = new List<TargetController>();
+        m_IndexSelected = 0;
 
         LoadAll();
         SubscribeToEvents();
@@ -107,6 +116,9 @@ public class DungeonTargetManager: MonoBehaviour
                 return target.IsSelected;
             }
         );
+
+        m_IndexSelected = 0;
+        OnSetSelected();
     }
 
     private void ClearSelectedEnemies()
@@ -129,7 +141,32 @@ public class DungeonTargetManager: MonoBehaviour
             }
             ClearSelectedEnemies();
         }
+    }
 
+    private void OnSetSelected()
+    {
+        TargetController target = m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
+        SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
+    }
+
+    public void NextSelected()
+    {
+        if (m_TargetsInRange.Count == 0) return;
+
+        m_IndexSelected++;
+        m_IndexSelected %= m_TargetsInRange.Count;
+
+        OnSetSelected();
+    }
+
+    public void PreviusSelected()
+    {
+        if (m_TargetsInRange.Count == 0) return;
+
+        m_IndexSelected--; 
+        m_IndexSelected = m_IndexSelected < 0? m_TargetsInRange.Count - 1 : m_IndexSelected;
+
+        OnSetSelected();
     }
 
 

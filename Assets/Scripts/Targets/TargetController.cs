@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public abstract class TargetController : MonoBehaviour
 {
     Renderer m_Renderer;
     private Color m_DefaultColor;
+    private Color m_InRangeColor;
     private Color m_SelectedColor;
 
     private bool m_IsSelected;
@@ -15,7 +17,7 @@ public abstract class TargetController : MonoBehaviour
         set
         {
             m_IsSelected = value;
-            if (m_IsSelected) m_Renderer.material.color = m_SelectedColor;
+            if (m_IsSelected) m_Renderer.material.color = m_InRangeColor;
             else m_Renderer.material.color = m_DefaultColor;
         }
     }
@@ -25,7 +27,8 @@ public abstract class TargetController : MonoBehaviour
         m_Renderer = GetComponentInChildren<Renderer>();
         m_IsSelected = false;
         m_DefaultColor = m_Renderer.material.color;
-        m_SelectedColor = Color.blue;
+        m_InRangeColor = Color.blue;
+        m_SelectedColor = Color.yellow;
     }
 
     public float DistanceFrom(Vector3 targetPosition)
@@ -39,5 +42,15 @@ public abstract class TargetController : MonoBehaviour
         float distance = DistanceFrom(player.transform.position);
         Debug.Log(distance);
         return DistanceFrom(player.transform.position) <= player.DistanceAttack;
+    }
+
+    public void ShowSelected()
+    {
+        m_Renderer.material.color = m_SelectedColor;
+    }
+
+    public void DesSelected()
+    {
+        m_Renderer.material.color = m_InRangeColor;
     }
 }

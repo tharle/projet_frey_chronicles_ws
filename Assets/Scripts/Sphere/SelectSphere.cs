@@ -9,21 +9,20 @@ public class SelectSphere : MonoBehaviour
     private float m_SphereRadius;
     private float m_SphereRadiusMin = 0.1f;
     private float m_SphereRadiusMax = 0.1f;
+    private TargetController m_TargetSelected;
 
     [SerializeField] private GameObject m_Model;
 
     private static SelectSphere m_Instance;
-    public static SelectSphere GetInstance() { return m_Instance; }
-
-    //
+    public static SelectSphere Instance{ 
+        get { 
+            return m_Instance; 
+        } 
+    }
 
     private void Awake()
     {
-        if (m_Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (m_Instance != null) Destroy(gameObject);
 
         m_Instance = this;
     }
@@ -38,6 +37,14 @@ public class SelectSphere : MonoBehaviour
         Transform playerTransform = PlayerController.Instance.transform;
 
         transform.position = playerTransform.position;
+    }
+
+    public void SelectTarget(TargetController target)
+    {
+        if (m_TargetSelected != null) m_TargetSelected.DesSelected();
+        m_TargetSelected = target;
+
+        m_TargetSelected?.ShowSelected();
     }
 
     public void ShowSphere(float radius)

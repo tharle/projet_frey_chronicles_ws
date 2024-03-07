@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
 
     private void SpawnSelectSphere()
     {
-        SelectSphere.GetInstance().ShowSphere(m_DistanceAttack);
+        SelectSphere.Instance.ShowSphere(m_DistanceAttack);
     }
 
     private void DespawnSelectSphere()
     {
-        SelectSphere.GetInstance().HideSphere();
+        SelectSphere.Instance.HideSphere();
     }
 
     private void TakeDamage(float damage)

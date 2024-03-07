@@ -13,5 +13,15 @@ public class InteractionState : AGameState
             // Change to NONE
             m_Controller.ChangeState(EGameState.None);
         }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            DungeonTargetManager.Instance.NextSelected();
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            DungeonTargetManager.Instance.PreviusSelected();
+        }
     }
 }
