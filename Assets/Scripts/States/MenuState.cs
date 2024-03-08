@@ -8,9 +8,4 @@ public class MenuState : AGameState
     public MenuState(GameStateController controller) : base(controller, EGameState.Menu)
     {
     }
-
-    public override void UpdateState()
-    {
-        //throw new NotImplementedException();
-    }
 }

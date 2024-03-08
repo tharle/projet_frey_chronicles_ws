@@ -51,7 +51,7 @@ public class DungeonTargetManager: MonoBehaviour
     private void SubscribeToEvents()
     {
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
-        PlayerController.Instance.OnAttack += OnAttack;
+        //PlayerController.Instance.OnAttack += OnAttack;
     }
 
 
@@ -82,7 +82,7 @@ public class DungeonTargetManager: MonoBehaviour
         string urlPrefab = "Enemy/";
         switch (enemy.enemyTypeId)
         {
-            case EEnemyType.BAT:
+            case EEnemyType.Bat:
             default:
                 urlPrefab += "Enemy";
                 break;
@@ -119,10 +119,10 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void SelectEnemiesInPlayerRange()
     {
-        Debug.Log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        // Debug.Log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         m_TargetsInRange = m_Targets.FindAll(target =>
             {
-                target.IsSelected = target.IsInPlayerRange();
+                target.IsSelected = PlayerController.Instance.IsInRange(target.transform.position);
                 return target.IsSelected;
             }
         );
@@ -133,7 +133,7 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void ClearSelectedTargets()
     {
-        Debug.Log("***********************CLEAR******************************");
+        //Debug.Log("***********************CLEAR******************************");
         m_TargetsInRange.Clear();
     }
 
@@ -159,7 +159,7 @@ public class DungeonTargetManager: MonoBehaviour
         SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
 
-    private void OnAttack(float damage)
+    private void OnAttack(int damage)
     {
         if(m_TargetsInRange.Count == 0) {
             Debug.Log("NO TARGETS AVAIBLES");
@@ -171,7 +171,7 @@ public class DungeonTargetManager: MonoBehaviour
         if (target is EnemyController)
         {
             EnemyController enemy = (EnemyController)target;
-            float tension = enemy.TakeDamage(damage);
+            int tension = enemy.TakeDamage(damage);
             PlayerController.Instance.AddTension(tension);
 
             

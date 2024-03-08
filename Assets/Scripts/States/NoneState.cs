@@ -19,6 +19,7 @@ public class NoneState : AGameState
 
     public override void UpdateState()
     {
+        base.UpdateState();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Change to interaction

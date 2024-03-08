@@ -31,9 +31,9 @@ public class GameStateEvent
         if (m_Events.ContainsKey(gameStateId)) m_Events[gameStateId] -= func;
     }
 
-    public void Call(EGameState gameStateId, bool isActive)
+    public void Call(EGameState gameStateId, bool isEnter)
     {
         if (m_Events.ContainsKey(gameStateId))
-            m_Events[gameStateId]?.Invoke(isActive);
+            m_Events[gameStateId]?.Invoke(isEnter);
     }
 }

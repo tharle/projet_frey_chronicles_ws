@@ -15,15 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
 
-    private bool m_IsMoving;
+    private bool m_IsInterracting;
 
 
     void Start()
     {
-        m_IsMoving = true;
+        m_IsInterracting = false;
         m_Rigidbody = GetComponent<Rigidbody>();
 
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneMode);
     }
 
     void Update()
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (!m_IsMoving) return;
+        if (m_IsInterracting) return;
 
         // obtient les valeurs des touches horizontales et verticales
         float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
@@ -56,14 +57,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnInterractionMode(bool isEnterState)
     {
-
-        m_IsMoving = !isEnterState;
-
-        if (!m_IsMoving) StopMove();
+        if (!isEnterState) return;
+        
+        m_IsInterracting = true;
+        StopMove();
     }
 
     private void StopMove()
     {
         m_Rigidbody.velocity = Vector3.zero;
+    }
+
+    private void OnNoneMode(bool isEnterState)
+    {
+        if (!isEnterState) return;
+
+        m_IsInterracting = false;
     }
 }

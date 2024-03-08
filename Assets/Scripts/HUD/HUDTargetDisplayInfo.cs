@@ -8,16 +8,19 @@ public class HUDTargetDisplayInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_TargetDamage;
     [SerializeField] protected TextMeshProUGUI m_TargetDescription;
 
-    [SerializeField] private GameObject TargetDisplayInfo;
+    [SerializeField] private GameObject TargetDisplayInfoPanel;
+
+    private void Awake()
+    {
+        SubscribeAllNotifyEvents();
+    }
 
     private void Start()
     {
-        TargetDisplayInfo.SetActive(false);
-        SubscribeAll();
-
+        TargetDisplayInfoPanel.SetActive(false);
     }
 
-    private void SubscribeAll()
+    private void SubscribeAllNotifyEvents()
     {
         SelectSphere.Instance.OnTargetSelected = NotifyShowSelectTarget;
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
@@ -33,6 +36,6 @@ public class HUDTargetDisplayInfo : MonoBehaviour
 
     private void OnInterractionMode(bool inIntration)
     {
-        TargetDisplayInfo.SetActive(inIntration);
+        TargetDisplayInfoPanel.SetActive(inIntration);
     }
 }

@@ -3,6 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EElemental
+{
+    Air,
+    Fire,
+    Water
+}
+
+[Serializable]
+public struct Player 
+{
+    public int HitPoints;
+    public int HitPointsMax;
+    public int TensionPoints;
+    public int TensionPointsMax;
+    public float DistanceAttack;
+    public Vector2 DamageRange;
+
+    public Player(int hitPointsMax, float distanceAttack) 
+    {
+        HitPointsMax = hitPointsMax;
+        HitPoints = HitPointsMax;
+        DistanceAttack = distanceAttack;
+        TensionPoints = 0;
+        TensionPointsMax = 100;
+        DamageRange = new Vector2(3, 7);
+    }
+
+    public int GetDamage()
+    {
+        return UnityEngine.Random.Range(Mathf.FloorToInt(DamageRange.x), Mathf.FloorToInt(DamageRange.y));
+    }
+}
+
 public class PlayerController : MonoBehaviour
 {
 
@@ -12,23 +45,13 @@ public class PlayerController : MonoBehaviour
      * Variables de configuration du Player 
      * **********************************************
      */
-    [SerializeField] private float m_DistanceAttack = 5f;
-    public float DistanceAttack { 
-        get { return m_DistanceAttack; } 
-        set {  m_DistanceAttack = value; } 
-    }
-
-    [SerializeField] private Vector2 m_DamageRange = new Vector2(3, 7);
-    [SerializeField] private float m_HitPoints = 100f;
-    [SerializeField]private float m_HitPointsMax = 100f;
-    [SerializeField] private float m_TensionPoints = 0f;
-    [SerializeField] private float m_TensionPointsMax = 100f;
+    Player m_Player;
 
 
     // Events
-    public event Action<float> OnHitPoint;
-    public event Action<float> OnTensionPoint;
-    public event Action<float> OnAttack;
+    public event Action<Player> OnNotifyInfoPlayer;
+    public event Action OnAttackSelected;
+    public event Action OnSpellSelected;
 
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
@@ -46,6 +69,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Start()
+    {
+        m_Player = new Player(20, 5f);
+        SubscribeAllEvents();
+        RefreshInfoHUD();
+    }
+
+    private void SubscribeAllEvents()
     {
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
     }
@@ -77,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void SpawnSelectSphere()
     {
-        SelectSphere.Instance.ShowSphere(m_DistanceAttack);
+        SelectSphere.Instance.ShowSphere(m_Player.DistanceAttack);
     }
 
     private void DespawnSelectSphere()
@@ -85,45 +115,52 @@ public class PlayerController : MonoBehaviour
         SelectSphere.Instance.HideSphere();
     }
 
-    public void TakeDamage(float damage)
+    private void RefreshInfoHUD()
     {
-        m_HitPoints -= damage;
+        OnNotifyInfoPlayer?.Invoke(m_Player);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        m_Player.HitPoints -= damage;
         // TODO : Add die
 
-        float ratio = m_HitPoints / m_HitPointsMax;
-        OnHitPoint?.Invoke(ratio);
+        RefreshInfoHUD();
     }
 
-    public void AddTension(float tension)
+    public void AddTension(int tension)
     {
-        m_TensionPoints += tension;
+        m_Player.TensionPoints += tension;
+        m_Player.TensionPoints = m_Player.TensionPoints > m_Player.TensionPointsMax ? m_Player.TensionPointsMax : m_Player.TensionPoints;
 
-        m_TensionPoints = m_TensionPoints > m_TensionPointsMax? m_TensionPointsMax : m_TensionPoints;
-
-        float ratio = m_TensionPoints / m_TensionPointsMax;
-        OnTensionPoint?.Invoke(ratio);
+        RefreshInfoHUD();
     }
 
-    public void ConsumeTension(float tension)
+    public void ConsumeTension(int tension)
     {
-        m_TensionPoints -= tension;
+        m_Player.TensionPoints -= tension;
+        m_Player.TensionPoints = m_Player.TensionPoints < 0 ? 0 : m_Player.TensionPoints;
 
-        m_TensionPoints = m_TensionPoints < 0 ? 0 : m_TensionPoints;
-
-        float ratio = m_TensionPoints / m_TensionPointsMax;
-        OnTensionPoint?.Invoke(ratio);
+        RefreshInfoHUD();
     }
 
     // TODO: jusqu'au comobo etre fait
     public void AttackSelected()
     {
-        OnAttack?.Invoke(RandomDamage());
+        //OnAttack?.Invoke(m_Player.GetDamage());
+        OnAttackSelected?.Invoke();
     }
 
-    private float RandomDamage()
+    public void SpellSelected()
     {
-        return UnityEngine.Random.Range(m_DamageRange.x, m_DamageRange.y);
+        //OnAttack?.Invoke(m_Player.GetDamage());
+        OnSpellSelected?.Invoke();
     }
 
-
+    public bool IsInRange(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        //Debug.Log(distance);
+        return distance <= m_Player.DistanceAttack;
+    }
 }

@@ -33,19 +33,6 @@ public abstract class TargetController : MonoBehaviour
         m_SelectedColor = Color.yellow;
     }
 
-    public float DistanceFrom(Vector3 targetPosition)
-    {
-        return Vector3.Distance(transform.position, targetPosition);
-    }
-
-    public bool IsInPlayerRange()
-    {
-        PlayerController player = PlayerController.Instance;
-        float distance = DistanceFrom(player.transform.position);
-        Debug.Log(distance);
-        return DistanceFrom(player.transform.position) <= player.DistanceAttack;
-    }
-
     public void ShowSelected()
     {
         m_Renderer.material.color = m_SelectedColor;

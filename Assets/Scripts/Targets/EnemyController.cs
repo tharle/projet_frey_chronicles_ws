@@ -13,7 +13,7 @@ public class EnemyController : TargetController
     /// </summary>
     /// <param name="damage">the damage of the enemy suffer</param>
     /// <returns>amount of Tension for the player</returns>
-    public float TakeDamage(float damage)
+    public int TakeDamage(int damage)
     {
         m_Enemy.HitPoints -= damage;
 

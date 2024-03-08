@@ -11,6 +11,8 @@ public class ComboState : AGameState
 
     public override void UpdateState()
     {
-        // throw new NotImplementedException();
+        base.UpdateState();
+
+        m_Controller.ChangeState(EGameState.None);
     }
 }

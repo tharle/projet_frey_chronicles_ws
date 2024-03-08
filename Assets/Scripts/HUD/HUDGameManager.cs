@@ -3,31 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HUDGameManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI m_HPValue;
     [SerializeField] TextMeshProUGUI m_TPValue;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         SubscribeAllNotifyEvents();
     }
 
     private void SubscribeAllNotifyEvents()
     {
-        PlayerController.Instance.OnHitPoint += NotifyHitPoint;
-        PlayerController.Instance.OnTensionPoint += NotifyTensionPoints;
+        PlayerController.Instance.OnNotifyInfoPlayer += OnNotifyInfoPlayer;
     }
 
-    private void NotifyHitPoint(float hpRatio)
+    private void OnNotifyInfoPlayer(Player player)
     {
-        m_HPValue.text = (hpRatio * 100).ToString("00");
-    }
-
-    private void NotifyTensionPoints(float tensionRatio)
-    {
-        m_TPValue.text = (tensionRatio * 100).ToString("00");
+        m_HPValue.text = ((player.HitPoints / player.HitPointsMax) * 100).ToString("00");
+        m_TPValue.text = ((player.TensionPoints / player.TensionPointsMax) * 100).ToString("00");
     }
 }

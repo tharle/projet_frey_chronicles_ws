@@ -12,7 +12,7 @@ public interface ITarget
 
 public enum EEnemyType
 {
-    BAT
+    Bat
 }
 
 [Serializable]
@@ -20,22 +20,22 @@ public struct Enemy : ITarget
 {
     public int id;
     public string Name;
-    public float HitPoints;
-    public float HitPointsMax;
-    public float TensionPoints;
+    public int HitPoints;
+    public int HitPointsMax;
+    public int TensionPoints;
     public float SpeedMovement;
     public int SpeedInitiative;
-    public float Evasion; // 0 - 1
     public EEnemyType enemyTypeId;
+    public EElemental elementalId;
 
     public string DisplayDamage()
     {
-        return $"{Name} : {enemyTypeId} {Evasion * 100}%";
+        return $"{Name} {HitPoints}/{HitPointsMax}";
     }
 
     public string DisplayDescription()
     {
-        return $"Resist: Air | Weakeness: Water";
+        return $"Type: {enemyTypeId} - {elementalId}";
     }
 }
 
