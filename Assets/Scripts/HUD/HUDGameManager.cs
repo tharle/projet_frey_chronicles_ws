@@ -9,6 +9,7 @@ public class HUDGameManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI m_HPValue;
     [SerializeField] TextMeshProUGUI m_TPValue;
+    [SerializeField] TextMeshProUGUI m_APValue;
 
     private void Awake()
     {
@@ -24,5 +25,6 @@ public class HUDGameManager : MonoBehaviour
     {
         m_HPValue.text = ((player.HitPoints / player.HitPointsMax) * 100).ToString("00");
         m_TPValue.text = ((player.TensionPoints / player.TensionPointsMax) * 100).ToString("00");
+        m_APValue.text = ((player.ActionPoints / player.ActionPointsMax) * 100).ToString("00");
     }
 }

@@ -20,10 +20,19 @@ public class NoneState : AGameState
     public override void UpdateState()
     {
         base.UpdateState();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) OpenIntractionSphere();
+    }
+
+    private void OpenIntractionSphere()
+    {
+        if (PlayerController.Instance.IsAction())
         {
             // Change to interaction
             m_Controller.ChangeState(EGameState.Interaction);
+        }
+        else
+        {
+            Debug.Log("NO ACTION AVAIBLE. WAIT!");
         }
     }
 }

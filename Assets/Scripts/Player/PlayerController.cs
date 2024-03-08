@@ -17,6 +17,9 @@ public struct Player
     public int HitPointsMax;
     public int TensionPoints;
     public int TensionPointsMax;
+    public float ActionPoints;
+    public int ActionPointsMax;
+    public int ActionPointPerSec;
     public float DistanceAttack;
     public Vector2 DamageRange;
 
@@ -27,12 +30,31 @@ public struct Player
         DistanceAttack = distanceAttack;
         TensionPoints = 0;
         TensionPointsMax = 100;
+        ActionPoints = 0;
+        ActionPointsMax = 100;
+        ActionPointPerSec = 30;
         DamageRange = new Vector2(3, 7);
     }
 
     public int GetDamage()
     {
         return UnityEngine.Random.Range(Mathf.FloorToInt(DamageRange.x), Mathf.FloorToInt(DamageRange.y));
+    }
+
+    public void AddActionPoints()
+    {
+        ActionPoints += ActionPointPerSec;
+        ActionPoints = ActionPoints > ActionPointsMax ? ActionPointsMax : ActionPoints;
+    }
+
+    public bool IsAction()
+    {
+        return ActionPoints >= ActionPointsMax;
+    }
+
+    public void ConsumeActionPoints()
+    {
+        ActionPoints = 0;
     }
 }
 
@@ -46,6 +68,7 @@ public class PlayerController : MonoBehaviour
      * **********************************************
      */
     Player m_Player;
+    bool m_PileUPActionPoints;
 
 
     // Events
@@ -73,11 +96,7 @@ public class PlayerController : MonoBehaviour
         m_Player = new Player(20, 5f);
         SubscribeAllEvents();
         RefreshInfoHUD();
-    }
-
-    private void SubscribeAllEvents()
-    {
-        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+      StartCoroutine(AddActionPointsRoutine());
     }
 
     private void Update()
@@ -98,7 +117,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnInterractionMode(bool isEnterState)
+    private IEnumerator AddActionPointsRoutine()
+    {
+        m_PileUPActionPoints = true;
+        while (true)
+        {
+            yield return new WaitUntil(() => m_PileUPActionPoints);
+
+            m_Player.AddActionPoints();
+            yield return new WaitForSeconds(1);
+            RefreshInfoHUD();
+        }
+    }
+
+    private void SubscribeAllEvents()
+    {
+        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionState);
+        GameStateEvent.Instance.SubscribeTo(EGameState.Spell, OnSpellState);
+        GameStateEvent.Instance.SubscribeTo(EGameState.Combo, OnComboState);
+    }
+
+    private void OnInterractionState(bool isEnterState)
     {
 
         if (isEnterState) SpawnSelectSphere();
@@ -113,6 +152,27 @@ public class PlayerController : MonoBehaviour
     private void DespawnSelectSphere()
     {
         SelectSphere.Instance.HideSphere();
+    }
+
+    private void OnSpellState(bool isEnterState)
+    {
+
+        if (isEnterState) ConsumeAction();
+        else m_PileUPActionPoints = true;
+    }
+
+    private void OnComboState(bool isEnterState)
+    {
+
+        if (isEnterState) ConsumeAction();
+        else m_PileUPActionPoints = true;
+    }
+
+    private void ConsumeAction()
+    {
+        m_PileUPActionPoints = false;
+        m_Player.ConsumeActionPoints();
+        RefreshInfoHUD();
     }
 
     private void RefreshInfoHUD()
@@ -162,5 +222,10 @@ public class PlayerController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, targetPosition);
         //Debug.Log(distance);
         return distance <= m_Player.DistanceAttack;
+    }
+
+    public bool IsAction()
+    {
+        return m_Player.IsAction();
     }
 }
