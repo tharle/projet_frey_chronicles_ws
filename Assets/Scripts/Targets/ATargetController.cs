@@ -45,4 +45,9 @@ public abstract class ATargetController : MonoBehaviour
     {
         m_Renderer.material.color = m_InRangeColor;
     }
+
+    internal void ClearSelected()
+    {
+        m_Renderer.material.color = m_DefaultColor;
+    }
 }

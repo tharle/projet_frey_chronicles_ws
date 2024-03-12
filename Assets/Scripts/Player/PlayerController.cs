@@ -149,13 +149,19 @@ public class PlayerController : ATargetController
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionState);
         GameStateEvent.Instance.SubscribeTo(EGameState.Spell, OnSpellState);
         GameStateEvent.Instance.SubscribeTo(EGameState.Combo, OnComboState);
+        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
     }
 
     private void OnInterractionState(bool isEnterState)
     {
 
         if (isEnterState) SpawnSelectSphere();
-        else DespawnSelectSphere();
+    }
+
+    private void OnNoneState(bool isEnterState)
+    {
+
+        if (isEnterState) DespawnSelectSphere();
     }
 
     private void SpawnSelectSphere()

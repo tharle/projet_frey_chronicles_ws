@@ -50,8 +50,27 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
-        //PlayerController.Instance.OnAttack += OnAttack;
+        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionState);
+        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
+    }
+
+    private void OnInterractionState(bool isEnterState)
+    {
+        if (isEnterState) SelectTargetsInPlayerRange();
+    }
+
+    private void OnNoneState(bool isEnterState)
+    {
+        if (isEnterState) ClearAllSelectedTargets();
+    }
+
+    private void ClearAllSelectedTargets()
+    {
+        foreach (ATargetController target in m_Targets)
+        {
+            target.IsSelected = false;
+        }
+        m_TargetsInRange.Clear();
     }
 
 
@@ -120,7 +139,7 @@ public class DungeonTargetManager: MonoBehaviour
         return position;
     }
 
-    private void SelectEnemiesInPlayerRange()
+    private void SelectTargetsInPlayerRange()
     {
         // Debug.Log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         m_TargetsInRange = m_Targets.FindAll(target =>
@@ -130,29 +149,13 @@ public class DungeonTargetManager: MonoBehaviour
             }
         );
 
-        m_IndexSelected = 0;
-        SelectTarget();
-    }
-
-    private void ClearSelectedTargets()
-    {
-        //Debug.Log("***********************CLEAR******************************");
-        m_TargetsInRange.Clear();
-    }
-
-    private void OnInterractionMode(bool isEnterState)
-    {
-        if (isEnterState)
+        if (!SelectSphere.Instance.IsTargetSelected()) 
         {
-            SelectEnemiesInPlayerRange();
-        }
-        else
+            m_IndexSelected = 0;
+            SelectTarget();
+        } else
         {
-            foreach (ATargetController target in m_Targets)
-            {
-                target.IsSelected = false;
-            }
-            ClearSelectedTargets();
+            SelectSphere.Instance.UpdateSelectTarget();
         }
     }
 

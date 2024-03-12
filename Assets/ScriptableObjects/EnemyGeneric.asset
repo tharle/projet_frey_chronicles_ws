@@ -21,7 +21,8 @@ MonoBehaviour:
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0
-  - id: 1
+    elementalId: 0
+  - id: 2
     Name: BAT 2
     HitPoints: 10
     HitPointsMax: 10
@@ -29,7 +30,8 @@ MonoBehaviour:
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0
-  - id: 1
+    elementalId: 0
+  - id: 3
     Name: BAT 3
     HitPoints: 30
     HitPointsMax: 30
@@ -37,4 +39,32 @@ MonoBehaviour:
     SpeedMovement: 2
     SpeedInitiative: 2
     enemyTypeId: 0
+    elementalId: 0
+  - id: 4
+    Name: BAT 4
+    HitPoints: 30
+    HitPointsMax: 30
+    TensionPoints: 14
+    SpeedMovement: 2
+    SpeedInitiative: 2
+    enemyTypeId: 0
+    elementalId: 0
+  - id: 5
+    Name: BAT 5
+    HitPoints: 30
+    HitPointsMax: 30
+    TensionPoints: 14
+    SpeedMovement: 2
+    SpeedInitiative: 2
+    enemyTypeId: 0
+    elementalId: 0
+  - id: 6
+    Name: BAT 6
+    HitPoints: 30
+    HitPointsMax: 30
+    TensionPoints: 14
+    SpeedMovement: 2
+    SpeedInitiative: 2
+    enemyTypeId: 0
+    elementalId: 0
   Things: []

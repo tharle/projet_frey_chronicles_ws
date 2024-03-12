@@ -41,13 +41,17 @@ public class SelectSphere : MonoBehaviour
         transform.position = playerTransform.position;
     }
 
+    public bool IsTargetSelected()
+    {
+        return m_TargetSelected != null && m_TargetSelected.IsSelected;
+    }
+
     public void SelectTarget(ATargetController target)
     {
-        if (m_TargetSelected != null) m_TargetSelected.DesSelected();
+        m_TargetSelected?.DesSelected();
         m_TargetSelected = target;
 
-        m_TargetSelected?.ShowSelected();
-        OnTargetSelected?.Invoke(m_TargetSelected?.GetTarget());
+        UpdateSelectTarget();
     }
 
     public void ShowSphere(float radius)
@@ -61,12 +65,20 @@ public class SelectSphere : MonoBehaviour
     public void HideSphere() 
     {
         m_SphereRadius = m_SphereRadiusMin;
-        DrawSphere(); // TODO: Ajouter animation sphere_disable ou Lerp
+        m_TargetSelected?.ClearSelected();
+        m_TargetSelected = null;
+        //DrawSphere(); // TODO: Ajouter animation sphere_disable ou Lerp
         m_Model.SetActive(false);
 
     }
     private void DrawSphere()
     {
         transform.localScale = new Vector3(m_SphereRadius/2, m_SphereRadius/2, m_SphereRadius/2);
+    }
+
+    public void UpdateSelectTarget()
+    {
+        m_TargetSelected?.ShowSelected();
+        OnTargetSelected?.Invoke(m_TargetSelected?.GetTarget());
     }
 }
