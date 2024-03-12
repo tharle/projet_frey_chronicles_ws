@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
 public enum EElemental
@@ -23,7 +21,7 @@ public struct Player : ITarget
     public int ActionPointsMax;
     public int ActionPointPerSec;
     public float DistanceAttack;
-    public Vector2 DamageRange;
+    public Vector2 DamageRange; // TODO: Temp, il faut changer ça dans le systeme de combat
 
     public Player(int hitPointsMax, float distanceAttack) 
     {
@@ -82,13 +80,16 @@ public class PlayerController : ATargetController
      */
     private Player m_Player;
     
-    private bool m_PileUPActionPoints;
+    private bool m_StackActionPoints;
 
 
     // Events
     public event Action<Player> OnNotifyInfoPlayer;
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
+
+    public event Action<int> OnAttack;
+    public event Action<int, EElemental> OnSpell;
 
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
@@ -110,7 +111,7 @@ public class PlayerController : ATargetController
         m_Player = new Player(20, 5f); // Temp
         SubscribeAllEvents();
         RefreshInfoHUD();
-       StartCoroutine(AddActionPointsRoutine());
+        StartCoroutine(AddActionPointsRoutine());
     }
 
     private void Update()
@@ -133,10 +134,10 @@ public class PlayerController : ATargetController
 
     private IEnumerator AddActionPointsRoutine()
     {
-        m_PileUPActionPoints = true;
+        m_StackActionPoints = true;
         while (true)
         {
-            yield return new WaitUntil(() => m_PileUPActionPoints);
+            yield return new WaitUntil(() => m_StackActionPoints);
 
             m_Player.AddActionPoints();
             yield return new WaitForSeconds(1);
@@ -177,20 +178,27 @@ public class PlayerController : ATargetController
     private void OnSpellState(bool isEnterState)
     {
 
-        if (isEnterState) ConsumeAction();
-        else m_PileUPActionPoints = true;
+        if (isEnterState) 
+        {
+            ConsumeAction();
+            OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
+        } 
+        else m_StackActionPoints = true;
     }
 
     private void OnComboState(bool isEnterState)
     {
 
-        if (isEnterState) ConsumeAction();
-        else m_PileUPActionPoints = true;
+        if (isEnterState) {
+            ConsumeAction();
+            OnAttack?.Invoke(m_Player.GetDamage());
+        } 
+        else m_StackActionPoints = true;
     }
 
     private void ConsumeAction()
     {
-        m_PileUPActionPoints = false;
+        m_StackActionPoints = false;
         m_Player.ConsumeActionPoints();
         RefreshInfoHUD();
     }
@@ -204,7 +212,6 @@ public class PlayerController : ATargetController
     {
         m_Player.HitPoints -= damage;
         // TODO : Add die
-
         RefreshInfoHUD();
     }
 
@@ -227,7 +234,6 @@ public class PlayerController : ATargetController
     // TODO: jusqu'au comobo etre fait
     public void AttackSelected()
     {
-        //OnAttack?.Invoke(m_Player.GetDamage());
         OnAttackSelected?.Invoke();
     }
 
