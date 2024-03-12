@@ -28,6 +28,17 @@ public class ActionMenuState : AGameState
 
     }
 
+    public override void UpdateState()
+    {
+        base.UpdateState();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Change to NONE
+            m_Controller.ChangeState(EGameState.Interaction);
+        }
+    }
+
+
     private void OnClickAttack()
     {
         m_Controller.ChangeState(EGameState.Combo);

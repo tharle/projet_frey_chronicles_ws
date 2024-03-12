@@ -4868,6 +4868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ActionMenuPanel: {fileID: 2058552356}
+  m_BtnAttack: {fileID: 548493609}
 --- !u!1001 &2502320839411811124
 PrefabInstance:
   m_ObjectHideFlags: 0

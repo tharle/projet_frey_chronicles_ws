@@ -9,7 +9,7 @@ public class SelectSphere : MonoBehaviour
     private float m_SphereRadius;
     private float m_SphereRadiusMin = 0.1f;
     private float m_SphereRadiusMax = 0.1f;
-    private TargetController m_TargetSelected;
+    private ATargetController m_TargetSelected;
 
     public Action<ITarget> OnTargetSelected;
 
@@ -41,7 +41,7 @@ public class SelectSphere : MonoBehaviour
         transform.position = playerTransform.position;
     }
 
-    public void SelectTarget(TargetController target)
+    public void SelectTarget(ATargetController target)
     {
         if (m_TargetSelected != null) m_TargetSelected.DesSelected();
         m_TargetSelected = target;

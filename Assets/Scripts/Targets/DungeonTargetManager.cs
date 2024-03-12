@@ -19,12 +19,12 @@ public class DungeonTargetManager: MonoBehaviour
     /// <summary>
     /// Toute les targets de la dugeon
     /// </summary>
-    private List<TargetController> m_Targets;
+    private List<ATargetController> m_Targets;
 
     /// <summary>
     /// Les targets qui sont dans le range du player dans la phase de iterration 
     /// </summary>
-    private List<TargetController> m_TargetsInRange;
+    private List<ATargetController> m_TargetsInRange;
 
     private int m_IndexSelected;
 
@@ -40,8 +40,8 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void Start()
     {
-        m_Targets = new List<TargetController>();
-        m_TargetsInRange = new List<TargetController>();
+        m_Targets = new List<ATargetController>();
+        m_TargetsInRange = new List<ATargetController>();
         m_IndexSelected = 0;
 
         LoadAll();
@@ -62,21 +62,24 @@ public class DungeonTargetManager: MonoBehaviour
 
         foreach (Enemy enemy in m_EnemiesData.Enemies)
         {
-            TargetController targetController = LoadAndInstantieteEnemy(enemy);
+            ATargetController targetController = LoadAndInstantieteEnemy(enemy);
             m_Targets.Add(targetController);
         }
 
         foreach (Thing thing in m_EnemiesData.Things)
         {
-            TargetController targetController = LoadAndInstantieteThing(thing);
+            ATargetController targetController = LoadAndInstantieteThing(thing);
             m_Targets.Add(targetController);
         }
 
-        
+        m_Targets.Add(PlayerController.Instance);
+
+
+
     }
 
     // TODO changer ça pour un "PoolingPrefabs"
-    private TargetController LoadAndInstantieteEnemy(Enemy enemy)
+    private ATargetController LoadAndInstantieteEnemy(Enemy enemy)
     {
 
         string urlPrefab = "Enemy/";
@@ -99,7 +102,7 @@ public class DungeonTargetManager: MonoBehaviour
     }
 
     // TODO changer ça pour un "PoolingPrefabs"
-    private TargetController LoadAndInstantieteThing(Thing thing)
+    private ATargetController LoadAndInstantieteThing(Thing thing)
     {
         return null;
     }
@@ -145,7 +148,7 @@ public class DungeonTargetManager: MonoBehaviour
         }
         else
         {
-            foreach (TargetController target in m_Targets)
+            foreach (ATargetController target in m_Targets)
             {
                 target.IsSelected = false;
             }
@@ -155,7 +158,7 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void SelectTarget()
     {
-        TargetController target = m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
+        ATargetController target = m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
         SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
 
@@ -166,7 +169,7 @@ public class DungeonTargetManager: MonoBehaviour
             return;
         }
 
-        TargetController target = m_TargetsInRange[m_IndexSelected];
+        ATargetController target = m_TargetsInRange[m_IndexSelected];
 
         if (target is EnemyController)
         {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TargetController : MonoBehaviour
+public abstract class ATargetController : MonoBehaviour
 {
     Renderer m_Renderer;
     private Color m_DefaultColor;
@@ -14,7 +14,7 @@ public abstract class TargetController : MonoBehaviour
 
     public abstract ITarget GetTarget();
 
-    public bool IsSelected { 
+    public virtual bool IsSelected { 
         get { return m_IsSelected; }
         set
         {
@@ -31,14 +31,17 @@ public abstract class TargetController : MonoBehaviour
         m_DefaultColor = m_Renderer.material.color;
         m_InRangeColor = Color.blue;
         m_SelectedColor = Color.yellow;
+        AfterStart();
     }
 
-    public void ShowSelected()
+    protected virtual void AfterStart() { }
+
+    public virtual void ShowSelected()
     {
         m_Renderer.material.color = m_SelectedColor;
     }
 
-    public void DesSelected()
+    public virtual void DesSelected()
     {
         m_Renderer.material.color = m_InRangeColor;
     }

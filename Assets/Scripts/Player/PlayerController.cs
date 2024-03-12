@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public enum EElemental
@@ -11,8 +12,9 @@ public enum EElemental
 }
 
 [Serializable]
-public struct Player 
+public struct Player : ITarget
 {
+    public string Name;
     public int HitPoints;
     public int HitPointsMax;
     public int TensionPoints;
@@ -25,6 +27,7 @@ public struct Player
 
     public Player(int hitPointsMax, float distanceAttack) 
     {
+        Name = "Player";
         HitPointsMax = hitPointsMax;
         HitPoints = HitPointsMax;
         DistanceAttack = distanceAttack;
@@ -56,9 +59,19 @@ public struct Player
     {
         ActionPoints = 0;
     }
+
+    public string DisplayDamage()
+    {
+        return $"{Name} {HitPoints}/{HitPointsMax}";
+    }
+
+    public string DisplayDescription()
+    {
+        return "Self";
+    }
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : ATargetController
 {
 
 
@@ -67,8 +80,9 @@ public class PlayerController : MonoBehaviour
      * Variables de configuration du Player 
      * **********************************************
      */
-    Player m_Player;
-    bool m_PileUPActionPoints;
+    private Player m_Player;
+    
+    private bool m_PileUPActionPoints;
 
 
     // Events
@@ -91,12 +105,12 @@ public class PlayerController : MonoBehaviour
         m_Instance = this;
     }
 
-    private void Start()
+    protected override void AfterStart()
     {
-        m_Player = new Player(20, 5f);
+        m_Player = new Player(20, 5f); // Temp
         SubscribeAllEvents();
         RefreshInfoHUD();
-      StartCoroutine(AddActionPointsRoutine());
+       StartCoroutine(AddActionPointsRoutine());
     }
 
     private void Update()
@@ -227,5 +241,10 @@ public class PlayerController : MonoBehaviour
     public bool IsAction()
     {
         return m_Player.IsAction();
+    }
+
+    public override ITarget GetTarget()
+    {
+        return m_Player;
     }
 }
