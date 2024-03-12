@@ -29,6 +29,26 @@ public class SelectSphere : MonoBehaviour
         m_Instance = this;
     }
 
+    private void Start()
+    {
+        SubscribeAll();
+    }
+
+    private void SubscribeAll()
+    {
+        PlayerController.Instance.OnAttack += OnAttack;
+    }
+
+    private void OnAttack(int damage)
+    {
+        m_TargetSelected.
+    }
+
+    private void OnSpell(int damage, EElemental elementalId)
+    {
+
+    }
+
     private void Update()
     {
         FollowPlayer();
