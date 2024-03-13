@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ATargetController : MonoBehaviour
@@ -11,9 +12,6 @@ public abstract class ATargetController : MonoBehaviour
     private Color m_SelectedColor;
 
     private bool m_IsSelected;
-
-    public abstract ITarget GetTarget();
-
     public virtual bool IsSelected { 
         get { return m_IsSelected; }
         set
@@ -23,6 +21,8 @@ public abstract class ATargetController : MonoBehaviour
             else m_Renderer.material.color = m_DefaultColor;
         }
     }
+
+    public abstract ITarget GetTarget();
 
     private void Start()
     {
@@ -48,6 +48,23 @@ public abstract class ATargetController : MonoBehaviour
 
     public virtual void ClearSelected()
     {
-        m_Renderer.material.color = m_DefaultColor;
+        if(GetTarget().IsAlive()) m_Renderer.material.color = m_DefaultColor;
     }
+
+    protected virtual void TargetDie()
+    {
+        Destroy(gameObject, 0.1f);// TODO: add animation die
+        DungeonTargetManager.Instance.TargetDie(this);
+    }
+
+    public virtual int ReciveAttack(int value)
+    {
+        return 0;
+    }
+
+    public virtual void ReciveSpell(int value, EElemental elementalId)
+    {
+        // TODO: change apres le mechaniques des spells
+    }
+
 }

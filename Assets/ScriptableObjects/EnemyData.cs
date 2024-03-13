@@ -30,6 +30,11 @@ public struct Enemy : ITarget
     {
         return $"Type: {enemyTypeId} - {elementalId}";
     }
+
+    public bool IsAlive()
+    {
+        return HitPoints > 0;
+    }
 }
 
 public enum EThingType
@@ -41,6 +46,7 @@ public struct Thing : ITarget
 {
     public int id;
     public string Name;
+    public int HitPoints;
 
     public string DisplayDamage()
     {
@@ -50,6 +56,11 @@ public struct Thing : ITarget
     public string DisplayDescription()
     {
         return "DISPLAY  DESCRIPTION THING";
+    }
+
+    public bool IsAlive()
+    {
+        return HitPoints > 0;
     }
 }
 

@@ -40,4 +40,22 @@ public class EnemyController : ATargetController
     {
         return m_Enemy;
     }
+
+    public override int ReciveAttack(int value)
+    {
+        m_Enemy.HitPoints -= value;
+        
+        if (IsDead()) TargetDie();
+
+        return m_Enemy.TensionPoints;
+    }
+
+    public override void ReciveSpell(int value, EElemental elementalId)
+    {
+        m_Enemy.HitPoints -= value;
+
+        if (IsDead()) TargetDie();
+    }
+
+    
 }

@@ -21,6 +21,7 @@ public struct Player : ITarget
     public int ActionPointsMax;
     public int ActionPointPerSec;
     public float DistanceAttack;
+    public float RefreshTime;
     public Vector2 DamageRange; // TODO: Temp, il faut changer ça dans le systeme de combat
 
     public Player(int hitPointsMax, float distanceAttack) 
@@ -33,8 +34,24 @@ public struct Player : ITarget
         TensionPointsMax = 100;
         ActionPoints = 0;
         ActionPointsMax = 100;
-        ActionPointPerSec = 30;
-        DamageRange = new Vector2(3, 7);
+        ActionPointPerSec = 45;
+        RefreshTime = 0.1f;
+        DamageRange = new Vector2(3, 15);
+    }
+
+    public float GetHPRatio()
+    {
+        return (float)HitPoints / (float)HitPointsMax;
+    }
+
+    public float GetAPRatio()
+    {
+        return (float)ActionPoints / (float)ActionPointsMax;
+    }
+
+    public float GetTPRatio()
+    {
+        return (float) TensionPoints / (float)TensionPointsMax;
     }
 
     public int GetDamage()
@@ -44,7 +61,7 @@ public struct Player : ITarget
 
     public void AddActionPoints()
     {
-        ActionPoints += ActionPointPerSec;
+        ActionPoints += ActionPointPerSec * RefreshTime;
         ActionPoints = ActionPoints > ActionPointsMax ? ActionPointsMax : ActionPoints;
     }
 
@@ -66,6 +83,11 @@ public struct Player : ITarget
     public string DisplayDescription()
     {
         return "Self";
+    }
+
+    public bool IsAlive()
+    {
+        return HitPoints > 0;
     }
 }
 
@@ -140,7 +162,7 @@ public class PlayerController : ATargetController
             yield return new WaitUntil(() => m_StackActionPoints);
 
             m_Player.AddActionPoints();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(m_Player.RefreshTime);
             RefreshInfoHUD();
         }
     }
@@ -181,6 +203,7 @@ public class PlayerController : ATargetController
         if (isEnterState) 
         {
             ConsumeAction();
+            ConsumeTension(UnityEngine.Random.Range(2, 15));
             OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
         } 
         else m_StackActionPoints = true;

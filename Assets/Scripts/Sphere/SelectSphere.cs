@@ -37,16 +37,17 @@ public class SelectSphere : MonoBehaviour
     private void SubscribeAll()
     {
         PlayerController.Instance.OnAttack += OnAttack;
+        PlayerController.Instance.OnSpell += OnSpell;
     }
 
     private void OnAttack(int damage)
     {
-        m_TargetSelected.
+        PlayerController.Instance.AddTension(m_TargetSelected.ReciveAttack(damage));
     }
 
     private void OnSpell(int damage, EElemental elementalId)
     {
-
+        m_TargetSelected.ReciveSpell(damage, elementalId);
     }
 
     private void Update()

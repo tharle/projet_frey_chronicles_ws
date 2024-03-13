@@ -219,5 +219,9 @@ public class DungeonTargetManager: MonoBehaviour
         SelectTarget();
     }
 
-
+    public void TargetDie(ATargetController target)
+    {
+        m_Targets.Remove(target);
+        m_TargetsInRange.Remove(target);
+    }
 }

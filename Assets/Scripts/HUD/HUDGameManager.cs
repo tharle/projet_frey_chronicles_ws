@@ -23,8 +23,8 @@ public class HUDGameManager : MonoBehaviour
 
     private void OnNotifyInfoPlayer(Player player)
     {
-        m_HPValue.text = ((player.HitPoints / player.HitPointsMax) * 100).ToString("00");
-        m_TPValue.text = ((player.TensionPoints / player.TensionPointsMax) * 100).ToString("00");
-        m_APValue.text = ((player.ActionPoints / player.ActionPointsMax) * 100).ToString("00");
+        m_HPValue.text = (player.GetHPRatio() * 100).ToString("00");
+        m_TPValue.text = (player.GetTPRatio() * 100).ToString("00");
+        m_APValue.text = (player.GetAPRatio() * 100).ToString("00");
     }
 }
