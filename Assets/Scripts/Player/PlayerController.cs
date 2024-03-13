@@ -202,4 +202,9 @@ public class PlayerController : ATargetController
         position.y = 0;
         return (playerPos - position).normalized;
     }
+
+    public void TeleportTo(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
 }
