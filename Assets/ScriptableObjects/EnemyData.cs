@@ -8,6 +8,12 @@ public enum EEnemyType
     Bat
 }
 
+public enum EEnemyState
+{
+    Wait,
+    Attack
+}
+
 [Serializable]
 public struct Enemy : ITarget
 {
@@ -18,8 +24,10 @@ public struct Enemy : ITarget
     public int TensionPoints;
     public float SpeedMovement;
     public int SpeedInitiative;
-    public EEnemyType enemyTypeId;
-    public EElemental elementalId;
+    public int RangeAttack;
+    public EEnemyType TypeId;
+    public EEnemyState StateId;
+    public EElemental ElementalId;
 
     public string DisplayDamage()
     {
@@ -28,18 +36,24 @@ public struct Enemy : ITarget
 
     public string DisplayDescription()
     {
-        return $"Type: {enemyTypeId} - {elementalId}";
+        return $"Type: {TypeId} - {ElementalId}";
     }
 
     public bool IsAlive()
     {
         return HitPoints > 0;
     }
+
+    public float GetSpeedMovimentWait()
+    {
+        return SpeedMovement/4;
+    }
 }
 
 public enum EThingType
 {
-    BAT
+    DESTRUTIBLE,
+    INDESTRUTIBLE
 }
 [Serializable]
 public struct Thing : ITarget

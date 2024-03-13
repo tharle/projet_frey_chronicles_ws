@@ -102,7 +102,7 @@ public class DungeonTargetManager: MonoBehaviour
     {
 
         string urlPrefab = "Enemy/";
-        switch (enemy.enemyTypeId)
+        switch (enemy.TypeId)
         {
             case EEnemyType.Bat:
             default:

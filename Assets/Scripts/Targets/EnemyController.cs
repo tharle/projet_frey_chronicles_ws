@@ -8,6 +8,55 @@ public class EnemyController : ATargetController
     private Enemy m_Enemy;
     public Enemy Enemy { set { m_Enemy = value; } }
 
+    protected override void AfterStart() 
+    { 
+    }
+
+    private void Update()
+    {
+        DoActionEnemy();
+    }
+
+    private void DoActionEnemy()
+    {
+        switch (m_Enemy.StateId)
+        {
+            case EEnemyState.Attack:
+                DoAttack();
+                break; 
+            case EEnemyState.Wait:
+                DoWait();
+                break;
+        }
+    }
+
+    private void DoWait()
+    {
+        Vector3 direction = PlayerController.Instance.GetDirectionTo(transform.position);
+        transform.Translate(direction * m_Enemy.GetSpeedMovimentWait() * Time.deltaTime); // TODO: Change for Physics
+    }
+
+    private void DoAttack()
+    {
+        Vector3 direction = PlayerController.Instance.GetDirectionFrom(transform.position);
+        transform.Translate(direction * m_Enemy.SpeedMovement * Time.deltaTime); // TODO: Change for Physics
+    }
+
+    public bool IsAlive()
+    {
+        return m_Enemy.HitPoints > 0;
+    }
+
+    public override ITarget GetTarget()
+    {
+        return m_Enemy;
+    }
+
+    public void SetState(EEnemyState enemyStateId)
+    {
+        m_Enemy.StateId = enemyStateId;
+    }
+
     /// <summary>
     /// Take damage and return the amount of Tension for the player
     /// </summary>
@@ -31,21 +80,11 @@ public class EnemyController : ATargetController
         return m_Enemy.TensionPoints;
     }
 
-    public bool IsDead()
-    {
-        return m_Enemy.HitPoints <= 0;
-    }
-
-    public override ITarget GetTarget()
-    {
-        return m_Enemy;
-    }
-
     public override int ReciveAttack(int value)
     {
         m_Enemy.HitPoints -= value;
         
-        if (IsDead()) TargetDie();
+        if (IsAlive()) TargetDie();
 
         return m_Enemy.TensionPoints;
     }
@@ -54,8 +93,7 @@ public class EnemyController : ATargetController
     {
         m_Enemy.HitPoints -= value;
 
-        if (IsDead()) TargetDie();
+        if (IsAlive()) TargetDie();
     }
-
     
 }

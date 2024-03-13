@@ -282,4 +282,14 @@ public class PlayerController : ATargetController
     {
         return m_Player;
     }
+
+    public Vector3 GetDirectionFrom(Vector3 position)
+    {
+       return transform.position - position;
+    }
+
+    public Vector3 GetDirectionTo(Vector3 position)
+    {
+        return position - transform.position;
+    }
 }
