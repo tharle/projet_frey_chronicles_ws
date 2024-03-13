@@ -24,7 +24,7 @@ public struct Enemy : ITarget
     public int TensionPoints;
     public float SpeedMovement;
     public int SpeedInitiative;
-    public int RangeAttack;
+    public float DistanceAttack;
     public EEnemyType TypeId;
     public EEnemyState StateId;
     public EElemental ElementalId;
@@ -46,7 +46,12 @@ public struct Enemy : ITarget
 
     public float GetSpeedMovimentWait()
     {
-        return SpeedMovement/4;
+        return SpeedMovement/2;
+    }
+
+    public float GetRange()
+    {
+        return DistanceAttack;
     }
 }
 
@@ -75,6 +80,11 @@ public struct Thing : ITarget
     public bool IsAlive()
     {
         return HitPoints > 0;
+    }
+
+    public float GetRange()
+    {
+        return 0;
     }
 }
 

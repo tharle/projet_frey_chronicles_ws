@@ -48,7 +48,7 @@ public abstract class ATargetController : MonoBehaviour
 
     public virtual void ClearSelected()
     {
-        if(GetTarget().IsAlive()) m_Renderer.material.color = m_DefaultColor;
+        if(!gameObject.IsDestroyed() && GetTarget().IsAlive()) m_Renderer.material.color = m_DefaultColor;
     }
 
     protected virtual void TargetDie()
@@ -67,4 +67,20 @@ public abstract class ATargetController : MonoBehaviour
         // TODO: change apres le mechaniques des spells
     }
 
+    public virtual bool IsInRange(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        //Debug.Log(distance);
+        return distance <= GetRange();
+    }
+
+    protected virtual float GetRange()
+    {
+        return GetTarget().GetRange();
+    }
+
+    public static T ConvertTo<T>(ATargetController target) where T : ATargetController
+    {
+        return (T)target;
+    }
 }

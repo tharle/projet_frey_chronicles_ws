@@ -6,5 +6,7 @@ public interface ITarget
 {
     public string DisplayDamage();
     public string DisplayDescription();
-    bool IsAlive();
+    public bool IsAlive();
+
+    public float GetRange();
 }

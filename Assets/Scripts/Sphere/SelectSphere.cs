@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 
@@ -86,7 +87,7 @@ public class SelectSphere : MonoBehaviour
     public void HideSphere() 
     {
         m_SphereRadius = m_SphereRadiusMin;
-        m_TargetSelected?.ClearSelected();
+        if(m_TargetSelected != null && !m_TargetSelected.IsDestroyed()) m_TargetSelected.ClearSelected();
         m_TargetSelected = null;
         //DrawSphere(); // TODO: Ajouter animation sphere_disable ou Lerp
         m_Model.SetActive(false);

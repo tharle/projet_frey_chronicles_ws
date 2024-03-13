@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class EnemyController : ATargetController
@@ -8,13 +9,37 @@ public class EnemyController : ATargetController
     private Enemy m_Enemy;
     public Enemy Enemy { set { m_Enemy = value; } }
 
-    protected override void AfterStart() 
-    { 
+    private bool m_Running;
+
+    protected override void AfterStart() // Meme que le Start()
+    {
+        base.AfterStart();
+        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
     }
 
+    private void OnDestroy()
+    {
+        GameStateEvent.Instance.UnsubscribeTo(EGameState.None, OnNoneState);
+    }
     private void Update()
     {
-        DoActionEnemy();
+        if (m_Running) DoActionEnemy();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        Debug.Log($"COLITION with {collision.collider.tag}");
+        // TODO: Temporaire pour changer le 
+        if (m_Enemy.StateId == EEnemyState.Attack && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
+        {
+            EnemyTurnManager.Instance.Next();
+        }
+    }
+
+    private void OnNoneState(bool isEnterState)
+    {
+        m_Running = isEnterState;
     }
 
     private void DoActionEnemy()
@@ -32,13 +57,22 @@ public class EnemyController : ATargetController
 
     private void DoWait()
     {
-        Vector3 direction = PlayerController.Instance.GetDirectionTo(transform.position);
-        transform.Translate(direction * m_Enemy.GetSpeedMovimentWait() * Time.deltaTime); // TODO: Change for Physics
+        PlayerController playerController = PlayerController.Instance;
+        Vector3 direction = playerController.GetDirectionTo(transform.position);
+        transform.forward = direction;
+        if (IsInRange(playerController.transform.position)) // TODO: Temp pour avoir le feeling de tour des ennemis
+        {
+            // Go away
+            transform.Translate(direction * m_Enemy.GetSpeedMovimentWait() * Time.deltaTime); // TODO: Change for Physics
+        }
+
+
     }
 
     private void DoAttack()
     {
         Vector3 direction = PlayerController.Instance.GetDirectionFrom(transform.position);
+        transform.forward = direction;
         transform.Translate(direction * m_Enemy.SpeedMovement * Time.deltaTime); // TODO: Change for Physics
     }
 
@@ -94,6 +128,11 @@ public class EnemyController : ATargetController
         m_Enemy.HitPoints -= value;
 
         if (IsAlive()) TargetDie();
+    }
+
+    public int GetIniciative()
+    {
+        return m_Enemy.SpeedInitiative;
     }
     
 }

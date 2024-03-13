@@ -31,7 +31,7 @@ public class GameStateController: MonoBehaviour
 
     public void ChangeState(EGameState gameStateId) 
     {
-        Debug.Log($"CHANGE STATE FROM {m_CurrentState?.GetState()} --> {gameStateId}");
+     //   Debug.Log($"CHANGE STATE FROM {m_CurrentState?.GetState()} --> {gameStateId}");
         m_CurrentState?.OnExit();
         StartCoroutine(ChangeStateRoutine(gameStateId));
     }

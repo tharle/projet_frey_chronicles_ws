@@ -94,6 +94,8 @@ public class DungeonTargetManager: MonoBehaviour
         m_Targets.Add(PlayerController.Instance);
 
 
+        EnemyTurnManager.Instance.LoadAllEnemies();
+
 
     }
 
@@ -179,9 +181,6 @@ public class DungeonTargetManager: MonoBehaviour
             EnemyController enemy = (EnemyController)target;
             int tension = enemy.TakeDamage(damage);
             PlayerController.Instance.AddTension(tension);
-
-            
-
         }
 
         if (target.IsDestroyed()) TargetSelectedDestroyed();
@@ -223,5 +222,16 @@ public class DungeonTargetManager: MonoBehaviour
     {
         m_Targets.Remove(target);
         m_TargetsInRange.Remove(target);
+    }
+
+    public List<T> GetAllBy<T>() where T : ATargetController
+    {
+        return m_Targets
+            .FindAll(t => t is T) // Find all du type T (il faut que soyez enfant de ATargetController
+            .ConvertAll( // Fait la convertion des ATargetController in T
+                new System.Converter<ATargetController, T>(
+                    ATargetController.ConvertTo<T>
+                )
+             );
     }
 }

@@ -5,6 +5,7 @@ public class GameParametres
 
     public class Animation
     {
+        // TODO: ça va etre utiliser au future
         public const string ENEMY_FLOAT_VELOCITY = "velocity";
         public const string ENEMY_TRIGGER_ATTACK = "attack";
         public const string ENEMY_TRIGGER_DIE = "die";
@@ -28,14 +29,6 @@ public class GameParametres
         public const string GROUND = "Ground";
         public const string OBJECT = "Object";
         public const string PLAYER = "Player";
-        public const string TABLE = "Table";
-    }
-    public class Values
-    {
-        public const int TIME_TO_SUIVIVE_IN_SECONDS = 60;
-        public const float ENEMY_HUNGER_MIN = 5F;
-        public const float ENEMY_HUNGER_MAX = 10f;
-        public const float ENEMY_COOLDOWN_BITE = 1f;
     }
 
 }
