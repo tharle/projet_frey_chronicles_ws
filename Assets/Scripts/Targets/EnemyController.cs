@@ -98,7 +98,7 @@ public class EnemyController : ATargetController
         if (m_Enemy.HitPoints <= 0) 
         {
             Debug.Log($"He DIE!");
-            Destroy(gameObject);
+            TargetDie();
         }else
         {
             Debug.Log($"HP {m_Enemy.HitPoints}/{m_Enemy.HitPointsMax}");
@@ -129,5 +129,11 @@ public class EnemyController : ATargetController
     {
         return m_Enemy.SpeedInitiative;
     }
-    
+
+    protected override void TargetDie()
+    {
+        base.TargetDie();
+        if (m_Enemy.StateId == EEnemyState.Attack) EnemyTurnManager.Instance.Next();
+    }
+
 }
