@@ -113,6 +113,7 @@ public class PlayerController : ATargetController
 
         if (isEnterState) 
         {
+            AudioManager.Instance.Play(EAudio.SFX_FIRE_MAGIC, transform.position);
             ConsumeAction();
             ConsumeTension(UnityEngine.Random.Range(2, 15));
             OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
@@ -124,6 +125,7 @@ public class PlayerController : ATargetController
     {
 
         if (isEnterState) {
+            AudioManager.Instance.Play(EAudio.SFX_ATTACK, transform.position);
             ConsumeAction();
             OnAttack?.Invoke(m_Player.GetDamage());
         } 

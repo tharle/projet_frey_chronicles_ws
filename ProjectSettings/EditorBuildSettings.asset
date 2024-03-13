@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Gym_DGSalon.unity
+    guid: 4e7220d563937b14f9d07979178d209a
   m_configObjects: {}

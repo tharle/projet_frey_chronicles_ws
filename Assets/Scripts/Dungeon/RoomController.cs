@@ -7,9 +7,12 @@ public class RoomController : MonoBehaviour
     [SerializeField]
     private List<Transform> m_Doors;
 
+    [SerializeField]
+    private bool m_Acessible = true;
+
     private void Start()
     {
-        DungeonRoomManager.Instance.AddRoom(this);
+        if(m_Acessible) DungeonRoomManager.Instance.AddRoom(this);
     }
 
     // TODO: faire prendre la door d'une façon logique
