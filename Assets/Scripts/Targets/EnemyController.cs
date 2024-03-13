@@ -42,6 +42,7 @@ public class EnemyController : ATargetController
         m_Running = isEnterState;
     }
 
+
     private void DoActionEnemy()
     {
         switch (m_Enemy.StateId)
@@ -50,28 +51,21 @@ public class EnemyController : ATargetController
                 DoAttack();
                 break; 
             case EEnemyState.Wait:
-                DoWait();
+                // DoWait();
                 break;
         }
     }
 
     private void DoWait()
     {
-        PlayerController playerController = PlayerController.Instance;
-        Vector3 direction = playerController.GetDirectionTo(transform.position);
-        transform.forward = direction;
-        if (IsInRange(playerController.transform.position)) // TODO: Temp pour avoir le feeling de tour des ennemis
-        {
-            // Go away
-            transform.Translate(direction * m_Enemy.GetSpeedMovimentWait() * Time.deltaTime); // TODO: Change for Physics
-        }
-
-
+        // TODO: Add NavMesh pour chaque Enemy
     }
 
+    // Juste pour montrer l'idee du turn des ennemies
     private void DoAttack()
     {
-        Vector3 direction = PlayerController.Instance.GetDirectionFrom(transform.position);
+        // TODO: Add NavMesh pour chaque Enemy
+        Vector3 direction = PlayerController.Instance.GetDirectionTo(transform.position);
         transform.forward = direction;
         transform.Translate(direction * m_Enemy.SpeedMovement * Time.deltaTime); // TODO: Change for Physics
     }
@@ -116,9 +110,10 @@ public class EnemyController : ATargetController
 
     public override int ReciveAttack(int value)
     {
+        Debug.Log($"The player give {value} damage to {m_Enemy.Name}.");
         m_Enemy.HitPoints -= value;
         
-        if (IsAlive()) TargetDie();
+        if (!IsAlive()) TargetDie();
 
         return m_Enemy.TensionPoints;
     }
@@ -127,7 +122,7 @@ public class EnemyController : ATargetController
     {
         m_Enemy.HitPoints -= value;
 
-        if (IsAlive()) TargetDie();
+        if (!IsAlive()) TargetDie();
     }
 
     public int GetIniciative()

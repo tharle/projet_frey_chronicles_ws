@@ -46,7 +46,7 @@ public struct Enemy : ITarget
 
     public float GetSpeedMovimentWait()
     {
-        return SpeedMovement/2;
+        return SpeedMovement; // TODO: changer pour une velocite plus lente
     }
 
     public float GetRange()

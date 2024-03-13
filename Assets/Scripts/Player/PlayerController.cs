@@ -189,11 +189,17 @@ public class PlayerController : ATargetController
 
     public Vector3 GetDirectionFrom(Vector3 position)
     {
-       return transform.position - position;
+        Vector3 playerPos = transform.position;
+        playerPos.y = 0;
+        position.y = 0;
+       return (position - playerPos).normalized;
     }
 
     public Vector3 GetDirectionTo(Vector3 position)
     {
-        return (position - transform.position).normalized;
+        Vector3 playerPos = transform.position;
+        playerPos.y = 0;
+        position.y = 0;
+        return (playerPos - position).normalized;
     }
 }

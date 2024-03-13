@@ -20,7 +20,7 @@ MonoBehaviour:
     TensionPoints: 5
     SpeedMovement: 2
     SpeedInitiative: 8
-    DistanceAttack: 3
+    DistanceAttack: 10
     TypeId: 0
     StateId: 0
     ElementalId: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
     HitPoints: 10
     HitPointsMax: 10
     TensionPoints: 2
-    SpeedMovement: 1
+    SpeedMovement: 4
     SpeedInitiative: 2
     DistanceAttack: 10
     TypeId: 0
@@ -40,9 +40,9 @@ MonoBehaviour:
     HitPoints: 30
     HitPointsMax: 30
     TensionPoints: 14
-    SpeedMovement: 1
+    SpeedMovement: 6
     SpeedInitiative: 2
-    DistanceAttack: 1
+    DistanceAttack: 10
     TypeId: 0
     StateId: 0
     ElementalId: 0
@@ -51,9 +51,9 @@ MonoBehaviour:
     HitPoints: 30
     HitPointsMax: 30
     TensionPoints: 14
-    SpeedMovement: 1
+    SpeedMovement: 8
     SpeedInitiative: 2
-    DistanceAttack: 5
+    DistanceAttack: 10
     TypeId: 0
     StateId: 0
     ElementalId: 0
