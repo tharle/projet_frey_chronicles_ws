@@ -99,19 +99,10 @@ public class DungeonTargetManager: MonoBehaviour
     // TODO changer ça pour un "PoolingPrefabs"
     private ATargetController LoadAndInstantieteEnemy(Enemy enemy)
     {
-
-        string urlPrefab = "Enemy/";
-        switch (enemy.TypeId)
-        {
-            case EEnemyType.Bat:
-            default:
-                urlPrefab += "Enemy";
-                break;
-        }
-        GameObject go = Resources.Load<GameObject>(urlPrefab);
+        // TODO remplacer ça pour asset bundle
+        GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_ENEMY, "Enemy");
         go.name = enemy.Name;
         go.transform.position = CreateRandomPosition();
-        go = Instantiate(go);
 
         EnemyController enemyController = go.AddComponent<EnemyController>();
         enemyController.Enemy = enemy;

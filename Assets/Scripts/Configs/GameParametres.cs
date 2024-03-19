@@ -14,6 +14,20 @@ public class GameParametres
         public const string PLAYER_TRIGGER_INTERACT = "interact";
         public const string OBJECT_TRIGGER_OPEN = "open";
     }
+
+    public class BundleNames
+    {
+        public const string PREFAB_ENEMY = "prefab_enemy";
+        public const string SFX = "sfx";
+    }
+
+    public class BundlePath
+    {
+        public const string BUNDLE_ASSETS = "Assets/BundleAssets";
+        public const string STREAMING_ASSETS = "Assets/StreamingAssets";
+        public const string PREFAB_ENEMY = "/Prefabs/Enemies";
+        public const string SFX = "/Sounds/SFX";
+    }
     public class InputName
     {
         public const string AXIS_HORIZONTAL = "Horizontal";

@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 1695786129
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: prefab_enemy
+      Dependencies: {}
+    Info_1:
+      Name: sfx
+      Dependencies: {}
