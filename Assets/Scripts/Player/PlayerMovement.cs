@@ -14,13 +14,14 @@ public class PlayerMovement : MonoBehaviour
     private Transform m_CameraTransform;
 
     private Rigidbody m_Rigidbody;
+    private Vector3 m_VelocityBeforeStop;
 
-    private bool m_IsInterracting;
+    private bool m_IsPlaying;
 
 
     void Start()
     {
-        m_IsInterracting = false;
+        m_IsPlaying = true;
         m_Rigidbody = GetComponent<Rigidbody>();
 
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (m_IsInterracting) return;
+        if (!m_IsPlaying) return;
 
         // obtient les valeurs des touches horizontales et verticales
         float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
@@ -52,26 +53,33 @@ public class PlayerMovement : MonoBehaviour
             velocity = directionDep * m_Speed;
         }
 
+        // Ignorer les changement des Y
+        velocity.y = m_Rigidbody.velocity.y;
+
         m_Rigidbody.velocity = velocity;
     }
 
     private void OnInterractionMode(bool isEnterState)
     {
-        if (!isEnterState) return;
-        
-        m_IsInterracting = true;
-        StopMove();
-    }
-
-    private void StopMove()
-    {
-        m_Rigidbody.velocity = Vector3.zero;
+        if (isEnterState) StopMove();
     }
 
     private void OnNoneMode(bool isEnterState)
     {
-        if (!isEnterState) return;
-
-        m_IsInterracting = false;
+        if (isEnterState) StartPlaying();
     }
+
+    private void StopMove()
+    {
+        m_IsPlaying = false;
+        m_Rigidbody.useGravity = false;
+        m_Rigidbody.velocity = Vector3.zero;
+    }
+
+    private void StartPlaying()
+    {
+        m_IsPlaying = true;
+        m_Rigidbody.useGravity = true;
+    }
+
 }
