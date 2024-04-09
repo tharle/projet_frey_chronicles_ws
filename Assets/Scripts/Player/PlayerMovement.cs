@@ -12,9 +12,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private Transform m_CameraTransform;
-
+    
+     // TODO garder la velocity avant le "stop time" pour la changer après (gravity velocity)
+    //private Vector3 m_VelocityBeforeStop = Vector3.zero;
     private Rigidbody m_Rigidbody;
-    private Vector3 m_VelocityBeforeStop;
 
     private bool m_IsPlaying;
 
