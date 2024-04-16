@@ -13,9 +13,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform m_CameraTransform;
     
-     // TODO garder la velocity avant le "stop time" pour la changer après (gravity velocity)
-    //private Vector3 m_VelocityBeforeStop = Vector3.zero;
     private Rigidbody m_Rigidbody;
+    private Animator m_Animator;
+
+
 
     private bool m_IsPlaying;
 
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         m_IsPlaying = true;
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_Animator = GetComponentInChildren<Animator>();
 
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneMode);
@@ -53,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
             transform.forward = directionDep;
             velocity = directionDep * m_Speed;
         }
+
+        // TODO : Creer une classe pour gérer les animations
+        m_Animator.SetFloat(GameParametres.Animation.PLAYER_FLOAT_VELOCITY, velocity.magnitude);
 
         // Ignorer les changement des Y
         velocity.y = m_Rigidbody.velocity.y;
