@@ -33,6 +33,17 @@ public class GameParametres
         public const string AXIS_HORIZONTAL = "Horizontal";
         public const string AXIS_VERTICAL = "Vertical";
     }
+
+    public class LayerMaskName
+    {
+        public const string GROUND = "Ground";
+    }
+
+    public class LayerMaskValue
+    {
+        public static LayerMask GROUND = LayerMask.GetMask(LayerMaskName.GROUND);
+    }
+
     public class SceneName
     {
         public const string SCENE_GAME = "Game";

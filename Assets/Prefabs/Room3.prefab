@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8260457604849292522}
   - component: {fileID: 7785605865387927095}
   - component: {fileID: 5951293836754728203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3264,6 +3264,7 @@ MonoBehaviour:
   m_Doors:
   - {fileID: 6164736808835799566}
   - {fileID: 8981663029196478170}
+  m_Acessible: 1
 --- !u!1 &4266425078873368609
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,8 +5217,8 @@ GameObject:
   - component: {fileID: 5299186304986266456}
   - component: {fileID: 8791116055440444969}
   - component: {fileID: 377234204680669062}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 6
+  m_Name: Platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7014,7 +7015,7 @@ GameObject:
   - component: {fileID: 380633072595475004}
   - component: {fileID: 6732397620033525043}
   - component: {fileID: 8356915327711104527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
