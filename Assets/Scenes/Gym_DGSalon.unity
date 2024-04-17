@@ -9583,6 +9583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 10
   m_GroundCheckDistance: 0.5
+  m_SlopeVerticalSpeedBounds: {x: 0, y: 0}
   m_Foot: {fileID: 168742526}
   m_CameraTransform: {fileID: 963194228}
 --- !u!4 &973883808
@@ -9611,7 +9612,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973883806}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 500
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -23720,6 +23721,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1549039447}
+    - target: {fileID: 4325978901716602198, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4325978901716602198, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.51
+      objectReference: {fileID: 0}
     - target: {fileID: 4381031076351589531, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
       propertyPath: m_Mesh
       value: 

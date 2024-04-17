@@ -9,118 +9,74 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField]
-    private float m_Speed = 10;
-    [SerializeField]
-    private float m_GroundCheckDistance;
-    [SerializeField]
-    private Transform m_Foot;
-    [SerializeField]
-    private Transform m_CameraTransform;
+    [SerializeField] private float m_Speed = 10;
+    [SerializeField] private float m_GroundCheckDistance;
+    [SerializeField] private Vector2 m_SlopeVerticalSpeedBounds;
+    [SerializeField] private Transform m_Foot;
+    [SerializeField] private Transform m_CameraTransform;
     
     private Rigidbody m_Rigidbody;
     private Animator m_Animator;
 
-    private CapsuleCollider m_Collider;
-    private Vector3 m_ColliderHalfSize;
-    private Vector3 m_SlopeNormalPerp;
-    private float m_SlopeDownAngle;
-    private float m_SlopeDownAngleOld;
-    private bool m_IsInSlope;
-
     private bool m_IsPlaying;
-
 
     void Start()
     {
         m_IsPlaying = true;
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Animator = GetComponentInChildren<Animator>();
-        m_Collider = GetComponent<CapsuleCollider>();
 
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneMode);
-
-       
-        m_ColliderHalfSize = new Vector3(m_Collider.radius, m_Collider.height/2, m_Collider.radius);
     }
 
     void Update()
     {
-        //Debug.DrawLine(transform.position, transform.forward * 1 + transform.position, Color.red);
-        SloopCheck();
-        Move();
-        if (m_IsInSlope) MoveInSlope();
+        if (!m_IsPlaying) return;
+
+        Move(); 
     }
 
-    private void SloopCheck()
+    private bool IsOnSloop()
     {
-        SloopCheckVertical();
-    }
-
-    private void SloopCheckHorizontal()
-    {
-
-    }
-
-    private void SloopCheckVertical()
-    {
-        if (IsGrounded(out RaycastHit hit)) 
+        if (Physics.Raycast(m_Foot.position, Vector3.down, out RaycastHit hit, m_GroundCheckDistance, LayerMaskValue.GROUND)) 
         {
-            m_SlopeNormalPerp = Vector3.Cross(transform.right, hit.normal).normalized;
-            m_SlopeDownAngle = Vector3.Angle(hit.normal, Vector3.up);
-            //transform.forward = m_SlopeNormalPerp;
-
-            /*if(m_SlopeDownAngle != m_SlopeDownAngleOld)
-            {
-                
-            }*/
-
-            m_IsInSlope = m_SlopeDownAngle != 0;
-
-            m_SlopeDownAngleOld = m_SlopeDownAngle;
-            Debug.Log($"ANGLE: {m_SlopeDownAngle}");
-
-            Debug.DrawRay(hit.point, hit.normal, Color.green);
-            Debug.DrawRay(hit.point, m_SlopeNormalPerp, Color.blue);
+            float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+            return slopeAngle != 0;
         }
-        else
-        {
-            m_IsInSlope = false;
-        }
+
+        return false;
     }
 
-    private void MoveInSlope()
+    private bool IsGrounded(out RaycastHit hit)
     {
-        Vector3 velocity = m_Rigidbody.velocity;
-        velocity.x = -m_SlopeNormalPerp.x * velocity.x;
-        velocity.y = -m_SlopeNormalPerp.y * velocity.y;
-        velocity.z = -m_SlopeNormalPerp.z * velocity.z;
+        return Physics.Raycast(m_Foot.position, Vector3.down, out hit, m_GroundCheckDistance, LayerMaskValue.GROUND);
+    }
 
-
-
-        m_Rigidbody.velocity = velocity;
+    public bool IsGrounded()
+    {
+        RaycastHit hit;
+        return IsGrounded(out hit);
     }
 
     private void Move()
     {
-        if (!m_IsPlaying) return;
-
         // obtient les valeurs des touches horizontales et verticales
         float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
         float vDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_VERTICAL);
 
-        // TODO invers les axis si on pinte
 
         //obtient la nouvelle direction ( (avant/arrièrre) + (gauche/droite) )
         Vector3 directionDep = m_CameraTransform.forward * vDeplacement + m_CameraTransform.right * hDeplacement;
         directionDep.y = 0; //pas de valeur en y , le cas où la caméra regarde vers le bas ou vers le haut
+
         Vector3 velocity = Vector3.zero;
         if (directionDep != Vector3.zero) //change de direction s’il y a un changement
         {
             //Oriente le personnage vers la direction de déplacement et applique la vélocité dans la même direction
             transform.forward = directionDep;
             velocity = directionDep * m_Speed;
+
         }
 
         // TODO : Creer une classe pour gérer les animations
@@ -128,13 +84,19 @@ public class PlayerMovement : MonoBehaviour
 
         // Ignorer les changement 
         velocity.y = m_Rigidbody.velocity.y;
+        m_Rigidbody.useGravity = true;
+        if (IsOnSloop()) 
+        {
+            m_Rigidbody.useGravity = false;
+            velocity.y = velocity.y < 0 && velocity.y > m_SlopeVerticalSpeedBounds.x ? m_SlopeVerticalSpeedBounds.x : velocity.y;
+            velocity.y = velocity.y > 0 && velocity.y < m_SlopeVerticalSpeedBounds.y ? m_SlopeVerticalSpeedBounds.y : velocity.y;
+        }
+        else if(!IsGrounded())
+        {
+            velocity.y = Physics.gravity.y;
+        }
 
         m_Rigidbody.velocity = velocity;
-    }
-
-    private bool IsGrounded(out RaycastHit hit)
-    {
-        return Physics.Raycast(m_Foot.position, Vector3.down, out hit, m_GroundCheckDistance, LayerMaskValue.GROUND);
     }
 
     private void OnInterractionMode(bool isEnterState)
