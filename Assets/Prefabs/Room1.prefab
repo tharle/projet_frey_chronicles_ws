@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 7263159149365107738}
   - component: {fileID: 8703132502160170236}
   - component: {fileID: 2526856894253207694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6067,6 +6067,7 @@ MonoBehaviour:
   m_Doors:
   - {fileID: 7809154524192790926}
   - {fileID: 1554833352207659046}
+  m_Acessible: 1
 --- !u!1 &7867317464769504744
 GameObject:
   m_ObjectHideFlags: 0
