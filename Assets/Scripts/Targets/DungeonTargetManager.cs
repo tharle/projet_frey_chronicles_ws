@@ -25,7 +25,7 @@ public class DungeonTargetManager: MonoBehaviour
 
     private int m_IndexSelected;
 
-    [SerializeField] private EnemyData m_EnemiesData; // Temp
+    [SerializeField] private RoomTargetData m_EnemiesData; // Temp
     [SerializeField] private Vector2 m_SpawnPositionRange; // Temp
 
     private void Awake()
