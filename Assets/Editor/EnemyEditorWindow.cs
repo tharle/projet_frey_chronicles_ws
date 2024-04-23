@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Jobs;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,17 +8,40 @@ public class EnemyEditorWindow : EditorWindow
 
     private Vector2 m_ScrollViewPosition;
     private List<Enemy> m_Enemies;
+    private GUIContent[] m_EnemyContents;
+
+    private int m_SelectedIndex;
 
     #region Window init
     private void OnEnable()
     {
+        m_SelectedIndex = 0;
+        CreateContent();
+    }
+
+    private void CreateContent()
+    {
+        string[] paths = { "Assets/BundleAssets/Data" };
+        string[] guids = AssetDatabase.FindAssets("t:EnemyData", paths);
         m_Enemies = new List<Enemy>();
-        for (int i = 0; i < 10; i++) 
-        {
-            Enemy newEnemy = new Enemy();
-            newEnemy.Name = $"Enemey #{i}";
-            m_Enemies.Add(newEnemy);
+        List<GUIContent> enemyContents = new List<GUIContent>();
+        foreach (string guid in guids) 
+        { 
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            EnemyData enemyData = AssetDatabase.LoadAssetAtPath<EnemyData>(path);
+            
+            if (enemyData == null) continue;
+
+            Enemy enemy = enemyData.Value;
+
+            GUIContent guiContent = new();
+            guiContent.text = enemy.Name;
+            enemyContents.Add(guiContent);
+            m_Enemies.Add(enemy);
+
         }
+
+        m_EnemyContents = enemyContents.ToArray();
     }
 
     [MenuItem("Tharle/Enemy Editor")]
@@ -35,42 +56,50 @@ public class EnemyEditorWindow : EditorWindow
     private void OnGUI()
     {
         m_ScrollViewPosition = EditorGUILayout.BeginScrollView(m_ScrollViewPosition);
-        {
-            EditorGUILayout.LabelField("Ici il faut ajouter du contenu"); 
-            EditorGUILayout.BeginHorizontal();
-            {
-                for (int i = 0; i < m_Enemies.Count; i++)
-                {
-                    EditorGUILayout.BeginVertical();
-                    {
-                        EditorGUILayout.LabelField("Name: ");
-                        EditorGUILayout.LabelField("HP: ");
-                        EditorGUILayout.LabelField("Type: ");
-                    }
-                    EditorGUILayout.EndVertical();
+        m_SelectedIndex = GUILayout.SelectionGrid(m_SelectedIndex, m_EnemyContents, 4);
 
-                    Enemy enemy = m_Enemies[i];
-                    // Name
-                    EditorGUILayout.BeginVertical();
-                    {
-                        enemy.Name = EditorGUILayout.TextField(enemy.Name);
-                        
-                        string hitPointsText =  EditorGUILayout.TextField(enemy.HitPoints.ToString());
-                        int.TryParse(hitPointsText, out enemy.HitPoints);
+        DrawUILine(Color.black);
 
-                        enemy.TypeId = (EEnemyType) EditorGUILayout.EnumPopup(enemy.TypeId);
-
-                    }
-                    EditorGUILayout.EndVertical();
-                    m_Enemies[i] = enemy;
-
-                }
-            }
-            EditorGUILayout.EndHorizontal();
-
-            // Contenu
-
-        }
+        ShowEnemy();
         EditorGUILayout.EndScrollView();
+    }
+
+    private void ShowEnemy()
+    {
+        if (m_Enemies.Count < 0) return;
+
+        EditorGUILayout.BeginHorizontal();
+        { 
+            EditorGUILayout.BeginVertical();
+            {
+                EditorGUILayout.LabelField("Name: ");
+                EditorGUILayout.LabelField("HP: ");
+                EditorGUILayout.LabelField("Type: ");
+            }
+            EditorGUILayout.EndVertical();
+
+            Enemy enemy = m_Enemies[m_SelectedIndex];
+            EditorGUILayout.BeginVertical();
+            {
+                enemy.Name = EditorGUILayout.TextField(enemy.Name);
+                string hitPointsText = EditorGUILayout.TextField(enemy.HitPoints.ToString());
+                int.TryParse(hitPointsText, out enemy.HitPoints);
+
+                enemy.TypeId = (EEnemyType) EditorGUILayout.EnumPopup(enemy.TypeId);
+                m_Enemies[m_SelectedIndex] = enemy;
+            }
+            EditorGUILayout.EndVertical();
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    public static void DrawUILine(Color color, int thickness = 1, int padding = 10)
+    {
+        Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
+        r.height = thickness;
+        r.y += padding / 2;
+        r.x -= 2;
+        r.width += 6;
+        EditorGUI.DrawRect(r, color);
     }
 }

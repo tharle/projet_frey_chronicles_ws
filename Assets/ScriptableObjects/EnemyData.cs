@@ -17,7 +17,6 @@ public enum EEnemyState
 [Serializable]
 public struct Enemy : ITarget
 {
-    public int id;
     public string Name;
     public int HitPoints;
     public int HitPointsMax;
@@ -55,42 +54,8 @@ public struct Enemy : ITarget
     }
 }
 
-public enum EThingType
-{
-    DESTRUTIBLE,
-    INDESTRUTIBLE
-}
-[Serializable]
-public struct Thing : ITarget
-{
-    public int id;
-    public string Name;
-    public int HitPoints;
-
-    public string DisplayDamage()
-    {
-        return "DISPLAY  DAMAGE THING";
-    }
-
-    public string DisplayDescription()
-    {
-        return "DISPLAY  DESCRIPTION THING";
-    }
-
-    public bool IsAlive()
-    {
-        return HitPoints > 0;
-    }
-
-    public float GetRange()
-    {
-        return 0;
-    }
-}
-
 [CreateAssetMenu]
 public class EnemyData : ScriptableObject
 {
-    [SerializeField] public List<Enemy> Enemies;
-    [SerializeField] public List<Thing> Things;
+    public Enemy Value;
 }
