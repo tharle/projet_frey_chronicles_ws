@@ -79,9 +79,12 @@ public class EnemyEditorWindow : EditorWindow
             EditorGUILayout.EndVertical();
 
             Enemy enemy = m_Enemies[m_SelectedIndex];
+            GUIContent enemyContent = m_EnemyContents[m_SelectedIndex];
             EditorGUILayout.BeginVertical();
             {
                 enemy.Name = EditorGUILayout.TextField(enemy.Name);
+                enemyContent.text = enemy.Name;
+
                 string hitPointsText = EditorGUILayout.TextField(enemy.HitPoints.ToString());
                 int.TryParse(hitPointsText, out enemy.HitPoints);
 
