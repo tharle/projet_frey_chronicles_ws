@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,10 +24,8 @@ public class DungeonTargetManager: MonoBehaviour
     /// </summary>
     private List<ATargetController> m_TargetsInRange;
 
-    private int m_IndexSelected;
 
-    [SerializeField] private RoomTargetData m_EnemiesData; // Temp
-    [SerializeField] private Vector2 m_SpawnPositionRange; // Temp
+    private int m_IndexSelected;
 
     private void Awake()
     {
@@ -41,7 +40,6 @@ public class DungeonTargetManager: MonoBehaviour
         m_TargetsInRange = new List<ATargetController>();
         m_IndexSelected = 0;
 
-        LoadAll();
         SubscribeToEvents();
     }
 
@@ -49,6 +47,17 @@ public class DungeonTargetManager: MonoBehaviour
     {
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionState);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.LoadTargets, LoadTargets);
+    }
+
+    private void LoadTargets(GameEventMessage message)
+    {
+        if (message.Contains<List<ATargetController>>(EGameEventMessage.Targets, out List<ATargetController> targets))
+        {
+            m_Targets = targets;
+            m_Targets.Add(PlayerController.Instance);
+            EnemyTurnManager.Instance.LoadAllEnemies();
+        }
     }
 
     private void OnInterractionState(bool isEnterState)
@@ -68,64 +77,6 @@ public class DungeonTargetManager: MonoBehaviour
             target.IsSelected = false;
         }
         m_TargetsInRange.Clear();
-    }
-
-
-    // REFRESH
-
-    private void LoadAll()
-    {
-
-        foreach (Enemy enemy in m_EnemiesData.Enemies)
-        {
-            ATargetController targetController = LoadAndInstantieteEnemy(enemy);
-            m_Targets.Add(targetController);
-        }
-
-        foreach (Thing thing in m_EnemiesData.Things)
-        {
-            ATargetController targetController = LoadAndInstantieteThing(thing);
-            m_Targets.Add(targetController);
-        }
-
-        m_Targets.Add(PlayerController.Instance);
-
-
-        EnemyTurnManager.Instance.LoadAllEnemies();
-
-
-    }
-
-    // TODO changer ça pour un "PoolingPrefabs"
-    private ATargetController LoadAndInstantieteEnemy(Enemy enemy)
-    {
-        GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_ENEMY, nameof(enemy.TypeId));
-        go.name = enemy.Name;
-        go.transform.position = CreateRandomPosition();
-
-        EnemyController enemyController = go.AddComponent<EnemyController>();
-        enemyController.Enemy = enemy;
-
-        return enemyController;
-    }
-
-    // TODO changer ça pour un "PoolingPrefabs"
-    private ATargetController LoadAndInstantieteThing(Thing thing)
-    {
-        return null;
-    }
-
-
-    // TODO : Change pour un "List of spots" de la scene;
-    private Vector3 CreateRandomPosition()
-    {
-        Vector3 position = Vector3.zero;
-
-        position.x = Random.Range(m_SpawnPositionRange.x, m_SpawnPositionRange.y);
-        position.y = 1;
-        position.z = Random.Range(m_SpawnPositionRange.x, m_SpawnPositionRange.y);
-
-        return position;
     }
 
     private void SelectTargetsInPlayerRange()

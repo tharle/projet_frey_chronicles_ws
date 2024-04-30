@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa377298e072a0840bf5cd0eea8593e3, type: 3}
-  m_Name: BAT 1 1 1 1
+  m_Name: Wolf
   m_EditorClassIdentifier: 
   Value:
     Name: BAT 1 1 1 1
@@ -20,6 +20,6 @@ MonoBehaviour:
     SpeedMovement: 8
     SpeedInitiative: 5
     DistanceAttack: 5
-    TypeId: 0
+    TypeId: 1
     StateId: 0
     ElementalId: 0
