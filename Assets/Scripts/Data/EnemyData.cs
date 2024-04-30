@@ -5,7 +5,9 @@ using UnityEngine;
 
 public enum EEnemyType
 {
-    Bat
+    Bat,
+    Wolf,
+    Zombie
 }
 
 public enum EEnemyState
