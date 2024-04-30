@@ -10,13 +10,8 @@ public enum EAudio
 }
 public class AudioManager
 {
-    private Dictionary<EAudio, AudioClip> m_AudioClips;
-    private Dictionary<EAudio, AudioSource> m_AudioSourcePlaying;
-
+    #region Singleton
     private static AudioManager m_Instance;
-
-    private AudioPool m_AudioPool;
-
     public static AudioManager Instance {
         get
         {
@@ -25,6 +20,12 @@ public class AudioManager
             return m_Instance;
         }
     }
+    #endregion
+
+    private Dictionary<EAudio, AudioClip> m_AudioClips;
+    private Dictionary<EAudio, AudioSource> m_AudioSourcePlaying;
+
+    private AudioPool m_AudioPool;
 
     public AudioManager()
     {

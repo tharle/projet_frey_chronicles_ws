@@ -84,7 +84,22 @@ public class PlayerController : ATargetController
         GameStateEvent.Instance.SubscribeTo(EGameState.Spell, OnSpellState);
         GameStateEvent.Instance.SubscribeTo(EGameState.Combo, OnComboState);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
     }
+
+    private void EnterRoom(GameEventMessage message)
+    {
+        if (message.Contains<RoomController>(EGameEventMessage.Room, out RoomController room))
+        {
+            // TODO : changer pour la bonne porte
+            TeleportTo(room.GetRandomDoor());
+        }
+    }
+    private void TeleportTo(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
 
     private void OnInterractionState(bool isEnterState)
     {
@@ -203,10 +218,5 @@ public class PlayerController : ATargetController
         playerPos.y = 0;
         position.y = 0;
         return (playerPos - position).normalized;
-    }
-
-    public void TeleportTo(Vector3 newPosition)
-    {
-        transform.position = newPosition;
     }
 }

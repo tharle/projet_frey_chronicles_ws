@@ -33,8 +33,9 @@ public class DungeonRoomManager : MonoBehaviour
     { // TODO: ajouter des logics pour faire du sense le changement des rooms
         m_IndexCourrentRoom++;
         m_IndexCourrentRoom%=m_Rooms.Count;
+        RoomController room = m_Rooms[m_IndexCourrentRoom];
+        room.Enter();
 
-        //return m_Rooms[m_IndexCourrentRoom];
-        PlayerController.Instance.TeleportTo(m_Rooms[m_IndexCourrentRoom].GetRandomDoor());
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.EnterRoom, new GameEventMessage(EGameEventMessage.Room, room));
     }
 }
