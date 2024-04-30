@@ -99,8 +99,7 @@ public class DungeonTargetManager: MonoBehaviour
     // TODO changer ça pour un "PoolingPrefabs"
     private ATargetController LoadAndInstantieteEnemy(Enemy enemy)
     {
-        // TODO remplacer ça pour asset bundle
-        GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_ENEMY, "Enemy");
+        GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_ENEMY, nameof(enemy.TypeId));
         go.name = enemy.Name;
         go.transform.position = CreateRandomPosition();
 
