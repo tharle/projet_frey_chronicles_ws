@@ -82,6 +82,7 @@ public class EnemyEditorWindow : EditorWindow
             CheckAndSaveSelectEnemy();
             m_SelectedEnemy = m_Enemies[m_SelectedIndex].Value;
             m_IsEnemyChanged = false;
+            GUI.FocusControl(null);
         }
 
         DrawUILine(Color.black);
@@ -96,10 +97,10 @@ public class EnemyEditorWindow : EditorWindow
     private void CheckAndSaveSelectEnemy()
     {
         if(m_IsEnemyChanged && EditorUtility.DisplayDialog("Change enemy?",
-                $"Do you want to save all your modification in {m_SelectedEnemy.Name}?", "Yes", "No"))
+                $"Do you want to save all your modification in \"{m_SelectedEnemy.Name}\" before?", "Yes", "No"))
         {
             m_Enemies[m_SelectedIndexOld].Value = m_SelectedEnemy;
-            GUIContent enemyContent = m_EnemyContents[m_SelectedIndex];
+            GUIContent enemyContent = m_EnemyContents[m_SelectedIndexOld];
             enemyContent.text = m_SelectedEnemy.Name;
             m_IsEnemyChanged = false;
 
@@ -132,7 +133,7 @@ public class EnemyEditorWindow : EditorWindow
         enemy.Value.SpeedMovement = m_SelectedEnemy.SpeedMovement;
         enemy.Value.DistanceAttack = m_SelectedEnemy.DistanceAttack;
 
-        AssetDatabase.CreateAsset(enemy, $"Assets/BundleAssets/Data/{enemy.Value.Name}.asset");
+        AssetDatabase.CreateAsset(enemy, $"{m_Path}/{enemy.Value.Name}.asset");
 
         AssetDatabase.SaveAssets();
 
@@ -147,8 +148,6 @@ public class EnemyEditorWindow : EditorWindow
             return;
         } 
 
-
-
         if (EditorUtility.DisplayDialog("Delete enemy",
                 $"Do you want to REMOVE AND DELETE from disc the enemy \"{m_SelectedEnemy.Name}\"?", "Yes", "No"))
         {
@@ -162,8 +161,6 @@ public class EnemyEditorWindow : EditorWindow
 
             AssetBundle.DestroyImmediate(enemyData, true);
         }
-
-        
 
     }
 
@@ -248,7 +245,7 @@ public class EnemyEditorWindow : EditorWindow
 
     private void OnClickCloseWithoutSave()
     {
-        if (m_IsEnemyChanged && EditorUtility.DisplayDialog("Closing",
+        if (!m_IsEnemyChanged || EditorUtility.DisplayDialog("Closing",
                 $"Do you want to exit without save yours modifications in \"{m_SelectedEnemy.Name}\"?", "Yes, I want exit without save", "No"))
         {
             Close();
