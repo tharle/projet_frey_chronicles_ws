@@ -30,7 +30,15 @@ public class DungeonRoomManager : MonoBehaviour
     }
 
     public void GoToNextRoom()
-    { // TODO: ajouter des logics pour faire du sense le changement des rooms
+    {
+
+        if (DungeonTargetManager.Instance.GetAllBy<EnemyController>().Count > 0) 
+        {
+            Debug.Log("You can exit without kill all enemies.");
+            return;
+        } 
+
+        // TODO: ajouter des logics pour faire du sense le changement des rooms
         m_IndexCourrentRoom++;
         m_IndexCourrentRoom%=m_Rooms.Count;
         RoomController room = m_Rooms[m_IndexCourrentRoom];
