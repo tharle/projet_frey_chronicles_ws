@@ -259,6 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5766636449061851568}
   - component: {fileID: 1366082108607047519}
+  - component: {fileID: 6304064499921227857}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Untagged
@@ -303,6 +304,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.8195325, z: 2.0932825}
   m_Center: {x: 0, y: -0.40976626, z: 0.030166745}
+--- !u!195 &6304064499921227857
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206378078849969504}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4100892288408591873
 GameObject:
   m_ObjectHideFlags: 0

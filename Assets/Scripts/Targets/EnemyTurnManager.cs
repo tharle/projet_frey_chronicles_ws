@@ -34,7 +34,7 @@ public class EnemyTurnManager : MonoBehaviour
         if (m_enemies.Count > 0)
         {
             m_enemyCurrent = m_enemies[m_currentIndex];
-            m_enemyCurrent.ChangeState(EEnemyState.Attack);
+            m_enemyCurrent.ChangeState(EEnemyState.Move);
         }
     }
 
@@ -45,7 +45,7 @@ public class EnemyTurnManager : MonoBehaviour
         if (m_enemies.Count <= 0) return;
 
         m_enemyCurrent = GetNextEnemyAvable();
-        m_enemyCurrent?.ChangeState(EEnemyState.Attack);
+        m_enemyCurrent?.ChangeState(EEnemyState.Move);
 
         Debug.Log($"IS TURN OF: {m_currentIndex}");
     }

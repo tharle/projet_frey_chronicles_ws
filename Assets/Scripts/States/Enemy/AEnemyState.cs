@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum EEnemyState
 {
-    Wait,
-    Attack
+    Move,
+    Wait
 }
 
 public abstract class AEnemyState
@@ -18,5 +18,8 @@ public abstract class AEnemyState
         m_Controller = controller;
     }
 
+    public virtual void EnterState() { }
     public virtual void UpdateState() {}
+
+    public virtual void ExitState() { }
 }

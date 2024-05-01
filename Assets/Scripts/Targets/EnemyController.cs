@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.VersionControl.Asset;
+using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
 
 public class EnemyController : ATargetController
 {
     private Enemy m_Enemy;
     public Enemy Enemy { set { m_Enemy = value; } get { return m_Enemy; } }
+    private NavMeshAgent m_NavMeshAgent;
+    
 
     private bool m_Running;
 
@@ -17,9 +20,17 @@ public class EnemyController : ATargetController
     {
         base.AfterAwake();
         SubscribeAll();
-
-        LoadStates();        
+        LoadStates();
+        SetUpEnemy();
     }
+
+    private void SetUpEnemy()
+    {
+        m_NavMeshAgent = GetComponent<NavMeshAgent>();
+        m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
+        m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
+    }
+
     private void OnDestroy()
     {
         UnsubscribeAll();
@@ -35,7 +46,7 @@ public class EnemyController : ATargetController
 
         Debug.Log($"COLITION with {collision.collider.tag}");
         // TODO: Temporaire pour changer le 
-        if (m_CurrentState is EnemyStateAttack && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
+        if (m_CurrentState is EnemyStateMove && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
         {
             EnemyTurnManager.Instance.Next();
         }
@@ -44,7 +55,7 @@ public class EnemyController : ATargetController
     private void LoadStates()
     {
         m_States = new Dictionary<EEnemyState, AEnemyState>();
-        m_States.Add(EEnemyState.Attack, new EnemyStateAttack(this));
+        m_States.Add(EEnemyState.Move, new EnemyStateMove(this));
         m_States.Add(EEnemyState.Wait, new EnemyStateWait(this));
 
         ChangeState(EEnemyState.Wait);
@@ -77,6 +88,15 @@ public class EnemyController : ATargetController
     public void ChangeState(EEnemyState stateId)
     {
         m_CurrentState = m_States[stateId];
+    }
+
+    /// <summary>
+    /// Change le destination du NavMeshAgent de l'Enemy
+    /// </summary>
+    /// <param name="destination"></param>
+    public void MoveTo(Vector3 destination)
+    {
+        m_NavMeshAgent.destination = destination;
     }
 
     /// <summary>
@@ -122,7 +142,7 @@ public class EnemyController : ATargetController
     protected override void TargetDie()
     {
         base.TargetDie();
-        if (m_CurrentState is EnemyStateAttack) EnemyTurnManager.Instance.Next();
+        if (m_CurrentState is EnemyStateMove) EnemyTurnManager.Instance.Next();
     }
 
 }
