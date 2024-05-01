@@ -1,25 +1,33 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.VersionControl.Asset;
 
 public class EnemyController : ATargetController
 {
     private Enemy m_Enemy;
-    public Enemy Enemy { set { m_Enemy = value; } }
+    public Enemy Enemy { set { m_Enemy = value; } get { return m_Enemy; } }
 
     private bool m_Running;
 
-    protected override void AfterStart() // Meme que le Start()
-    {
-        base.AfterStart();
-        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
-    }
+    private AEnemyState m_CurrentState;
+    private Dictionary<EEnemyState, AEnemyState> m_States;
 
+    protected override void AfterAwake() // Meme que le Start()
+    {
+        base.AfterAwake();
+        SubscribeAll();
+
+        LoadStates();        
+    }
     private void OnDestroy()
     {
-        GameStateEvent.Instance.UnsubscribeTo(EGameState.None, OnNoneState);
+        UnsubscribeAll();
     }
+
     private void Update()
     {
-        if (m_Running) DoActionEnemy();
+        if (m_Running) m_CurrentState.UpdateState();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -27,43 +35,33 @@ public class EnemyController : ATargetController
 
         Debug.Log($"COLITION with {collision.collider.tag}");
         // TODO: Temporaire pour changer le 
-        if (m_Enemy.StateId == EEnemyState.Attack && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
+        if (m_CurrentState is EnemyStateAttack && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
         {
             EnemyTurnManager.Instance.Next();
         }
     }
 
+    private void LoadStates()
+    {
+        m_States = new Dictionary<EEnemyState, AEnemyState>();
+        m_States.Add(EEnemyState.Attack, new EnemyStateAttack(this));
+        m_States.Add(EEnemyState.Wait, new EnemyStateWait(this));
+
+        ChangeState(EEnemyState.Wait);
+    }
+
+    private void SubscribeAll()
+    {
+        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
+    }
+    private void UnsubscribeAll()
+    {
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.None, OnNoneState);
+    }
+
     private void OnNoneState(bool isEnterState)
     {
         m_Running = isEnterState;
-    }
-
-
-    private void DoActionEnemy()
-    {
-        switch (m_Enemy.StateId)
-        {
-            case EEnemyState.Attack:
-                DoAttack();
-                break; 
-            case EEnemyState.Wait:
-                // DoWait();
-                break;
-        }
-    }
-
-    private void DoWait()
-    {
-        // TODO: Add NavMesh pour chaque Enemy
-    }
-
-    // Juste pour montrer l'idee du turn des ennemies
-    private void DoAttack()
-    {
-        // TODO: Add NavMesh pour chaque Enemy
-        Vector3 direction = PlayerController.Instance.GetDirectionTo(transform.position);
-        transform.forward = direction;
-        transform.Translate(direction * m_Enemy.SpeedMovement * Time.deltaTime); // TODO: Change for Physics
     }
 
     public bool IsAlive()
@@ -76,9 +74,9 @@ public class EnemyController : ATargetController
         return m_Enemy;
     }
 
-    public void SetState(EEnemyState enemyStateId)
+    public void ChangeState(EEnemyState stateId)
     {
-        m_Enemy.StateId = enemyStateId;
+        m_CurrentState = m_States[stateId];
     }
 
     /// <summary>
@@ -121,15 +119,10 @@ public class EnemyController : ATargetController
         if (!IsAlive()) TargetDie();
     }
 
-    public int GetIniciative()
-    {
-        return m_Enemy.SpeedInitiative;
-    }
-
     protected override void TargetDie()
     {
         base.TargetDie();
-        if (m_Enemy.StateId == EEnemyState.Attack) EnemyTurnManager.Instance.Next();
+        if (m_CurrentState is EnemyStateAttack) EnemyTurnManager.Instance.Next();
     }
 
 }

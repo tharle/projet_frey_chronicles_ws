@@ -10,12 +10,6 @@ public enum EEnemyType
     Zombie
 }
 
-public enum EEnemyState
-{
-    Wait,
-    Attack
-}
-
 [Serializable]
 public struct Enemy : ITarget
 {
@@ -27,7 +21,6 @@ public struct Enemy : ITarget
     public int SpeedInitiative;
     public float DistanceAttack;
     public EEnemyType TypeId;
-    public EEnemyState StateId;
     public EElemental ElementalId;
 
     public string DisplayDamage()

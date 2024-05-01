@@ -36,6 +36,13 @@ public abstract class ATargetController : MonoBehaviour
 
     protected virtual void AfterStart() { }
 
+    private void Awake()
+    {
+        AfterAwake();
+    }
+
+    protected virtual void AfterAwake() { }
+
     public virtual void ShowSelected()
     {
         m_Renderer.material.color = m_SelectedColor;
