@@ -134,8 +134,8 @@ public class EnemyEditorWindow : EditorWindow
         enemy.Value.DistanceAttack = m_SelectedEnemy.DistanceAttack;
 
         AssetDatabase.CreateAsset(enemy, $"{m_Path}/{enemy.Value.Name}.asset");
-
         AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
 
         GUIContent gui = AddEnemy(enemy);
         m_EnemyContents = m_EnemyContents.Concat<GUIContent>(new GUIContent[] { gui }).ToArray();
@@ -160,6 +160,7 @@ public class EnemyEditorWindow : EditorWindow
             m_EnemyContents = enemyContetList.ToArray();
 
             AssetBundle.DestroyImmediate(enemyData, true);
+            AssetDatabase.Refresh();
         }
 
     }
