@@ -8,7 +8,10 @@ public enum EGameEvent
     LoadTargets,
     EnterRoom,
     DamageToPlayer,
-    RefreshInfoHUD
+    RefreshInfoHUD,
+    ComboInfoHUD,
+    ComboTimerToggle,
+    ComboDamageToEnemy
 }
 
 public class GameEventSystem

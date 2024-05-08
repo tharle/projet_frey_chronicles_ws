@@ -35,7 +35,7 @@ public struct Player : ITarget
         TensionPointsMax = 100;
         ActionPoints = 0;
         ActionPointsMax = 100;
-        ActionPointPerSec = 45;
+        ActionPointPerSec = 75;
         RefreshTime = 0.1f;
         DamageRange = new Vector2(3, 15);
     }

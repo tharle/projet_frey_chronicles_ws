@@ -80,6 +80,7 @@ public class PlayerController : ATargetController
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
     }
 
     private void EnterRoom(GameEventMessage message)
@@ -134,11 +135,14 @@ public class PlayerController : ATargetController
     private void OnComboState(bool isEnterState)
     {
 
-        if (isEnterState) {
+        /*if (isEnterState) {
             AudioManager.Instance.Play(EAudio.Attack, transform.position);
             ConsumeAction();
             OnAttack?.Invoke(m_Player.GetDamage());
         } 
+        else m_StackActionPoints = true;*/
+
+        if (isEnterState) ConsumeAction();
         else m_StackActionPoints = true;
     }
 
@@ -163,6 +167,12 @@ public class PlayerController : ATargetController
         }
         // TODO : Add die
         RefreshInfoHUD();
+    }
+
+    private void ComboDamageToEnemy(GameEventMessage message)
+    {
+        // Ignorerr le message
+        OnAttack?.Invoke(m_Player.GetDamage());
     }
 
     public void AddTension(int tension)

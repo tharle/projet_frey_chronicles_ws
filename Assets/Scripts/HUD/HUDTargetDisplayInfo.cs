@@ -8,16 +8,11 @@ public class HUDTargetDisplayInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_TargetDamage;
     [SerializeField] protected TextMeshProUGUI m_TargetDescription;
 
-    [SerializeField] private GameObject TargetDisplayInfoPanel;
+    [SerializeField] private GameObject m_TargetDisplayInfoPanel;
 
     private void Awake()
     {
         SubscribeAllNotifyEvents();
-    }
-
-    private void Start()
-    {
-        TargetDisplayInfoPanel.SetActive(false);
     }
 
     private void SubscribeAllNotifyEvents()
@@ -36,6 +31,6 @@ public class HUDTargetDisplayInfo : MonoBehaviour
 
     private void OnInterractionMode(bool inIntration)
     {
-        TargetDisplayInfoPanel.SetActive(inIntration);
+        m_TargetDisplayInfoPanel.SetActive(inIntration);
     }
 }
