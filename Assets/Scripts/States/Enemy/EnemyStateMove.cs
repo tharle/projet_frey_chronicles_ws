@@ -18,8 +18,6 @@ public class EnemyStateMove : AEnemyState
         base.UpdateState();
 
         MoveToNaveMesh();
-
-        // DoAttackNavMesh();
     }
 
     // Juste pour montrer l'idee du turn des ennemies

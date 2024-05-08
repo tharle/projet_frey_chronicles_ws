@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: 
   Value:
-    Name: BAT 1 1 1 1
+    Name: Wolf
     HitPoints: 20
     HitPointsMax: 20
     TensionPoints: 5
@@ -21,5 +21,4 @@ MonoBehaviour:
     SpeedInitiative: 5
     DistanceAttack: 5
     TypeId: 1
-    StateId: 0
-    ElementalId: 0
+    ElementalId: 2

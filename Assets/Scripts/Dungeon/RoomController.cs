@@ -7,8 +7,8 @@ public class RoomController : MonoBehaviour
     [SerializeField]
     private List<Transform> m_Doors;
 
-    [SerializeField]
-    private bool m_Acessible = true;
+    [SerializeField] private bool m_Acessible = true;
+    [SerializeField] private bool m_IsVisited = false;
 
     [SerializeField] private List<EnemyData> m_Enemies; // Temp
     [SerializeField] private Transform m_SpawnPointMin;
@@ -23,11 +23,13 @@ public class RoomController : MonoBehaviour
 
     public void Enter()
     {
-        LoadAll();
+        if(!m_IsVisited) LoadAll();
     }
 
     private void LoadAll()
     {
+        m_IsVisited = true;
+
         List<ATargetController> targets = new List<ATargetController>();
         foreach (EnemyData enemy in m_Enemies)
         {

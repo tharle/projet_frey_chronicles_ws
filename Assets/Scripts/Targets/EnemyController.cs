@@ -9,6 +9,7 @@ public class EnemyController : ATargetController
     private Enemy m_Enemy;
     public Enemy Enemy { set { m_Enemy = value; } get { return m_Enemy; } }
     private NavMeshAgent m_NavMeshAgent;
+    private Animator m_Animator;
     
 
     private bool m_Running;
@@ -27,8 +28,10 @@ public class EnemyController : ATargetController
     private void SetUpEnemy()
     {
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
-        m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
-        m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
+        //m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
+        //m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
+        m_Animator = GetComponentInChildren<Animator>();
+        m_Running = true;
     }
 
     private void OnDestroy()
@@ -38,7 +41,11 @@ public class EnemyController : ATargetController
 
     private void Update()
     {
-        if (m_Running) m_CurrentState.UpdateState();
+        if (m_Running) 
+        {
+            m_Animator?.SetFloat(GameParametres.Animation.ENEMY_FLOAT_VELOCITY, m_NavMeshAgent.velocity.magnitude);
+            m_CurrentState?.UpdateState();    
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -73,6 +80,7 @@ public class EnemyController : ATargetController
     private void OnNoneState(bool isEnterState)
     {
         m_Running = isEnterState;
+        m_NavMeshAgent.isStopped = !isEnterState;
     }
 
     public bool IsAlive()

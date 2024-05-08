@@ -1686,6 +1686,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &248437876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4942861261098393824, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+  m_PrefabInstance: {fileID: 2130926039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &265262698
 Mesh:
   m_ObjectHideFlags: 0
@@ -9541,7 +9546,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 90da9322a9e88f54bb065601c04b3a9b, type: 3}
@@ -20348,6 +20353,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1860222717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5779399932648390488, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+  m_PrefabInstance: {fileID: 2130926039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1875318446
 Mesh:
   m_ObjectHideFlags: 0
@@ -23864,6 +23874,14 @@ PrefabInstance:
       propertyPath: m_Acessible
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5051138264342185384, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+      propertyPath: m_SpawnPointMax
+      value: 
+      objectReference: {fileID: 1860222717}
+    - target: {fileID: 5051138264342185384, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
+      propertyPath: m_SpawnPointMin
+      value: 
+      objectReference: {fileID: 248437876}
     - target: {fileID: 5079711856209108420, guid: d3e42a811edb16b45b3c7fa1cd77675f, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -24725,14 +24743,18 @@ PrefabInstance:
       objectReference: {fileID: 938203638}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: eb3ed340dc0706344a8599ed5b31c924, type: 2}
+      objectReference: {fileID: 11400000, guid: fb3ec59f14aa0a04daa29895d89aeca9, type: 2}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
+    - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
+      propertyPath: m_Enemies.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8634560146708519218, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}

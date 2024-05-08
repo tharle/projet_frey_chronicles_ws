@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa377298e072a0840bf5cd0eea8593e3, type: 3}
-  m_Name: Super Bat
+  m_Name: Zombie Air
   m_EditorClassIdentifier: 
   Value:
-    Name: Super Bat
+    Name: Zombie Fire 1
     HitPoints: 20
     HitPointsMax: 20
-    TensionPoints: 5
-    SpeedMovement: 8
+    TensionPoints: 10
+    SpeedMovement: 10
     SpeedInitiative: 5
-    DistanceAttack: 5
-    TypeId: 0
+    DistanceAttack: 3
+    TypeId: 2
     ElementalId: 1
