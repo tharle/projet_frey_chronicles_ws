@@ -28,7 +28,7 @@ public class HUDComboDisplayInfo : MonoBehaviour
     {
         if (message.Contains<int>(EGameEventMessage.ComboValue, out int comboValue))
         {
-            gameObject.SetActive(true);
+            m_ComboInfoPanel.SetActive(true);
 
             if (comboValue < 0) StartCoroutine(HideComboDisplay());
             else m_ComboValue.text = comboValue.ToString();
@@ -46,6 +46,6 @@ public class HUDComboDisplayInfo : MonoBehaviour
     private IEnumerator HideComboDisplay()
     {
         yield return new WaitForSeconds(m_Duration);
-        gameObject.SetActive(false);
+        m_ComboInfoPanel.SetActive(false);
     }
 }

@@ -10,7 +10,7 @@ public class HUDTargetDisplayInfo : MonoBehaviour
 
     [SerializeField] private GameObject m_TargetDisplayInfoPanel;
 
-    private void Awake()
+    private void Start()
     {
         SubscribeAllNotifyEvents();
     }

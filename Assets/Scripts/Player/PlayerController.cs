@@ -116,7 +116,7 @@ public class PlayerController : ATargetController
 
     private void DespawnSelectSphere()
     {
-        SelectSphere.Instance.HideSphere();
+        SelectSphere.Instance.DespawnSphere();
     }
 
     private void OnSpellState(bool isEnterState)

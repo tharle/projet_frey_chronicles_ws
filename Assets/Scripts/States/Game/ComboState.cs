@@ -17,6 +17,7 @@ public class ComboState : AGameState
     {
         base.OnEnter();
         Debug.Log("Combo ENTER");
+        SelectSphere.Instance.HideSphere();
         m_ComboCounter = 1;
         m_Hit = true;
         m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
