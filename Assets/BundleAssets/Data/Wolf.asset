@@ -20,5 +20,6 @@ MonoBehaviour:
     SpeedMovement: 8
     SpeedInitiative: 5
     DistanceAttack: 5
+    DamageAttack: 1
     TypeId: 1
     ElementalId: 2

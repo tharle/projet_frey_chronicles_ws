@@ -17,6 +17,12 @@ public class EnemyStateMove : AEnemyState
     {
         base.UpdateState();
 
+        if(m_Controller.IsInPlayerRange())
+        {
+            m_Controller.ChangeState(EEnemyState.Attack);
+            return;
+        }
+
         MoveToNaveMesh();
     }
 

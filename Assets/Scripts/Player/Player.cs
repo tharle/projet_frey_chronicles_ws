@@ -14,8 +14,8 @@ public enum EElemental
 public struct Player : ITarget
 {
     public string Name;
-    public int HitPoints;
-    public int HitPointsMax;
+    public float HitPoints;
+    public float HitPointsMax;
     public int TensionPoints;
     public int TensionPointsMax;
     public float ActionPoints;
@@ -25,7 +25,7 @@ public struct Player : ITarget
     public float RefreshTime;
     public Vector2 DamageRange; // TODO: Temp, il faut changer ça dans le systeme de combat
 
-    public Player(int hitPointsMax, float distanceAttack)
+    public Player(float hitPointsMax, float distanceAttack)
     {
         Name = "Player";
         HitPointsMax = hitPointsMax;
@@ -42,7 +42,7 @@ public struct Player : ITarget
 
     public float GetHPRatio()
     {
-        return (float)HitPoints / (float)HitPointsMax;
+        return HitPoints / HitPointsMax;
     }
 
     public float GetAPRatio()

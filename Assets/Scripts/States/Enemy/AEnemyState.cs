@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EEnemyState
 {
     Move,
-    Wait
+    Wait,
+    Attack
 }
 
 public abstract class AEnemyState

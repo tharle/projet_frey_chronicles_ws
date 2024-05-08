@@ -6,7 +6,9 @@ using UnityEngine;
 public enum EGameEvent
 {
     LoadTargets,
-    EnterRoom
+    EnterRoom,
+    DamageToPlayer,
+    RefreshInfoHUD
 }
 
 public class GameEventSystem

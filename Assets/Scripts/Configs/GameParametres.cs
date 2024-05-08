@@ -3,16 +3,20 @@
 public class GameParametres
 {
 
-    public class Animation
+    public class AnimationPlayer
     {
-        // TODO: ça va etre utiliser au future
-        public const string ENEMY_FLOAT_VELOCITY = "velocity";
-        public const string ENEMY_TRIGGER_ATTACK = "attack";
-        public const string ENEMY_TRIGGER_DIE = "die";
-        public const string PLAYER_FLOAT_VELOCITY = "velocity";
-        public const string PLAYER_TRIGGER_SHOOT = "shoot";
-        public const string PLAYER_TRIGGER_INTERACT = "interact";
-        public const string OBJECT_TRIGGER_OPEN = "open";
+        public const string FLOAT_VELOCITY = "velocity";
+        public const string TRIGGER_SHOOT = "shoot";
+        public const string TRIGGER_INTERACT = "interact";
+    }
+
+    public class AnimationEnemy
+    {
+        public const string FLOAT_VELOCITY = "velocity";
+        public const string TRIGGER_ATTACK = "attack";
+        public const string TRIGGER_DIE = "die";
+
+        public const string NAME_ATTACK = "attack";
     }
 
     public class BundleNames

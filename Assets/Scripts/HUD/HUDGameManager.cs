@@ -14,13 +14,16 @@ public class HUDGameManager : MonoBehaviour
 
     private void SubscribeAllNotifyEvents()
     {
-        PlayerController.Instance.OnNotifyInfoPlayer += OnNotifyInfoPlayer;
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.RefreshInfoHUD, OnRefreshInfoHUD);
     }
 
-    private void OnNotifyInfoPlayer(Player player)
+    private void OnRefreshInfoHUD(GameEventMessage message)
     {
-        m_HPValue.text = (player.GetHPRatio() * 100).ToString("00");
-        m_TPValue.text = (player.GetTPRatio() * 100).ToString("00");
-        m_APValue.text = (player.GetAPRatio() * 100).ToString("00");
+        if(message.Contains<Player>(EGameEventMessage.Player, out Player player))
+        {
+            m_HPValue.text = (player.GetHPRatio() * 100).ToString("00") + "%";
+            m_TPValue.text = (player.GetTPRatio() * 100).ToString("00") + "%";
+            m_APValue.text = (player.GetAPRatio() * 100).ToString("00") + "%";
+        }
     }
 }

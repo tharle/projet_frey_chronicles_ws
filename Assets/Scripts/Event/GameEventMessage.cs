@@ -5,7 +5,10 @@ using UnityEngine;
 public enum EGameEventMessage
 {
     Targets,
-    Room
+    Room,
+    DamageAttack,
+    DamageElemental,
+    Player
 }
 
 public class GameEventMessage

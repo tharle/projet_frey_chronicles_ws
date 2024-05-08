@@ -7,7 +7,13 @@ using UnityEngine.InputSystem.XR;
 public class EnemyController : ATargetController
 {
     private Enemy m_Enemy;
-    public Enemy Enemy { set { m_Enemy = value; } get { return m_Enemy; } }
+    public Enemy Enemy { get => m_Enemy;
+        set 
+        {
+            m_Enemy = value;
+            SetUpEnemy();
+        } 
+    }
     private NavMeshAgent m_NavMeshAgent;
     private Animator m_Animator;
     
@@ -17,23 +23,6 @@ public class EnemyController : ATargetController
     private AEnemyState m_CurrentState;
     private Dictionary<EEnemyState, AEnemyState> m_States;
 
-    protected override void AfterAwake() // Meme que le Start()
-    {
-        base.AfterAwake();
-        SubscribeAll();
-        LoadStates();
-        SetUpEnemy();
-    }
-
-    private void SetUpEnemy()
-    {
-        m_NavMeshAgent = GetComponent<NavMeshAgent>();
-        //m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
-        //m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
-        m_Animator = GetComponentInChildren<Animator>();
-        m_Running = true;
-    }
-
     private void OnDestroy()
     {
         UnsubscribeAll();
@@ -41,22 +30,19 @@ public class EnemyController : ATargetController
 
     private void Update()
     {
-        if (m_Running) 
+        if (m_Running)
         {
-            m_Animator?.SetFloat(GameParametres.Animation.ENEMY_FLOAT_VELOCITY, m_NavMeshAgent.velocity.magnitude);
-            m_CurrentState?.UpdateState();    
+            m_Animator?.SetFloat(GameParametres.AnimationEnemy.FLOAT_VELOCITY, m_NavMeshAgent.velocity.magnitude);
+            m_CurrentState?.UpdateState();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void AfterAwake() // Meme que le Start()
     {
-
-        Debug.Log($"COLITION with {collision.collider.tag}");
-        // TODO: Temporaire pour changer le 
-        if (m_CurrentState is EnemyStateMove && collision.collider.CompareTag(GameParametres.TagName.PLAYER))
-        {
-            EnemyTurnManager.Instance.Next();
-        }
+        base.AfterAwake();
+        m_Animator = GetComponentInChildren<Animator>();
+        SubscribeAll();
+        LoadStates();
     }
 
     private void LoadStates()
@@ -64,8 +50,18 @@ public class EnemyController : ATargetController
         m_States = new Dictionary<EEnemyState, AEnemyState>();
         m_States.Add(EEnemyState.Move, new EnemyStateMove(this));
         m_States.Add(EEnemyState.Wait, new EnemyStateWait(this));
+        m_States.Add(EEnemyState.Attack, new EnemyStateAttack(this));
 
         ChangeState(EEnemyState.Wait);
+    }
+
+    private void SetUpEnemy()
+    {
+        m_NavMeshAgent = GetComponent<NavMeshAgent>();
+        m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
+        m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
+        m_NavMeshAgent.stoppingDistance = m_Enemy.DistanceAttack;
+        m_Running = true;
     }
 
     private void SubscribeAll()
@@ -95,7 +91,9 @@ public class EnemyController : ATargetController
 
     public void ChangeState(EEnemyState stateId)
     {
+        m_CurrentState?.ExitState();
         m_CurrentState = m_States[stateId];
+        m_CurrentState.EnterState();
     }
 
     /// <summary>
@@ -107,13 +105,11 @@ public class EnemyController : ATargetController
         m_NavMeshAgent.destination = destination;
     }
 
-    /// <summary>
-    /// Take damage and return the amount of Tension for the player
-    /// </summary>
-    /// <param name="damage">the damage of the enemy suffer</param>
-    /// <returns>amount of Tension for the player</returns>
+    
     public int TakeDamage(int damage)
     {
+        // TODO : Add animation Hit
+
         m_Enemy.HitPoints -= damage;
 
         Debug.Log($"The enemy {m_Enemy.Name} got {damage} the damage.");
@@ -130,6 +126,11 @@ public class EnemyController : ATargetController
         return m_Enemy.TensionPoints;
     }
 
+    /// <summary>
+    /// Take damage and return the amount of Tension for the player
+    /// </summary>
+    /// <param name="damage">the damage of the enemy suffer</param>
+    /// <returns>amount of Tension for the player</returns>
     public override int ReciveAttack(int value)
     {
         Debug.Log($"The player give {value} damage to {m_Enemy.Name}.");
@@ -150,7 +151,26 @@ public class EnemyController : ATargetController
     protected override void TargetDie()
     {
         base.TargetDie();
-        if (m_CurrentState is EnemyStateMove) EnemyTurnManager.Instance.Next();
+        if (m_CurrentState is EnemyStateMove) GoNextEnemy();
     }
 
+    public bool IsInPlayerRange()
+    {
+        return IsInRange(PlayerController.Instance.transform.position);
+    }
+
+    public void GiveDamageToPlayer()
+    {
+        // TODO: give damage to player
+        Debug.Log($"GIVE DAMAGE TO PLAYER: {name} / {m_Enemy.Name} -> {m_Enemy.DamageAttack}");
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.DamageAttack, m_Enemy.DamageAttack);
+        message.Add(EGameEventMessage.DamageElemental, m_Enemy.ElementalId);
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.DamageToPlayer, message);
+        GoNextEnemy();
+    }
+
+    public void GoNextEnemy()
+    {
+        EnemyTurnManager.Instance.Next();
+    }
 }

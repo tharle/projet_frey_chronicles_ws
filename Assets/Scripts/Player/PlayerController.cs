@@ -17,7 +17,6 @@ public class PlayerController : ATargetController
 
 
     // Events
-    public event Action<Player> OnNotifyInfoPlayer;
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
 
@@ -41,7 +40,7 @@ public class PlayerController : ATargetController
 
     protected override void AfterStart()
     {
-        m_Player = new Player(20, 5f); // Temp
+        m_Player = new Player(20, 10f); // Temp
         SubscribeAllEvents();
         RefreshInfoHUD();
         StartCoroutine(AddActionPointsRoutine());
@@ -49,11 +48,6 @@ public class PlayerController : ATargetController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            TakeDamage(5);
-        }
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             AddTension(7);
@@ -85,6 +79,7 @@ public class PlayerController : ATargetController
         GameStateEvent.Instance.SubscribeTo(EGameState.Combo, OnComboState);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
     }
 
     private void EnterRoom(GameEventMessage message)
@@ -156,12 +151,16 @@ public class PlayerController : ATargetController
 
     private void RefreshInfoHUD()
     {
-        OnNotifyInfoPlayer?.Invoke(m_Player);
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshInfoHUD, new GameEventMessage(EGameEventMessage.Player, m_Player));
     }
 
-    public void TakeDamage(int damage)
+    private void TakeDamage(GameEventMessage message)
     {
-        m_Player.HitPoints -= damage;
+        if (message.Contains<float>(EGameEventMessage.DamageAttack, out float damage))
+        {
+            // TODO : Calculer fablisse (?)
+            m_Player.HitPoints -= damage;
+        }
         // TODO : Add die
         RefreshInfoHUD();
     }

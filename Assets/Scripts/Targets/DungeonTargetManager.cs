@@ -105,33 +105,6 @@ public class DungeonTargetManager: MonoBehaviour
         SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
 
-    private void OnAttack(int damage)
-    {
-        if(m_TargetsInRange.Count == 0) {
-            Debug.Log("NO TARGETS AVAIBLES");
-            return;
-        }
-
-        ATargetController target = m_TargetsInRange[m_IndexSelected];
-
-        if (target is EnemyController)
-        {
-            EnemyController enemy = (EnemyController)target;
-            int tension = enemy.TakeDamage(damage);
-            PlayerController.Instance.AddTension(tension);
-        }
-
-        if (target.IsDestroyed()) TargetSelectedDestroyed();
-
-    }
-
-    private void TargetSelectedDestroyed()
-    {
-        m_Targets.Remove(m_TargetsInRange[m_IndexSelected]);// remove from targets
-        m_TargetsInRange.RemoveAt(m_IndexSelected); // remove from targets in range
-        NextSelected();
-    }
-
     // -------------------------------------------
     // INPUTS METHODES
     // -------------------------------------------

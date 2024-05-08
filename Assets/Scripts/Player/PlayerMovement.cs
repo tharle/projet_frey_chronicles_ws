@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // TODO : Creer une classe pour gérer les animations
-        m_Animator.SetFloat(GameParametres.Animation.PLAYER_FLOAT_VELOCITY, velocity.magnitude);
+        m_Animator.SetFloat(GameParametres.AnimationPlayer.FLOAT_VELOCITY, velocity.magnitude);
 
         // Ignorer les changement 
         velocity.y = m_Rigidbody.velocity.y;

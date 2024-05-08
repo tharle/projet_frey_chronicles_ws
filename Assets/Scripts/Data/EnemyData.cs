@@ -20,6 +20,7 @@ public struct Enemy : ITarget
     public float SpeedMovement;
     public int SpeedInitiative;
     public float DistanceAttack;
+    public float DamageAttack;
     public EEnemyType TypeId;
     public EElemental ElementalId;
 
