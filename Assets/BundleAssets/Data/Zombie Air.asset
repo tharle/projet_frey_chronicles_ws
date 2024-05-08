@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Zombie Air
   m_EditorClassIdentifier: 
   Value:
-    Name: Zombie Fire 1
+    Name: Zombie Air
     HitPoints: 20
     HitPointsMax: 20
     TensionPoints: 10
     SpeedMovement: 10
     SpeedInitiative: 5
     DistanceAttack: 3
+    DistanceFlee: 15
     DamageAttack: 1
     TypeId: 2
-    ElementalId: 1
+    ElementalId: 0

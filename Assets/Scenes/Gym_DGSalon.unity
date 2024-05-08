@@ -24752,7 +24752,7 @@ PrefabInstance:
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: eb3ed340dc0706344a8599ed5b31c924, type: 2}
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[2]
       value: 
@@ -24760,19 +24760,27 @@ PrefabInstance:
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: fb3ec59f14aa0a04daa29895d89aeca9, type: 2}
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: fb3ec59f14aa0a04daa29895d89aeca9, type: 2}
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: fb3ec59f14aa0a04daa29895d89aeca9, type: 2}
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Enemies.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: fb3ec59f14aa0a04daa29895d89aeca9, type: 2}
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
+    - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
+      propertyPath: m_Enemies.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
+    - target: {fileID: 8631256788161945088, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
+      propertyPath: m_Enemies.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4487e283a553f9241bf35160cda0041c, type: 2}
     - target: {fileID: 8634560146708519218, guid: 7efb0e692eaa9ae469b9e936ce6a5712, type: 3}
       propertyPath: m_Mesh
       value: 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR;
@@ -58,8 +60,8 @@ public class EnemyController : ATargetController
     private void SetUpEnemy()
     {
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
-        m_NavMeshAgent.speed = m_Enemy.SpeedMovement;
-        m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement * 2; // pour qu'il puisse arriver dans speed max dans 0.5s
+        m_NavMeshAgent.speed = m_Enemy.SpeedMovement/2;
+        m_NavMeshAgent.acceleration = m_Enemy.SpeedMovement; // pour qu'il puisse arriver dans speed max dans 1s
         m_NavMeshAgent.stoppingDistance = m_Enemy.DistanceAttack;
         m_Running = true;
     }
@@ -154,10 +156,27 @@ public class EnemyController : ATargetController
         if (m_CurrentState is EnemyStateMove) GoNextEnemy();
     }
 
-    public bool IsInPlayerRange()
+    public bool IsPlayerInAttackRange()
     {
         return IsInRange(PlayerController.Instance.transform.position);
     }
+
+    public bool IsPlayerInFleeRange()
+    {
+        float distance = Vector3.Distance(transform.position, PlayerController.Instance.transform.position);
+        return distance <= m_Enemy.DistanceFlee;
+    }
+
+    public Vector3 DirectionFromPlayer()
+    {
+        return (transform.position - PlayerController.Instance.transform.position).normalized;
+    }
+
+    public void StopMove()
+    {
+        m_NavMeshAgent.ResetPath();
+    }
+
 
     public void GiveDamageToPlayer()
     {

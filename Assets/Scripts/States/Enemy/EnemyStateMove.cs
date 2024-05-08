@@ -17,29 +17,17 @@ public class EnemyStateMove : AEnemyState
     {
         base.UpdateState();
 
-        if(m_Controller.IsInPlayerRange())
+        if(m_Controller.IsPlayerInAttackRange())
         {
             m_Controller.ChangeState(EEnemyState.Attack);
             return;
         }
 
-        MoveToNaveMesh();
+        MoveToPlayerr();
     }
 
-    // Juste pour montrer l'idee du turn des ennemies
-    private void MoveTo()
+    private void MoveToPlayerr()
     {
-        // TODO: Add NavMesh pour chaque Enemy
-        Transform enemyTransform = m_Controller.gameObject.transform;
-        Vector3 direction = PlayerController.Instance.GetDirectionTo(enemyTransform.position);
-        enemyTransform.forward = direction;
-        enemyTransform.Translate(direction * m_Controller.Enemy.SpeedMovement * Time.deltaTime); // TODO: Change for Physics
-    }
-
-    private void MoveToNaveMesh()
-    {
-        // TODO: Calculer la distance
-        //m_NavMeshAgent.Move();
         m_Controller.MoveTo(PlayerController.Instance.transform.position);
     }
 

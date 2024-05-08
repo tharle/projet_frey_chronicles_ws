@@ -17,9 +17,10 @@ MonoBehaviour:
     HitPoints: 20
     HitPointsMax: 20
     TensionPoints: 5
-    SpeedMovement: 8
+    SpeedMovement: 6
     SpeedInitiative: 5
-    DistanceAttack: 5
+    DistanceAttack: 10
+    DistanceFlee: 35
     DamageAttack: 2
     TypeId: 2
     ElementalId: 1
