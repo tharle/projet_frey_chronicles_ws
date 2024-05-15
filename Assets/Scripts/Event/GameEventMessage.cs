@@ -10,7 +10,8 @@ public enum EGameEventMessage
     DamageElemental,
     Player,
     ComboValue,
-    ComboTimerToggle
+    ComboTimerToggle,
+    Enter
 }
 
 public class GameEventMessage

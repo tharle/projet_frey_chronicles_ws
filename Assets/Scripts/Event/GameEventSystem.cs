@@ -11,7 +11,8 @@ public enum EGameEvent
     RefreshInfoHUD,
     ComboInfoHUD,
     ComboTimerToggle,
-    ComboDamageToEnemy
+    ComboDamageToEnemy,
+    EnemyDie
 }
 
 public class GameEventSystem

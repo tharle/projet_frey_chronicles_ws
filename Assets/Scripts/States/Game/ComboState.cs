@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ComboState : AGameState
@@ -22,12 +23,19 @@ public class ComboState : AGameState
         m_Hit = true;
         m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
         m_Timeout = false;
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.EnemyDie, OnEnemyDie);
+    }
+
+    private void OnEnemyDie(GameEventMessage message)
+    {
+        m_Controller.ChangeState(EGameState.None);
     }
 
     public override void OnExit()
     {
         base.OnExit();
         GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboInfoHUD, new GameEventMessage(EGameEventMessage.ComboValue, -1));
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.EnemyDie, OnEnemyDie);
     }
 
 
