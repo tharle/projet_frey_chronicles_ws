@@ -17,7 +17,6 @@ public class PlayerController : ATargetController
 
 
     // Events
-    public event Action<Player> OnNotifyInfoPlayer;
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
 
@@ -41,7 +40,7 @@ public class PlayerController : ATargetController
 
     protected override void AfterStart()
     {
-        m_Player = new Player(20, 5f); // Temp
+        m_Player = new Player(20, 10f); // Temp
         SubscribeAllEvents();
         RefreshInfoHUD();
         StartCoroutine(AddActionPointsRoutine());
@@ -49,11 +48,6 @@ public class PlayerController : ATargetController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            TakeDamage(5);
-        }
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             AddTension(7);
@@ -84,7 +78,24 @@ public class PlayerController : ATargetController
         GameStateEvent.Instance.SubscribeTo(EGameState.Spell, OnSpellState);
         GameStateEvent.Instance.SubscribeTo(EGameState.Combo, OnComboState);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneState);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
     }
+
+    private void EnterRoom(GameEventMessage message)
+    {
+        if (message.Contains<RoomController>(EGameEventMessage.Room, out RoomController room))
+        {
+            // TODO : changer pour la bonne porte
+            TeleportTo(room.GetRandomDoor());
+        }
+    }
+    private void TeleportTo(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
 
     private void OnInterractionState(bool isEnterState)
     {
@@ -105,7 +116,7 @@ public class PlayerController : ATargetController
 
     private void DespawnSelectSphere()
     {
-        SelectSphere.Instance.HideSphere();
+        SelectSphere.Instance.DespawnSphere();
     }
 
     private void OnSpellState(bool isEnterState)
@@ -113,7 +124,7 @@ public class PlayerController : ATargetController
 
         if (isEnterState) 
         {
-            AudioManager.Instance.Play(EAudio.SFX_FIRE_MAGIC, transform.position);
+            AudioManager.Instance.Play(EAudio.MagicFire, transform.position);
             ConsumeAction();
             ConsumeTension(UnityEngine.Random.Range(2, 15));
             OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
@@ -124,11 +135,14 @@ public class PlayerController : ATargetController
     private void OnComboState(bool isEnterState)
     {
 
-        if (isEnterState) {
-            AudioManager.Instance.Play(EAudio.SFX_ATTACK, transform.position);
+        /*if (isEnterState) {
+            AudioManager.Instance.Play(EAudio.Attack, transform.position);
             ConsumeAction();
             OnAttack?.Invoke(m_Player.GetDamage());
         } 
+        else m_StackActionPoints = true;*/
+
+        if (isEnterState) ConsumeAction();
         else m_StackActionPoints = true;
     }
 
@@ -141,14 +155,24 @@ public class PlayerController : ATargetController
 
     private void RefreshInfoHUD()
     {
-        OnNotifyInfoPlayer?.Invoke(m_Player);
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshInfoHUD, new GameEventMessage(EGameEventMessage.Player, m_Player));
     }
 
-    public void TakeDamage(int damage)
+    private void TakeDamage(GameEventMessage message)
     {
-        m_Player.HitPoints -= damage;
+        if (message.Contains<float>(EGameEventMessage.DamageAttack, out float damage))
+        {
+            // TODO : Calculer fablisse (?)
+            m_Player.HitPoints -= damage;
+        }
         // TODO : Add die
         RefreshInfoHUD();
+    }
+
+    private void ComboDamageToEnemy(GameEventMessage message)
+    {
+        // Ignorerr le message
+        OnAttack?.Invoke(m_Player.GetDamage());
     }
 
     public void AddTension(int tension)
@@ -203,10 +227,5 @@ public class PlayerController : ATargetController
         playerPos.y = 0;
         position.y = 0;
         return (playerPos - position).normalized;
-    }
-
-    public void TeleportTo(Vector3 newPosition)
-    {
-        transform.position = newPosition;
     }
 }

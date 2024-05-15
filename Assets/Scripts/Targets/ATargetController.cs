@@ -36,6 +36,13 @@ public abstract class ATargetController : MonoBehaviour
 
     protected virtual void AfterStart() { }
 
+    private void Awake()
+    {
+        AfterAwake();
+    }
+
+    protected virtual void AfterAwake() { }
+
     public virtual void ShowSelected()
     {
         m_Renderer.material.color = m_SelectedColor;
@@ -55,6 +62,7 @@ public abstract class ATargetController : MonoBehaviour
     {
         Destroy(gameObject, 0.1f);// TODO: add animation die
         DungeonTargetManager.Instance.TargetDie(this);
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.EnemyDie, new GameEventMessage(EGameEventMessage.Enter, true));
     }
 
     public virtual int ReciveAttack(int value)

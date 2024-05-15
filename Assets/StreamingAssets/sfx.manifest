@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1469822770
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 48677c50036b4879bde090816f52ce16
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/BundleAssets/Sounds/SFX/MagicFire.wav
+- Assets/BundleAssets/Sounds/SFX/Attack.wav
+Dependencies: []

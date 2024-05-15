@@ -26,7 +26,7 @@ public class GameStateEvent
         else m_Events.Add(gameStateId, func);
     }
 
-    public void UnsubscribeTo(EGameState gameStateId, Action<bool> func)
+    public void UnsubscribeFrom(EGameState gameStateId, Action<bool> func)
     {
         if (m_Events.ContainsKey(gameStateId)) m_Events[gameStateId] -= func;
     }

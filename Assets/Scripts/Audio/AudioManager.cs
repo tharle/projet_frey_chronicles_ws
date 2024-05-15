@@ -5,18 +5,13 @@ using UnityEngine;
 
 public enum EAudio
 {
-    SFX_ATTACK,
-    SFX_FIRE_MAGIC
+    Attack,
+    MagicFire
 }
 public class AudioManager
 {
-    private Dictionary<EAudio, AudioClip> m_AudioClips;
-    private Dictionary<EAudio, AudioSource> m_AudioSourcePlaying;
-
+    #region Singleton
     private static AudioManager m_Instance;
-
-    private AudioPool m_AudioPool;
-
     public static AudioManager Instance {
         get
         {
@@ -25,6 +20,12 @@ public class AudioManager
             return m_Instance;
         }
     }
+    #endregion
+
+    private Dictionary<EAudio, AudioClip> m_AudioClips;
+    private Dictionary<EAudio, AudioSource> m_AudioSourcePlaying;
+
+    private AudioPool m_AudioPool;
 
     public AudioManager()
     {
@@ -35,9 +36,7 @@ public class AudioManager
 
     private void LoadAllAudioClips()
     {
-        m_AudioClips = new Dictionary<EAudio, AudioClip>();
-        m_AudioClips.Add(EAudio.SFX_ATTACK, Resources.Load<AudioClip>("SFX/AttacK"));
-        m_AudioClips.Add(EAudio.SFX_FIRE_MAGIC, Resources.Load<AudioClip>("SFX/Magic"));
+        m_AudioClips = BundleLoader.Instance.LoadSFX();
     }
 
     public void Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false)

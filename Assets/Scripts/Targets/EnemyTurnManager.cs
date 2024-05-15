@@ -29,23 +29,23 @@ public class EnemyTurnManager : MonoBehaviour
     {
         m_enemies = DungeonTargetManager.Instance.GetAllBy<EnemyController>();
 
-        m_enemies = m_enemies.OrderByDescending(enemy => enemy.GetIniciative()).ToList();
+        m_enemies = m_enemies.OrderByDescending(enemy => enemy.Enemy.SpeedInitiative).ToList();
         m_currentIndex = 0;
         if (m_enemies.Count > 0)
         {
             m_enemyCurrent = m_enemies[m_currentIndex];
-            m_enemyCurrent.SetState(EEnemyState.Attack);
+            m_enemyCurrent.ChangeState(EEnemyState.Move);
         }
     }
 
     public void Next()
     {
-        m_enemyCurrent?.SetState(EEnemyState.Wait);
+        m_enemyCurrent?.ChangeState(EEnemyState.Wait);
         
         if (m_enemies.Count <= 0) return;
 
         m_enemyCurrent = GetNextEnemyAvable();
-        m_enemyCurrent?.SetState(EEnemyState.Attack);
+        m_enemyCurrent?.ChangeState(EEnemyState.Move);
 
         Debug.Log($"IS TURN OF: {m_currentIndex}");
     }

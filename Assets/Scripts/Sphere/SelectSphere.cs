@@ -84,15 +84,20 @@ public class SelectSphere : MonoBehaviour
         DrawSphere(); // TODO: Ajouter animation sphere_enable ou Lerp
         m_Model.SetActive(true);
     }
-    public void HideSphere() 
+    public void DespawnSphere() 
     {
         m_SphereRadius = m_SphereRadiusMin;
         if(m_TargetSelected != null && !m_TargetSelected.IsDestroyed()) m_TargetSelected.ClearSelected();
         m_TargetSelected = null;
         //DrawSphere(); // TODO: Ajouter animation sphere_disable ou Lerp
-        m_Model.SetActive(false);
-
+        HideSphere();
     }
+
+    public void HideSphere()
+    {
+        m_Model.SetActive(false);
+    }
+
     private void DrawSphere()
     {
         transform.localScale = new Vector3(m_SphereRadius/2, m_SphereRadius/2, m_SphereRadius/2);

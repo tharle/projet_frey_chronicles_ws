@@ -7,19 +7,19 @@ public class GameStateController: MonoBehaviour
 {
     private AGameState m_CurrentState;
 
-    private Dictionary<EGameState, AGameState> GameStates;
+    private Dictionary<EGameState, AGameState> m_States;
 
     //private bool m_IsChangingState();
 
     private void Start()
     {
-        GameStates = new Dictionary<EGameState, AGameState>();
-        GameStates.Add(EGameState.None, new NoneState(this));
-        GameStates.Add(EGameState.ActionMenu, new ActionMenuState(this));
-        GameStates.Add(EGameState.Menu, new MenuState(this));
-        GameStates.Add(EGameState.Interaction, new InteractionState(this));
-        GameStates.Add(EGameState.Combo, new ComboState(this));
-        GameStates.Add(EGameState.Spell, new SpellState(this));
+        m_States = new Dictionary<EGameState, AGameState>();
+        m_States.Add(EGameState.None, new NoneState(this));
+        m_States.Add(EGameState.ActionMenu, new ActionMenuState(this));
+        m_States.Add(EGameState.Menu, new MenuState(this));
+        m_States.Add(EGameState.Interaction, new InteractionState(this));
+        m_States.Add(EGameState.Combo, new ComboState(this));
+        m_States.Add(EGameState.Spell, new SpellState(this));
 
         ChangeState(EGameState.None);
     }
@@ -42,9 +42,10 @@ public class GameStateController: MonoBehaviour
     private IEnumerator ChangeStateRoutine(EGameState gameStateId)
     {
         yield return new WaitForSeconds(0.1f);
-        m_CurrentState = GameStates[gameStateId];
+        m_CurrentState = m_States[gameStateId];
         m_CurrentState?.OnEnter();
     }
+
 }
 
 
