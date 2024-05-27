@@ -4840,7 +4840,6 @@ GameObject:
   - component: {fileID: 1017784383136815084}
   - component: {fileID: 1651923827672783274}
   - component: {fileID: 1490630317360559969}
-  - component: {fileID: 5574275591317865844}
   m_Layer: 0
   m_Name: fire_place_0
   m_TagString: Untagged
@@ -5001,22 +5000,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!114 &5574275591317865844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4279279757138740165}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2281f60ce42cf08408124a756a56bfec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minIntensity: 2
-  _maxIntensity: 8
-  _smoothing: 30
-  _randomMovement: 0.0032
 --- !u!1 &8151009563469185782
 GameObject:
   m_ObjectHideFlags: 0
