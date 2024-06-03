@@ -22,6 +22,7 @@ public class GameParametres
     public class BundleNames
     {
         public const string PREFAB_ENEMY = "prefab_enemy";
+        public const string PREFAB_COMBO = "prefab_combo";
         public const string SFX = "sfx";
     }
 
@@ -31,6 +32,7 @@ public class GameParametres
         public const string STREAMING_ASSETS = "Assets/StreamingAssets";
         public const string DATA = "/Data";
         public const string PREFAB_ENEMY = "/Prefabs/Enemies";
+        public const string PREFAB_COMBO = "/Prefabs/Combo";
         public const string SFX = "/Sounds/SFX";
     }
 
