@@ -86,9 +86,14 @@ public abstract class ATargetController : MonoBehaviour
     {
         return GetTarget().GetRange();
     }
+    public bool IsAlive()
+    {
+        return GetTarget().IsAlive();
+    }
 
     public static T ConvertTo<T>(ATargetController target) where T : ATargetController
     {
         return (T)target;
     }
+
 }

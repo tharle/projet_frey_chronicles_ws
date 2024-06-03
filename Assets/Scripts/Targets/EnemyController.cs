@@ -81,11 +81,6 @@ public class EnemyController : ATargetController
         m_NavMeshAgent.isStopped = !isEnterState;
     }
 
-    public bool IsAlive()
-    {
-        return m_Enemy.HitPoints > 0;
-    }
-
     public override ITarget GetTarget()
     {
         return m_Enemy;
