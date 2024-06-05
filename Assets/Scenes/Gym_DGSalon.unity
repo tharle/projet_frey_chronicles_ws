@@ -7511,6 +7511,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room2
       objectReference: {fileID: 0}
+    - target: {fileID: 1231951649273066265, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273145731093580020, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2166740271801035461, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -129.3
@@ -7550,6 +7558,14 @@ PrefabInstance:
     - target: {fileID: 2166740271801035461, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903829774996652710, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926794505602447433, guid: d7e6a330b5aca8747893fc1d565d1ee9, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
