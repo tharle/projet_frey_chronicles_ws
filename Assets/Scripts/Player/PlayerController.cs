@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : ATargetController
 {
 
+    [SerializeField] private Transform m_PlayerHand;
+
+    public Transform PlayerHand { get => m_PlayerHand; }
 
     /**
      * **********************************************

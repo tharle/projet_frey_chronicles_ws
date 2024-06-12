@@ -81,7 +81,7 @@ public class ComboState : AGameState
     private void CastCombo()
     {
         GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_COMBO, "Attack");
-        go.transform.position = PlayerController.Instance.transform.position;
+        go.transform.position = PlayerController.Instance.PlayerHand.position;
 
         if(go.TryGetComponent<ProjectilCombo>(out ProjectilCombo projectil))
         {
