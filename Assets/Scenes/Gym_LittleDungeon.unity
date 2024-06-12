@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.00401171, g: 0.00021892322, b: 0.000000052846683, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 6103c0c4997f70e4ca0242d9486be52b, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9f1fd4a0f5dde9c4abc42e72ddff352a, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -632,7 +632,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501877493}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -695,13 +695,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501877493}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9848078, y: -0, z: -0, w: -0.17364809}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 200, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!1 &519633257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,6 +2568,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3306325702525814590, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.741
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306325702525814590, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.73
+      objectReference: {fileID: 0}
     - target: {fileID: 3371009675863889457, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -2596,9 +2604,29 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5255457287080004262, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304945177629096496, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.647
+      objectReference: {fileID: 0}
     - target: {fileID: 5813697035637434445, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856208978070908724, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_Range
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856208978070908724, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_Intensity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856208978070908724, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7172647797378663296, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
       propertyPath: m_CastShadows
@@ -2607,6 +2635,14 @@ PrefabInstance:
     - target: {fileID: 7325266896440728181, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567639209806987335, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567639209806987335, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.506
       objectReference: {fileID: 0}
     - target: {fileID: 8155702007598345542, guid: 90468b9738bc5bd4c8ee1d87b6e94110, type: 3}
       propertyPath: m_StaticEditorFlags
