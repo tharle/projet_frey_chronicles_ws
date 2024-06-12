@@ -2059,11 +2059,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &696659352 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8249376056411558251, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
-  m_PrefabInstance: {fileID: 6040558285911241559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &699550469
 Mesh:
   m_ObjectHideFlags: 0
@@ -7585,10 +7580,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1083562189729293796, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
-      propertyPath: m_PlayerHand
-      value: 
-      objectReference: {fileID: 696659352}
     - target: {fileID: 2929529476065059548, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.49
