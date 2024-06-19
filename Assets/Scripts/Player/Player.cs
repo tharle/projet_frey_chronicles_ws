@@ -40,19 +40,31 @@ public struct Player : ITarget
         DamageRange = new Vector2(3, 15);
     }
 
-    public float GetHPRatio()
+    public HudBarData GetHPData()
     {
-        return HitPoints / HitPointsMax;
+        HudBarData hpData;
+        hpData.CurrentValue = HitPoints;
+        hpData.MaxValue = HitPointsMax;
+
+        return hpData;
     }
 
-    public float GetAPRatio()
+    public HudBarData GetAPData()
     {
-        return (float)ActionPoints / (float)ActionPointsMax;
+        HudBarData apData;
+        apData.CurrentValue = ActionPoints;
+        apData.MaxValue = ActionPointsMax;
+
+        return apData;
     }
 
-    public float GetTPRatio()
+    public HudBarData GetTPData()
     {
-        return (float)TensionPoints / (float)TensionPointsMax;
+        HudBarData tpData;
+        tpData.CurrentValue = TensionPoints;
+        tpData.MaxValue = TensionPointsMax;
+
+        return tpData;
     }
 
     public int GetDamage()
