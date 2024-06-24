@@ -57,7 +57,7 @@ public class ComboState : AGameState
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown((int)MouseButton.Left))
         {
             GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboTimerToggle, new GameEventMessage(EGameEventMessage.ComboTimerToggle, false));
-            m_Controller.StopCoroutine(m_Coroutine);
+            if(m_Coroutine != null) m_Controller.StopCoroutine(m_Coroutine);
             if (!m_AttackWasPressed && m_Hit)
             {
                 m_Hit = false;
