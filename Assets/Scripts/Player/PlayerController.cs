@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : ATargetController
 {
 
+    [SerializeField] private Transform m_PlayerHand;
+
+    public Transform PlayerHand { get => m_PlayerHand; }
 
     /**
      * **********************************************
@@ -68,7 +71,7 @@ public class PlayerController : ATargetController
 
             m_Player.AddActionPoints();
             yield return new WaitForSeconds(m_Player.RefreshTime);
-            RefreshInfoHUD();
+            RefreshInfoHUDAP();
         }
     }
 
@@ -150,12 +153,29 @@ public class PlayerController : ATargetController
     {
         m_StackActionPoints = false;
         m_Player.ConsumeActionPoints();
-        RefreshInfoHUD();
+        RefreshInfoHUDAP();
     }
 
     private void RefreshInfoHUD()
     {
-        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshInfoHUD, new GameEventMessage(EGameEventMessage.Player, m_Player));
+        RefreshInfoHUDHP();
+        RefreshInfoHUDAP();
+        RefreshInfoHUDTP();
+    }
+
+    private void RefreshInfoHUDHP()
+    {
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshHUDHP, new GameEventMessage(EGameEventMessage.HudBarData, m_Player.GetHPData()));
+    }
+
+    private void RefreshInfoHUDAP()
+    {
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshHUDAP, new GameEventMessage(EGameEventMessage.HudBarData, m_Player.GetAPData()));
+    }
+
+    private void RefreshInfoHUDTP()
+    {
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.RefreshHUDTP, new GameEventMessage(EGameEventMessage.HudBarData, m_Player.GetTPData()));
     }
 
     private void TakeDamage(GameEventMessage message)
@@ -166,7 +186,8 @@ public class PlayerController : ATargetController
             m_Player.HitPoints -= damage;
         }
         // TODO : Add die
-        RefreshInfoHUD();
+        //RefreshInfoHUD();
+        RefreshInfoHUDHP();
     }
 
     private void ComboDamageToEnemy(GameEventMessage message)
@@ -180,7 +201,8 @@ public class PlayerController : ATargetController
         m_Player.TensionPoints += tension;
         m_Player.TensionPoints = m_Player.TensionPoints > m_Player.TensionPointsMax ? m_Player.TensionPointsMax : m_Player.TensionPoints;
 
-        RefreshInfoHUD();
+        //RefreshInfoHUD();
+        RefreshInfoHUDTP();
     }
 
     public void ConsumeTension(int tension)
@@ -188,7 +210,8 @@ public class PlayerController : ATargetController
         m_Player.TensionPoints -= tension;
         m_Player.TensionPoints = m_Player.TensionPoints < 0 ? 0 : m_Player.TensionPoints;
 
-        RefreshInfoHUD();
+        //RefreshInfoHUD();
+        RefreshInfoHUDTP();
     }
 
     // TODO: jusqu'au comobo etre fait
