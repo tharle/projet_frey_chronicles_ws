@@ -108,7 +108,11 @@ public class PlayerController : ATargetController
     private void OnNoneState(bool isEnterState)
     {
 
-        if (isEnterState) DespawnSelectSphere();
+        if (isEnterState) 
+        { 
+            DespawnSelectSphere();
+            PlayerAnimation.Instance.ResetAnimation();
+        }
     }
 
     private void SpawnSelectSphere()

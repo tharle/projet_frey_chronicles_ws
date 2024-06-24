@@ -80,6 +80,10 @@ public class ComboState : AGameState
 
     private void CastCombo()
     {
+        // Animation
+        PlayerAnimation.Instance.Attack();
+
+        //Logic
         GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_COMBO, "Attack");
         go.transform.position = PlayerController.Instance.PlayerHand.position;
 

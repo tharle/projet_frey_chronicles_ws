@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform m_CameraTransform;
     
     private Rigidbody m_Rigidbody;
-    private Animator m_Animator;
 
     private bool m_IsPlaying;
 
@@ -24,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     {
         m_IsPlaying = true;
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Animator = GetComponentInChildren<Animator>();
 
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
         GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneMode);
@@ -79,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        // TODO : Creer une classe pour gérer les animations
-        m_Animator.SetFloat(GameParametres.AnimationPlayer.FLOAT_VELOCITY, velocity.magnitude);
+        PlayerAnimation.Instance?.ChangeVelocity(velocity.magnitude);
 
         // Ignorer les changement 
         velocity.y = m_Rigidbody.velocity.y;

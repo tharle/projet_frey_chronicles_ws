@@ -8,6 +8,9 @@ public class GameParametres
         public const string FLOAT_VELOCITY = "velocity";
         public const string TRIGGER_SHOOT = "shoot";
         public const string TRIGGER_INTERACT = "interact";
+
+        public static string FLOAT_ATTACK_ID = "attack";
+        public static string TRIGGER_TO_IDLE = "to_idle";
     }
 
     public class AnimationEnemy
