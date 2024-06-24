@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Gym_DGSalon.unity
-    guid: 4e7220d563937b14f9d07979178d209a
+    path: Assets/Scenes/Gym_LittleDungeon.unity
+    guid: 4b4e5639874f78b4dafabccf836117a3
   m_configObjects: {}

@@ -4838,8 +4838,8 @@ GameObject:
   m_Component:
   - component: {fileID: 803679808808410958}
   - component: {fileID: 1017784383136815084}
-  - component: {fileID: 1651923827672783274}
-  - component: {fileID: 1490630317360559969}
+  - component: {fileID: 870020918417236312}
+  - component: {fileID: 5845206001339725123}
   m_Layer: 0
   m_Name: fire_place_0
   m_TagString: Untagged
@@ -4856,8 +4856,8 @@ Transform:
   m_GameObject: {fileID: 4279279757138740165}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.474, z: 0.359}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0.76, z: 0.338}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2418204280499138457}
@@ -4915,7 +4915,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!108 &1651923827672783274
+--- !u!108 &870020918417236312
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4926,9 +4926,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9056604, g: 0.4867547, b: 0.09825563, a: 1}
-  m_Intensity: 5
-  m_Range: 500
+  m_Color: {r: 0.7735849, g: 0.45599166, b: 0.12771447, a: 1}
+  m_Intensity: 4
+  m_Range: 3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -4969,7 +4969,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 3
+  m_BounceIntensity: 2
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -4977,7 +4977,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &1490630317360559969
+--- !u!114 &5845206001339725123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
