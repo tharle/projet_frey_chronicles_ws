@@ -12,7 +12,7 @@ public class SelectSphere : MonoBehaviour
     private float m_SphereRadiusMax = 0.1f;
     private ATargetController m_TargetSelected;
 
-    public Action<ITarget> OnTargetSelected;
+    //public Action<ITarget> OnTargetSelected;
 
     [SerializeField] private GameObject m_Model;
 
@@ -39,6 +39,7 @@ public class SelectSphere : MonoBehaviour
     {
         PlayerController.Instance.OnAttack += OnAttack;
         PlayerController.Instance.OnSpell += OnSpell;
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.SelectTarget, OnSelectTarget);
     }
 
     private void OnAttack(int damage)
@@ -50,6 +51,15 @@ public class SelectSphere : MonoBehaviour
     {
         m_TargetSelected.ReciveSpell(damage, elementalId);
     }
+
+    private void OnSelectTarget(GameEventMessage message)
+    {
+        if(message.Contains<ATargetController>(EGameEventMessage.TargetController, out ATargetController targetController))
+        {
+            SelectTarget(targetController);
+        }
+    }
+
 
     private void Update()
     {
@@ -68,12 +78,15 @@ public class SelectSphere : MonoBehaviour
         return m_TargetSelected != null && m_TargetSelected.IsSelected;
     }
 
-    public void SelectTarget(ATargetController target)
+    private void SelectTarget(ATargetController target)
     {
-        m_TargetSelected?.DesSelected();
-        m_TargetSelected = target;
+        if (IsTargetSelected()) 
+        {
+            m_TargetSelected?.DesSelected();
+            m_TargetSelected = target;
+        }
 
-        UpdateSelectTarget();
+        m_TargetSelected?.ShowSelected();
     }
 
     public void ShowSphere(float radius)
@@ -93,7 +106,7 @@ public class SelectSphere : MonoBehaviour
         HideSphere();
     }
 
-    public void HideSphere()
+public void HideSphere()
     {
         m_Model.SetActive(false);
     }
@@ -101,11 +114,5 @@ public class SelectSphere : MonoBehaviour
     private void DrawSphere()
     {
         transform.localScale = new Vector3(m_SphereRadius/2, m_SphereRadius/2, m_SphereRadius/2);
-    }
-
-    public void UpdateSelectTarget()
-    {
-        m_TargetSelected?.ShowSelected();
-        OnTargetSelected?.Invoke(m_TargetSelected?.GetTarget());
     }
 }

@@ -17,16 +17,19 @@ public class HUDTargetDisplayInfo : MonoBehaviour
 
     private void SubscribeAllNotifyEvents()
     {
-        SelectSphere.Instance.OnTargetSelected = NotifyShowSelectTarget;
+        //SelectSphere.Instance.OnTargetSelected = NotifyShowSelectTarget;
         GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.SelectTarget, OnTargetSelected);
     }
 
-
-    private void NotifyShowSelectTarget(ITarget target)
+    private void OnTargetSelected(GameEventMessage message)
     {
-        //TargetDisplayInfo.SetActive(true);
-        m_TargetDamage.text = target != null ?  target.DisplayDamage(): "No target in range";
-        m_TargetDescription.text = target != null? target.DisplayDescription() : "";
+
+        if (message.Contains<ITarget>(EGameEventMessage.Target, out ITarget target))
+        {
+            m_TargetDamage.text = target != null ? target.DisplayDamage() : "No target in range";
+            m_TargetDescription.text = target != null ? target.DisplayDescription() : "";
+        }
     }
 
     private void OnInterractionMode(bool inIntration)

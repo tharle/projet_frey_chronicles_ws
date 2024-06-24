@@ -94,19 +94,15 @@ public class DungeonTargetManager: MonoBehaviour
             }
         );
 
-        if (!SelectSphere.Instance.IsTargetSelected()) 
-        {
-            m_IndexSelected = 0;
-            SelectTarget();
-        } else
-        {
-            SelectSphere.Instance.UpdateSelectTarget();
-        }
+        SelectTarget();
     }
 
     private void SelectTarget()
     {
-        SelectSphere.Instance.SelectTarget(TargetSelected); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.TargetController, TargetSelected);
+        message.Add(EGameEventMessage.Target, TargetSelected?.GetTarget());
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.SelectTarget, message);
+        //SelectSphere.Instance.SelectTarget(TargetSelected); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
 
     // -------------------------------------------

@@ -22,7 +22,8 @@ public class HUDActionMenu : MonoBehaviour
     private void SubscribeAllNotifyEvents()
     {
         GameStateEvent.Instance.SubscribeTo(EGameState.ActionMenu, OnActionMenu);
-        SelectSphere.Instance.OnTargetSelected += OnTargetSelected;
+        //SelectSphere.Instance.OnTargetSelected += OnTargetSelected;
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.SelectTarget, OnTargetSelected);
     }
 
     private void OnActionMenu(bool isEnterState)
@@ -30,10 +31,14 @@ public class HUDActionMenu : MonoBehaviour
         m_ActionMenuPanel.SetActive(isEnterState);
     }
 
-    private void OnTargetSelected(ITarget target)
+    private void OnTargetSelected(GameEventMessage message)
     {
-        // TODO: Changer pour une plus belle view
-        m_BtnAttack.gameObject.SetActive(target is not Player); 
+
+        if (message.Contains<ITarget>(EGameEventMessage.Target, out ITarget target))
+        {
+            // TODO: Changer pour une plus belle view
+            m_BtnAttack.gameObject.SetActive(target is not Player); 
+        }
     }
 
     public void OnClickAttack()
