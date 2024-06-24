@@ -368,7 +368,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2262941437851255858}
         m_TargetAssemblyTypeName: HUDActionMenu, Assembly-CSharp
         m_MethodName: OnClickSpell
         m_Mode: 1
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2262941437851255858}
         m_TargetAssemblyTypeName: HUDActionMenu, Assembly-CSharp
         m_MethodName: OnClickAttack
         m_Mode: 1

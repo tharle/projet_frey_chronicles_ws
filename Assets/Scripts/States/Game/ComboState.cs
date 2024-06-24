@@ -92,7 +92,7 @@ public class ComboState : AGameState
     private void OnHit(ATargetController target)
     {
         AudioManager.Instance.Play(EAudio.Attack, m_Controller.transform.position);
-        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.DamageElemental, EElemental.Fire));
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, target));
 
         if(!m_AttackWasPressed) m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
         else m_Controller.ChangeState(EGameState.None);

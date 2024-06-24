@@ -23,7 +23,6 @@ public class PlayerController : ATargetController
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
 
-    public event Action<int> OnAttack;
     public event Action<int, EElemental> OnSpell;
 
     private static PlayerController m_Instance;
@@ -192,8 +191,10 @@ public class PlayerController : ATargetController
 
     private void ComboDamageToEnemy(GameEventMessage message)
     {
-        // Ignorerr le message
-        OnAttack?.Invoke(m_Player.GetDamage());
+        if (message.Contains<ATargetController>(EGameEventMessage.TargetController, out ATargetController targetController))
+        {
+            AddTension(targetController.ReciveAttack(m_Player.GetDamage()));
+        }
     }
 
     public void AddTension(int tension)

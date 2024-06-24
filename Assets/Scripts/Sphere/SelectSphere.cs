@@ -12,8 +12,6 @@ public class SelectSphere : MonoBehaviour
     private float m_SphereRadiusMax = 0.1f;
     private ATargetController m_TargetSelected;
 
-    //public Action<ITarget> OnTargetSelected;
-
     [SerializeField] private GameObject m_Model;
 
     private static SelectSphere m_Instance;
@@ -37,14 +35,8 @@ public class SelectSphere : MonoBehaviour
 
     private void SubscribeAll()
     {
-        PlayerController.Instance.OnAttack += OnAttack;
         PlayerController.Instance.OnSpell += OnSpell;
         GameEventSystem.Instance.SubscribeTo(EGameEvent.SelectTarget, OnSelectTarget);
-    }
-
-    private void OnAttack(int damage)
-    {
-        PlayerController.Instance.AddTension(m_TargetSelected.ReciveAttack(damage));
     }
 
     private void OnSpell(int damage, EElemental elementalId)
