@@ -149,22 +149,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gui_bar_0
+      name: gui_backgourd_0
       rect:
         serializedVersion: 2
-        x: 135
-        y: 293
-        width: 45
-        height: 7
+        x: 2
+        y: 226
+        width: 44
+        height: 44
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 3, y: 2, z: 5, w: 2}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 15, y: 6, z: 15, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0248886399e95a54abe7d3fae954773b
-      internalID: 1353083725
+      spriteID: bb2cc2c60b915f84bb7d46f908e44f32
+      internalID: 1903743832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gui_buton_1
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 193
+        width: 46
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 4, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98c3243eac3fa684dacb01d1ea0dddd9
+      internalID: 1259334824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gui_buton_0
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 209
+        width: 46
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 5, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec3be8baf0bd7840a8b05164b264bb9
+      internalID: 1049001105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gui_buton_2
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 177
+        width: 46
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 5, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8b1cb94a95990644a0517ec97a78135
+      internalID: 1452664648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gui_backgourd_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 177
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 8, z: 7, w: 8}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557b854fc774db84fb791e7aee84ac42
+      internalID: -501132400
       vertices: []
       indices: 
       edges: []
@@ -180,8 +264,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GUI_0: -925203171
+      gui_backgourd_0: -925203171
+      gui_backgourd_1: -501132400
       gui_bar_0: 1353083725
+      gui_buton_0: 1049001105
+      gui_buton_1: 1259334824
+      gui_buton_2: 1452664648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
