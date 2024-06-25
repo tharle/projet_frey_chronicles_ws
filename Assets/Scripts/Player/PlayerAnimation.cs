@@ -37,12 +37,17 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Attack()
     {
-        float attackValue = Random.Range(0, 1);
-        m_Animator.SetFloat(GameParametres.AnimationPlayer.FLOAT_ATTACK_ID, attackValue);
+        int attackId = Random.Range(0, 4);
+        m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_ATTACK_ID + attackId);
     }
 
     public void ResetAnimation() 
     {
         m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_TO_IDLE);
+    }
+
+    public void InInterract()
+    {
+        m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_INTERRACT);
     }
 }

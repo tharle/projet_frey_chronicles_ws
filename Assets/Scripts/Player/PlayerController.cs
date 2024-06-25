@@ -7,6 +7,10 @@ public class PlayerController : ATargetController
 
     [SerializeField] private Transform m_PlayerHand;
 
+    // TODO Temp, that will be changed by BundleResources and magic stands
+    [SerializeField] private SpellData m_FireBallData; // Just for beta
+    public Spell FireBall => m_FireBallData.Value;
+
     public Transform PlayerHand { get => m_PlayerHand; }
 
     /**
@@ -83,6 +87,7 @@ public class PlayerController : ATargetController
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
+        GameEventSystem.Instance.SubscribeTo(EGameEvent.CastMagic, OnCastMagic);
     }
 
     private void EnterRoom(GameEventMessage message)
@@ -111,7 +116,6 @@ public class PlayerController : ATargetController
         if (isEnterState) 
         { 
             DespawnSelectSphere();
-            PlayerAnimation.Instance.ResetAnimation();
         }
     }
 
@@ -128,26 +132,12 @@ public class PlayerController : ATargetController
     private void OnSpellState(bool isEnterState)
     {
 
-        if (isEnterState) 
-        {
-            AudioManager.Instance.Play(EAudio.MagicFire, transform.position);
-            ConsumeAction();
-            ConsumeTension(UnityEngine.Random.Range(2, 15));
-            OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
-        } 
+        if (isEnterState) ConsumeAction();
         else m_StackActionPoints = true;
     }
 
     private void OnComboState(bool isEnterState)
     {
-
-        /*if (isEnterState) {
-            AudioManager.Instance.Play(EAudio.Attack, transform.position);
-            ConsumeAction();
-            OnAttack?.Invoke(m_Player.GetDamage());
-        } 
-        else m_StackActionPoints = true;*/
-
         if (isEnterState) ConsumeAction();
         else m_StackActionPoints = true;
     }
@@ -201,6 +191,24 @@ public class PlayerController : ATargetController
         }
     }
 
+    private void OnCastMagic(GameEventMessage message)
+    {
+        if (message.Contains<ATargetController>(EGameEventMessage.TargetController, out ATargetController targetController))
+        {
+            if(message.Contains<Spell>(EGameEventMessage.Spell, out Spell spell))
+            {
+
+                if(!ConsumeTension(spell.TensionCost)) return;
+
+                AudioManager.Instance.Play(EAudio.MagicFire, transform.position);
+                OnSpell?.Invoke(m_Player.GetDamage(), EElemental.Fire);
+
+                targetController.ReciveSpell(spell);
+            }
+        }
+    }
+
+
     public void AddTension(int tension)
     {
         m_Player.TensionPoints += tension;
@@ -210,13 +218,17 @@ public class PlayerController : ATargetController
         RefreshInfoHUDTP();
     }
 
-    public void ConsumeTension(int tension)
+    public bool ConsumeTension(int tension)
     {
+        if (m_Player.TensionPoints < tension) return false;
+
         m_Player.TensionPoints -= tension;
         m_Player.TensionPoints = m_Player.TensionPoints < 0 ? 0 : m_Player.TensionPoints;
 
         //RefreshInfoHUD();
         RefreshInfoHUDTP();
+
+        return true;
     }
 
     // TODO: jusqu'au comobo etre fait
@@ -255,5 +267,13 @@ public class PlayerController : ATargetController
         playerPos.y = 0;
         position.y = 0;
         return (playerPos - position).normalized;
+    }
+
+    public void LookToTarget(ATargetController m_Target)
+    {
+        if(m_Target == null) return;
+
+        Vector3 direction = GetDirectionFrom(m_Target.transform.position);
+        transform.forward = direction;
     }
 }

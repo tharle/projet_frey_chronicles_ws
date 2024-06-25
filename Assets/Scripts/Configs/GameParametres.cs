@@ -9,8 +9,10 @@ public class GameParametres
         public const string TRIGGER_SHOOT = "shoot";
         public const string TRIGGER_INTERACT = "interact";
 
-        public static string FLOAT_ATTACK_ID = "attack";
+        public static string TRIGGER_ATTACK_ID = "attack_";
         public static string TRIGGER_TO_IDLE = "to_idle";
+
+        public static string TRIGGER_INTERRACT = "interract";
     }
 
     public class AnimationEnemy

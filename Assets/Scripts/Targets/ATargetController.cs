@@ -70,7 +70,7 @@ public abstract class ATargetController : MonoBehaviour
         return 0;
     }
 
-    public virtual void ReciveSpell(int value, EElemental elementalId)
+    public virtual void ReciveSpell(Spell spell)
     {
         // TODO: change apres le mechaniques des spells
     }

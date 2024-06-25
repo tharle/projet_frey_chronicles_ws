@@ -138,9 +138,10 @@ public class EnemyController : ATargetController
         return m_Enemy.TensionPoints;
     }
 
-    public override void ReciveSpell(int value, EElemental elementalId)
+    public override void ReciveSpell(Spell spell)
     {
-        m_Enemy.HitPoints -= value;
+        // TODO calc speel force
+        m_Enemy.HitPoints -= (int) spell.BaseDamage;
 
         if (!IsAlive()) TargetDie();
     }

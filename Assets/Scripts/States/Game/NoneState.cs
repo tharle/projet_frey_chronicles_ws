@@ -14,6 +14,7 @@ public class NoneState : AGameState
     public override void OnEnter()
     {
         Time.timeScale = 1.0f;
+        PlayerAnimation.Instance?.ResetAnimation();
         base.OnEnter();
     }
 

@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerHand: {fileID: 8249376056411558251}
+  m_FireBallData: {fileID: 11400000, guid: 4e19f50518ffe1247b4e82c895f8f30d, type: 2}
 --- !u!114 &8219415832081548738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +641,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2255837369287497005, guid: 7dc03a27f0b05074693c4d5d646307a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2510206884250021105, guid: 7dc03a27f0b05074693c4d5d646307a9, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -651,6 +656,10 @@ PrefabInstance:
     - target: {fileID: 2677596514934467036, guid: 7dc03a27f0b05074693c4d5d646307a9, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677596514934467036, guid: 7dc03a27f0b05074693c4d5d646307a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3327415615574490268, guid: 7dc03a27f0b05074693c4d5d646307a9, type: 3}
       propertyPath: m_Layer

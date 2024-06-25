@@ -25,7 +25,7 @@ public class ComboState : AGameState
         m_Timeout = false;
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnemyDie, OnEnemyDie);
         m_Target = DungeonTargetManager.Instance.TargetSelected;
-        CastCombo();
+        m_Controller.StartCoroutine(CastComboRoutine());
     }
 
     private void OnEnemyDie(GameEventMessage message)
@@ -65,7 +65,7 @@ public class ComboState : AGameState
                 GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboInfoHUD, new GameEventMessage(EGameEventMessage.ComboValue, m_ComboCounter));
 
                 //m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
-                CastCombo();
+                m_Controller.StartCoroutine(CastComboRoutine());
             }else if (!m_AttackWasPressed)
             {
                 m_AttackWasPressed = true;
@@ -78,10 +78,14 @@ public class ComboState : AGameState
         }
     }
 
-    private void CastCombo()
+    private IEnumerator CastComboRoutine()
     {
         // Animation
         PlayerAnimation.Instance.Attack();
+
+        PlayerController.Instance.LookToTarget(m_Target);
+
+        yield return new WaitForSeconds(0.3f);
 
         //Logic
         GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_COMBO, "Attack");

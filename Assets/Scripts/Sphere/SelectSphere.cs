@@ -35,13 +35,7 @@ public class SelectSphere : MonoBehaviour
 
     private void SubscribeAll()
     {
-        PlayerController.Instance.OnSpell += OnSpell;
         GameEventSystem.Instance.SubscribeTo(EGameEvent.SelectTarget, OnSelectTarget);
-    }
-
-    private void OnSpell(int damage, EElemental elementalId)
-    {
-        m_TargetSelected.ReciveSpell(damage, elementalId);
     }
 
     private void OnSelectTarget(GameEventMessage message)

@@ -14,7 +14,8 @@ public enum EGameEventMessage
     Enter,
     HudBarData,
     TargetController,
-    Target
+    Target,
+    Spell
 }
 
 public class GameEventMessage
