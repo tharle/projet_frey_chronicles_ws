@@ -13,6 +13,8 @@ public class GameParametres
         public static string TRIGGER_TO_IDLE = "to_idle";
 
         public static string TRIGGER_INTERRACT = "interract";
+        public static string TRIGGER_HIT_STRONG = "hit_strong";
+        public static string TRIGGER_HIT_WEAK = "hit_weak";
     }
 
     public class AnimationEnemy
@@ -22,6 +24,7 @@ public class GameParametres
         public const string TRIGGER_DIE = "die";
 
         public const string NAME_ATTACK = "attack";
+        public static string TRIGGER_HIT = "hit";
     }
 
     public class BundleNames

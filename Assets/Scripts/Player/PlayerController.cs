@@ -176,6 +176,7 @@ public class PlayerController : ATargetController
         if (message.Contains<float>(EGameEventMessage.DamageAttack, out float damage))
         {
             // TODO : Calculer fablisse (?)
+            PlayerAnimation.Instance.TakeDamage();
             m_Player.HitPoints -= damage;
         }
         // TODO : Add die

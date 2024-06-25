@@ -50,4 +50,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_INTERRACT);
     }
+
+    public void TakeDamage()
+    {
+        m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_HIT_STRONG);
+    }
 }
