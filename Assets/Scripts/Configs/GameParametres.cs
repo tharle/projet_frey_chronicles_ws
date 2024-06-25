@@ -74,7 +74,7 @@ public class GameParametres
 
     public class SceneName
     {
-        public const string SCENE_GAME = "Game";
+        public const string SCENE_GAME = "Gym_LittleDungeon";
         public const string SCENE_MENU = "MainMenu";
     }
     public class TagName {

@@ -22,7 +22,7 @@ public class ProjectilCombo : MonoBehaviour
     {
         if (other.TryGetComponent<ATargetController>(out ATargetController target) && target == m_Target)
         {
-            m_OnHit?.Invoke(target);
+             m_OnHit?.Invoke(target);
             Destroy(gameObject);
         }
     }

@@ -36,4 +36,9 @@ public class GameStateEvent
         if (m_Events.ContainsKey(gameStateId))
             m_Events[gameStateId]?.Invoke(isEnter);
     }
+
+    public void ClearAll()
+    {
+        m_Events = new Dictionary<EGameState, Action<bool>>();
+    }
 }

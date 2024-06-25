@@ -69,4 +69,8 @@ public class GameEventSystem
         m_Events[eventId]?.Invoke(parameters);
     }
 
+    public void ClearAll()
+    {
+        m_Events = new Dictionary<EGameEvent, Action<GameEventMessage>>();
+    }
 }

@@ -837,6 +837,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 519633259}
     m_Modifications:
+    - target: {fileID: 2720937345632052672, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3796464685288867597, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -937,6 +941,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6057143295558171301, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnQuitGame
+      objectReference: {fileID: 0}
     - target: {fileID: 6340820030002051386, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSpell
@@ -949,9 +957,29 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7580992168459919605, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580992168459919605, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580992168459919605, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.03734909
+      objectReference: {fileID: 0}
     - target: {fileID: 8207956100241612817, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482728179641764524, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_text
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482728179641764524, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_fontSize
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
