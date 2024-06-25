@@ -27,6 +27,11 @@ public class DungeonTargetManager: MonoBehaviour
 
     private int m_IndexSelected;
 
+    public ATargetController TargetSelected
+    {
+        get => m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
+    }
+
     private void Awake()
     {
         if (m_Instance != null) Destroy(gameObject);
@@ -89,20 +94,15 @@ public class DungeonTargetManager: MonoBehaviour
             }
         );
 
-        if (!SelectSphere.Instance.IsTargetSelected()) 
-        {
-            m_IndexSelected = 0;
-            SelectTarget();
-        } else
-        {
-            SelectSphere.Instance.UpdateSelectTarget();
-        }
+        SelectTarget();
     }
 
     private void SelectTarget()
     {
-        ATargetController target = m_TargetsInRange.Count != 0 ? m_TargetsInRange[m_IndexSelected] : null;
-        SelectSphere.Instance.SelectTarget(target); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.TargetController, TargetSelected);
+        message.Add(EGameEventMessage.Target, TargetSelected?.GetTarget());
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.SelectTarget, message);
+        //SelectSphere.Instance.SelectTarget(TargetSelected); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
 
     // -------------------------------------------

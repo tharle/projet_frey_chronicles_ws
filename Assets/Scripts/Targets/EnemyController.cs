@@ -18,12 +18,14 @@ public class EnemyController : ATargetController
     }
     private NavMeshAgent m_NavMeshAgent;
     private Animator m_Animator;
+    public Animator EnemyAnimator => m_Animator;
     
 
     private bool m_Running;
 
     private AEnemyState m_CurrentState;
     private Dictionary<EEnemyState, AEnemyState> m_States;
+
 
     private void OnDestroy()
     {
@@ -42,9 +44,13 @@ public class EnemyController : ATargetController
     protected override void AfterAwake() // Meme que le Start()
     {
         base.AfterAwake();
-        m_Animator = GetComponentInChildren<Animator>();
         SubscribeAll();
         LoadStates();
+    }
+
+    protected override void AfterStart() {
+        m_Animator = GetComponentInChildren<Animator>();
+        base.AfterStart();
     }
 
     private void LoadStates()
@@ -81,11 +87,6 @@ public class EnemyController : ATargetController
         m_NavMeshAgent.isStopped = !isEnterState;
     }
 
-    public bool IsAlive()
-    {
-        return m_Enemy.HitPoints > 0;
-    }
-
     public override ITarget GetTarget()
     {
         return m_Enemy;
@@ -107,27 +108,6 @@ public class EnemyController : ATargetController
         m_NavMeshAgent.destination = destination;
     }
 
-    
-    public int TakeDamage(int damage)
-    {
-        // TODO : Add animation Hit
-
-        m_Enemy.HitPoints -= damage;
-
-        Debug.Log($"The enemy {m_Enemy.Name} got {damage} the damage.");
-        if (m_Enemy.HitPoints <= 0) 
-        {
-            Debug.Log($"He DIE!");
-            TargetDie();
-        }else
-        {
-            Debug.Log($"HP {m_Enemy.HitPoints}/{m_Enemy.HitPointsMax}");
-        }
-
-
-        return m_Enemy.TensionPoints;
-    }
-
     /// <summary>
     /// Take damage and return the amount of Tension for the player
     /// </summary>
@@ -136,6 +116,7 @@ public class EnemyController : ATargetController
     public override int ReciveAttack(int value)
     {
         Debug.Log($"The player give {value} damage to {m_Enemy.Name}.");
+        m_Animator.SetTrigger(GameParametres.AnimationEnemy.TRIGGER_HIT);
         m_Enemy.HitPoints -= value;
         
         if (!IsAlive()) TargetDie();
@@ -143,9 +124,12 @@ public class EnemyController : ATargetController
         return m_Enemy.TensionPoints;
     }
 
-    public override void ReciveSpell(int value, EElemental elementalId)
+    public override void ReciveSpell(Spell spell)
     {
-        m_Enemy.HitPoints -= value;
+        m_Animator.SetTrigger(GameParametres.AnimationEnemy.TRIGGER_HIT);
+
+        // TODO calc speel force
+        m_Enemy.HitPoints -= (int) spell.BaseDamage;
 
         if (!IsAlive()) TargetDie();
     }
@@ -153,6 +137,7 @@ public class EnemyController : ATargetController
     protected override void TargetDie()
     {
         base.TargetDie();
+        m_Animator.SetTrigger(GameParametres.AnimationEnemy.TRIGGER_DIE);
         if (m_CurrentState is EnemyStateMove) GoNextEnemy();
     }
 

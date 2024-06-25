@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8190410351296320127
 Transform:
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7728428012472032931}
   serializedVersion: 2
-  m_LocalRotation: {x: 1.0870698e-17, y: -0.20316084, z: -2.2555385e-18, w: 0.9791454}
+  m_LocalRotation: {x: 0, y: -0.20316331, z: 0, w: 0.9791449}
   m_LocalPosition: {x: 17.7, y: 0.6183018, z: 13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -84,6 +84,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 289929f041834d243a2fead0bedf2a99, type: 3}
       propertyPath: m_Name
       value: barrel_large
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 289929f041834d243a2fead0bedf2a99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -176,6 +180,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3f3c137348d18fd409c35f4535479b97, type: 3}
       propertyPath: m_Name
       value: barrel_large_decorated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3f3c137348d18fd409c35f4535479b97, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

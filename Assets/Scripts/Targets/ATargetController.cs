@@ -70,7 +70,7 @@ public abstract class ATargetController : MonoBehaviour
         return 0;
     }
 
-    public virtual void ReciveSpell(int value, EElemental elementalId)
+    public virtual void ReciveSpell(Spell spell)
     {
         // TODO: change apres le mechaniques des spells
     }
@@ -86,9 +86,14 @@ public abstract class ATargetController : MonoBehaviour
     {
         return GetTarget().GetRange();
     }
+    public bool IsAlive()
+    {
+        return GetTarget().IsAlive();
+    }
 
     public static T ConvertTo<T>(ATargetController target) where T : ATargetController
     {
         return (T)target;
     }
+
 }

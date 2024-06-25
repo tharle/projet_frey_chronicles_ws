@@ -9,10 +9,15 @@ public enum EGameEvent
     EnterRoom,
     DamageToPlayer,
     RefreshInfoHUD,
+    RefreshHUDHP,
+    RefreshHUDTP,
+    RefreshHUDAP,
     ComboInfoHUD,
     ComboTimerToggle,
     ComboDamageToEnemy,
-    EnemyDie
+    EnemyDie,
+    SelectTarget,
+    CastMagic
 }
 
 public class GameEventSystem
@@ -64,4 +69,8 @@ public class GameEventSystem
         m_Events[eventId]?.Invoke(parameters);
     }
 
+    public void ClearAll()
+    {
+        m_Events = new Dictionary<EGameEvent, Action<GameEventMessage>>();
+    }
 }

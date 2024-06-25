@@ -11,7 +11,11 @@ public enum EGameEventMessage
     Player,
     ComboValue,
     ComboTimerToggle,
-    Enter
+    Enter,
+    HudBarData,
+    TargetController,
+    Target,
+    Spell
 }
 
 public class GameEventMessage

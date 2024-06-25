@@ -8,6 +8,13 @@ public class GameParametres
         public const string FLOAT_VELOCITY = "velocity";
         public const string TRIGGER_SHOOT = "shoot";
         public const string TRIGGER_INTERACT = "interact";
+
+        public static string TRIGGER_ATTACK_ID = "attack_";
+        public static string TRIGGER_TO_IDLE = "to_idle";
+
+        public static string TRIGGER_INTERRACT = "interract";
+        public static string TRIGGER_HIT_STRONG = "hit_strong";
+        public static string TRIGGER_HIT_WEAK = "hit_weak";
     }
 
     public class AnimationEnemy
@@ -17,11 +24,13 @@ public class GameParametres
         public const string TRIGGER_DIE = "die";
 
         public const string NAME_ATTACK = "attack";
+        public static string TRIGGER_HIT = "hit";
     }
 
     public class BundleNames
     {
         public const string PREFAB_ENEMY = "prefab_enemy";
+        public const string PREFAB_COMBO = "prefab_combo";
         public const string SFX = "sfx";
     }
 
@@ -31,6 +40,7 @@ public class GameParametres
         public const string STREAMING_ASSETS = "Assets/StreamingAssets";
         public const string DATA = "/Data";
         public const string PREFAB_ENEMY = "/Prefabs/Enemies";
+        public const string PREFAB_COMBO = "/Prefabs/Combo";
         public const string SFX = "/Sounds/SFX";
     }
 
@@ -64,7 +74,7 @@ public class GameParametres
 
     public class SceneName
     {
-        public const string SCENE_GAME = "Game";
+        public const string SCENE_GAME = "Gym_LittleDungeon";
         public const string SCENE_MENU = "MainMenu";
     }
     public class TagName {

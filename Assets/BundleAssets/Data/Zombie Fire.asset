@@ -19,7 +19,7 @@ MonoBehaviour:
     TensionPoints: 5
     SpeedMovement: 6
     SpeedInitiative: 5
-    DistanceAttack: 10
+    DistanceAttack: 3
     DistanceFlee: 35
     DamageAttack: 2
     TypeId: 2

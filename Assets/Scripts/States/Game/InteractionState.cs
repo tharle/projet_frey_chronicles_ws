@@ -8,6 +8,12 @@ public class InteractionState : AGameState
     {
     }
 
+    public override void OnEnter()
+    {
+        PlayerAnimation.Instance.InInterract();
+        base.OnEnter();
+    }
+
     public override void UpdateState()
     {
         base.UpdateState();
