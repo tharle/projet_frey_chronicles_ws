@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1469822770
+CRC: 3266397297
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 48677c50036b4879bde090816f52ce16
+    Hash: 817a8a2b2d06521e439176233e613615
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9a2ca7bdbd1871f7131daf57de908e0c
@@ -13,6 +13,12 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundleAssets/Sounds/SFX/MusicFight.mp3
+- Assets/BundleAssets/Sounds/SFX/Night Ambient 4 (Loop).ogg
 - Assets/BundleAssets/Sounds/SFX/MagicFire.wav
 - Assets/BundleAssets/Sounds/SFX/Attack.wav
+- Assets/BundleAssets/Sounds/SFX/MainMenu.ogg
+- Assets/BundleAssets/Sounds/SFX/MusicAmbient_1.wav
+- Assets/BundleAssets/Sounds/SFX/Complete.ogg
+- Assets/BundleAssets/Sounds/SFX/GameOver.wav
 Dependencies: []
