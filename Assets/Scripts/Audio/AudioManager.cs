@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +7,11 @@ using UnityEngine;
 public enum EAudio
 {
     Attack,
-    MagicFire
+    Complete,
+    GameOver,
+    MagicFire,
+    MusicAmbient_1,
+    MusicFight
 }
 public class AudioManager
 {
@@ -27,7 +32,7 @@ public class AudioManager
 
     private AudioPool m_AudioPool;
 
-    public AudioManager()
+    private AudioManager()
     {
         m_AudioPool = new AudioPool();
         m_AudioSourcePlaying = new Dictionary<EAudio, AudioSource>();
@@ -39,7 +44,7 @@ public class AudioManager
         m_AudioClips = BundleLoader.Instance.LoadSFX();
     }
 
-    public void Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false)
+    public AudioSource Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false)
     {
         AudioSource audioSource;
         // TODO: BUG: le son de la magie remplace celui de attack dans le dictionnaire...
@@ -60,6 +65,8 @@ public class AudioManager
             audioSource.Play();
             audioSource.loop = isLooping;
         }
+
+        return audioSource;
     }
 
 

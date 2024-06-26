@@ -43,24 +43,17 @@ public class BundleLoader: MonoBehaviour
     {
         Dictionary<EAudio, AudioClip> audioClipsBundle = new();
 
-        string[] assetNames = { nameof(EAudio.Attack), nameof(EAudio.MagicFire) };
+        string[] assetNames = Enum.GetNames(typeof(EAudio));
         List<AudioClip> audioClips = LoadAll<AudioClip>(GameParametres.BundleNames.SFX, false, assetNames);
         foreach (AudioClip clip in audioClips)
         {
-            EAudio audioId = EAudio.Attack;
-            switch (clip.name)
+            if(Enum.TryParse(clip.name, out EAudio audioId))
             {
-                case nameof(EAudio.Attack):
-                    audioId = EAudio.Attack;
-                    break;
-                case nameof(EAudio.MagicFire):
-                    audioId = EAudio.MagicFire;
-                    break;
+                AudioClip newClip = Instantiate(clip);
+                newClip.name = clip.name;
+                audioClipsBundle.Add(audioId, newClip);
             }
 
-            AudioClip newClip = Instantiate(clip);
-            newClip.name = clip.name;
-            audioClipsBundle.Add(audioId, newClip);
         }
 
         return audioClipsBundle;

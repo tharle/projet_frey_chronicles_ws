@@ -62,6 +62,8 @@ public class DungeonTargetManager: MonoBehaviour
             m_Targets = targets;
             m_Targets.Add(PlayerController.Instance);
             EnemyTurnManager.Instance.LoadAllEnemies();
+
+            if (m_Targets.Count > 0) GameEventSystem.Instance.TriggerEvent(EGameEvent.BattleMode, new GameEventMessage(EGameEventMessage.Enter, true));
         }
     }
 
@@ -133,6 +135,12 @@ public class DungeonTargetManager: MonoBehaviour
     {
         m_Targets.Remove(target);
         m_TargetsInRange.Remove(target);
+
+        if (!IsEnemyInTheRoom()) 
+        {
+            AudioManager.Instance.Play(EAudio.Complete, PlayerController.Instance.transform.position);
+            GameEventSystem.Instance.TriggerEvent(EGameEvent.BattleMode, new GameEventMessage(EGameEventMessage.Enter, false));
+        } 
     }
 
     public List<T> GetAllBy<T>() where T : ATargetController
@@ -144,5 +152,10 @@ public class DungeonTargetManager: MonoBehaviour
                     ATargetController.ConvertTo<T>
                 )
              );
+    }
+
+    public bool IsEnemyInTheRoom() 
+    {
+        return GetAllBy<EnemyController>().Count > 0;
     }
 }

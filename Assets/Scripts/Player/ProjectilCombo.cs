@@ -22,7 +22,7 @@ public class ProjectilCombo : MonoBehaviour
     {
         if (other.TryGetComponent<ATargetController>(out ATargetController target) && target == m_Target)
         {
-             m_OnHit?.Invoke(target);
+            m_OnHit?.Invoke(target);
             Destroy(gameObject);
         }
     }
@@ -30,6 +30,9 @@ public class ProjectilCombo : MonoBehaviour
     private void Update()
     {
         transform.Translate(m_Velocity * Time.deltaTime);
+
+        // TODO fix temp for bug
+        if(!m_Target.GetTarget().IsAlive()) Destroy(gameObject);
     }
 
 

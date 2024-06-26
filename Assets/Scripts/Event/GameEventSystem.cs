@@ -17,7 +17,8 @@ public enum EGameEvent
     ComboDamageToEnemy,
     EnemyDie,
     SelectTarget,
-    CastMagic
+    CastMagic,
+    BattleMode
 }
 
 public class GameEventSystem
