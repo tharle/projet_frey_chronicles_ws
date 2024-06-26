@@ -1123,6 +1123,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2166740271801035461}
     m_Modifications:
+    - target: {fileID: 317275639961287787, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605970988419859901, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -1179,9 +1183,29 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1580276158100124762, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188198656174649722, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_Name
       value: WallWithDoor (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098126735277963435, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803852103454966790, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1268,6 +1292,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2166740271801035461}
     m_Modifications:
+    - target: {fileID: 317275639961287787, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605970988419859901, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -1324,9 +1352,29 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1580276158100124762, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188198656174649722, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_Name
       value: WallWithDoor (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098126735277963435, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803852103454966790, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1351,6 +1399,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2166740271801035461}
     m_Modifications:
+    - target: {fileID: 317275639961287787, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605970988419859901, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -1407,9 +1459,29 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1580276158100124762, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188198656174649722, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_Name
       value: WallWithDoor (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098126735277963435, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803852103454966790, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1672,6 +1744,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2166740271801035461}
     m_Modifications:
+    - target: {fileID: 317275639961287787, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605970988419859901, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -1728,9 +1804,29 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1580276158100124762, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188198656174649722, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
       propertyPath: m_Name
       value: WallWithDoor (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244514640817203927, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098126735277963435, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803852103454966790, guid: 4ccd09cb09196e24ba90bdf2feb85410, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

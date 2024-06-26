@@ -65,6 +65,7 @@ public class GameParametres
     public class LayerMaskName
     {
         public const string GROUND = "Ground";
+        public static string WALL = "Wall";
     }
 
     public class LayerMaskValue

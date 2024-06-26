@@ -11,11 +11,16 @@ public class CameraController : MonoBehaviour
     private CinemachineVirtualCamera m_Camera;
     private Transform m_LookAtCurrent;
 
+    private List<Wall> m_WallHiddings = new ();
+
+    int m_LayerMaskWall;
+
     private void Start()
     {
         m_Camera = GetComponent<CinemachineVirtualCamera>();
         m_LookAtDefault = m_Camera.LookAt;
         m_LookAtCurrent = m_LookAtDefault;
+        m_LayerMaskWall = 1 << LayerMask.NameToLayer(GameParametres.LayerMaskName.WALL);
 
         SubscribeAllEvents();
     }
@@ -62,6 +67,38 @@ public class CameraController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)) directionRotation = Vector3.up;
         if (Input.GetKey(KeyCode.E)) directionRotation = Vector3.down;
 
-        transform.Rotate(directionRotation, Space.World);
+        if (directionRotation.magnitude > 0) 
+        {
+            transform.Rotate(directionRotation, Space.World);
+            ShowWalls();
+            HideWalls();
+        }
+        
+    }
+
+    private void ShowWalls() 
+    {
+        foreach (Wall wall in m_WallHiddings) wall.Show(true);
+        m_WallHiddings.Clear();
+    }
+
+    private void HideWalls()
+    {
+        
+
+        Vector3 catetusForward = -transform.forward;
+        catetusForward.y = 0;
+        Debug.DrawRay(transform.position, catetusForward * 50f, Color.green);
+
+
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, catetusForward, 50f, m_LayerMaskWall);
+        foreach (RaycastHit hit in hits)
+        {
+            Wall wall = hit.collider.gameObject.GetComponent<Wall>();
+            if (wall == null) continue;
+
+            wall.Show(false);
+            m_WallHiddings.Add(wall);
+        }
     }
 }

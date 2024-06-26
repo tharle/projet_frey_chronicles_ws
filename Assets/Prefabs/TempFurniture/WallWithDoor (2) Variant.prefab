@@ -144,6 +144,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallWithDoor (2) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Size.y
+      value: 4.5105143
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Size.z
+      value: 13.289889
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Center.y
+      value: 1.755257
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Center.z
+      value: 0.65734863
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4904565915063146737, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
