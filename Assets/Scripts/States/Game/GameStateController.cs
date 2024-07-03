@@ -20,6 +20,7 @@ public class GameStateController: MonoBehaviour
         m_States.Add(EGameState.Interaction, new InteractionState(this));
         m_States.Add(EGameState.Combo, new ComboState(this));
         m_States.Add(EGameState.Spell, new SpellState(this));
+        m_States.Add(EGameState.Touch, new TouchState(this));
 
         ChangeState(EGameState.None);
     }
@@ -34,6 +35,11 @@ public class GameStateController: MonoBehaviour
      //   Debug.Log($"CHANGE STATE FROM {m_CurrentState?.GetState()} --> {gameStateId}");
         m_CurrentState?.OnExit();
         StartCoroutine(ChangeStateRoutine(gameStateId));
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        m_CurrentState?.OnCollisionEnter(collision);
     }
 
 
@@ -57,7 +63,8 @@ public enum EGameState
     Combo,
     Interaction,
     Menu,
-    Spell
+    Spell,
+    Touch
 }
 
 public abstract class AGameState
@@ -85,5 +92,7 @@ public abstract class AGameState
         // Trigger le event de "exit state" dans le event system
         GameStateEvent.Instance.Call(m_GameStateId, false);
     }
+
+    public virtual void OnCollisionEnter(Collision collision){}
 }
 

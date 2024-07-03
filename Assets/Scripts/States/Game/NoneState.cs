@@ -36,4 +36,15 @@ public class NoneState : AGameState
             Debug.Log("NO ACTION AVAIBLE. WAIT!");
         }
     }
+
+    public override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        if (collision.collider.TryGetComponent<DoorController>(out DoorController doorController))
+        {
+            doorController.OpenDoor();
+            m_Controller.ChangeState(EGameState.Touch);
+        }
+    }
 }

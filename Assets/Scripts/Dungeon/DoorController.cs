@@ -8,9 +8,13 @@ public class DoorController : MonoBehaviour
 
     [SerializeField] private GameObject m_Arrow;
     [SerializeField] private GameObject m_Block;
+    [SerializeField] private Animator m_Animator;
+    private bool m_IsOpen = false;
 
     private void Start()
     {
+        m_Arrow.SetActive(true);
+        m_Block.SetActive(false);
         SubscribeAll();
     }
 
@@ -28,11 +32,12 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void OpenDoor()
     {
-        if (collision.collider.CompareTag(GameParametres.TagName.PLAYER))
-        {
-            DungeonRoomManager.Instance.GoToNextRoom();
-        }
+        if (m_IsOpen) return;
+
+        m_IsOpen = true;
+        m_Animator.SetTrigger(GameParametres.AnimationDungeon.TRIGGER_OPEN_DOOR);
+        Destroy(GetComponent<BoxCollider>(), 0.5f);
     }
 }
