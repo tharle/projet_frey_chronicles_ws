@@ -220,7 +220,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,6 +228,27 @@ TextureImporter:
       bones: []
       spriteID: 1add8ca96d10fb84fb6f4b676eaca74c
       internalID: 1636568550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 771
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d74fc37ec0cc0e48909f87d3c837ae4
+      internalID: -219718907
       vertices: []
       indices: 
       edges: []
@@ -244,6 +265,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       '#1 - Transparent Icons_1': 1109907963
+      arrow_0: -219718907
       fire_place_0: 1998830290
       icon_attack_0: 1636568550
       icon_combo_: -1595286947
