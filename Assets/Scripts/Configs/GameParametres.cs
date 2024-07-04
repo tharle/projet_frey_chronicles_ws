@@ -15,6 +15,12 @@ public class GameParametres
         public static string TRIGGER_INTERRACT = "interract";
         public static string TRIGGER_HIT_STRONG = "hit_strong";
         public static string TRIGGER_HIT_WEAK = "hit_weak";
+        public static string TRIGGER_TOUCH = "touch"; 
+    }
+
+    public class AnimationDungeon
+    {
+        public const string TRIGGER_OPEN_DOOR = "open_door";
     }
 
     public class AnimationEnemy
@@ -32,7 +38,7 @@ public class GameParametres
         public const string PREFAB_ENEMY = "prefab_enemy";
         public const string PREFAB_COMBO = "prefab_combo";
         public const string SFX = "sfx";
-    }
+    } 
 
     public class BundlePath
     {
@@ -65,6 +71,7 @@ public class GameParametres
     public class LayerMaskName
     {
         public const string GROUND = "Ground";
+        public static string WALL = "Wall";
     }
 
     public class LayerMaskValue

@@ -16,12 +16,15 @@ public class NoneState : AGameState
         Time.timeScale = 1.0f;
         PlayerAnimation.Instance?.ResetAnimation();
         base.OnEnter();
+        m_Controller.Movement.StartMoving();
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
         if (Input.GetKeyDown(KeyCode.Space)) OpenIntractionSphere();
+
+        m_Controller.Movement.Move();
     }
 
     private void OpenIntractionSphere()
@@ -34,6 +37,17 @@ public class NoneState : AGameState
         else
         {
             Debug.Log("NO ACTION AVAIBLE. WAIT!");
+        }
+    }
+
+    public override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        if (collision.collider.TryGetComponent<DoorController>(out DoorController doorController))
+        {
+            doorController.OpenDoor();
+            m_Controller.ChangeState(EGameState.Touch);
         }
     }
 }

@@ -14,25 +14,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 m_SlopeVerticalSpeedBounds;
     [SerializeField] private Transform m_Foot;
     [SerializeField] private Transform m_CameraTransform;
-    
+ 
     private Rigidbody m_Rigidbody;
-
-    private bool m_IsPlaying;
 
     void Start()
     {
-        m_IsPlaying = true;
         m_Rigidbody = GetComponent<Rigidbody>();
-
-        GameStateEvent.Instance.SubscribeTo(EGameState.Interaction, OnInterractionMode);
-        GameStateEvent.Instance.SubscribeTo(EGameState.None, OnNoneMode);
-    }
-
-    void Update()
-    {
-        if (!m_IsPlaying) return;
-
-        Move(); 
     }
 
     private bool IsOnSloop()
@@ -57,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         return IsGrounded(out hit);
     }
 
-    private void Move()
+    public void Move()
     {
         // obtient les valeurs des touches horizontales et verticales
         float hDeplacement = Input.GetAxis(GameParametres.InputName.AXIS_HORIZONTAL);
@@ -96,27 +83,15 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.velocity = velocity;
     }
 
-    private void OnInterractionMode(bool isEnterState)
+    public void StartMoving()
     {
-        if (isEnterState) StopMove();
+        m_Rigidbody.useGravity = true;
     }
 
-    private void OnNoneMode(bool isEnterState)
+    public void StopMove()
     {
-        if (isEnterState) StartPlaying();
-    }
-
-    private void StopMove()
-    {
-        m_IsPlaying = false;
         m_Rigidbody.useGravity = false;
         m_Rigidbody.velocity = Vector3.zero;
-    }
-
-    private void StartPlaying()
-    {
-        m_IsPlaying = true;
-        m_Rigidbody.useGravity = true;
     }
 
 }

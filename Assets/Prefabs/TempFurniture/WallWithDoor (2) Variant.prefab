@@ -140,9 +140,45 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6181609162501307927, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 7855709745243490030}
     - target: {fileID: 6832228136564774054, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
       propertyPath: m_Name
       value: WallWithDoor (2) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508028335158511233, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508028335158511233, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508028335158511233, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508028335158511233, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Size.y
+      value: 4.5105143
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Size.z
+      value: 13.289889
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Center.y
+      value: 1.755257
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966466639660982368, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+      propertyPath: m_Center.z
+      value: 0.65734863
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -153,3 +189,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+--- !u!4 &7855709745243490030 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8871430912797178015, guid: 667d687ff9768c441b0c837ee8870674, type: 3}
+  m_PrefabInstance: {fileID: 1592217141315239537}
+  m_PrefabAsset: {fileID: 0}

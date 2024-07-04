@@ -11,7 +11,11 @@ public enum EAudio
     GameOver,
     MagicFire,
     MusicAmbient_1,
-    MusicFight
+    MusicFight,
+    DoorOpen1,
+    DoorOpen2,
+    DoorOpen3,
+    DoorOpen4
 }
 public class AudioManager
 {

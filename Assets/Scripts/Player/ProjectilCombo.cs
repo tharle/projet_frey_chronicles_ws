@@ -32,7 +32,7 @@ public class ProjectilCombo : MonoBehaviour
         transform.Translate(m_Velocity * Time.deltaTime);
 
         // TODO fix temp for bug
-        if(!m_Target.GetTarget().IsAlive()) Destroy(gameObject);
+        if(m_Target != null && m_Target.GetTarget() != null && !m_Target.GetTarget().IsAlive()) Destroy(gameObject);
     }
 
 
