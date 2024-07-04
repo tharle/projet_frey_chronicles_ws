@@ -16,12 +16,15 @@ public class NoneState : AGameState
         Time.timeScale = 1.0f;
         PlayerAnimation.Instance?.ResetAnimation();
         base.OnEnter();
+        m_Controller.Movement.StartMoving();
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
         if (Input.GetKeyDown(KeyCode.Space)) OpenIntractionSphere();
+
+        m_Controller.Movement.Move();
     }
 
     private void OpenIntractionSphere()

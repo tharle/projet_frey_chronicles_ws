@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
@@ -10,6 +7,7 @@ public class DoorController : MonoBehaviour
     [SerializeField] private GameObject m_Block;
     [SerializeField] private Animator m_Animator;
     private bool m_IsOpen = false;
+    private EAudio[] m_DoorAudios = { EAudio.DoorOpen1, EAudio.DoorOpen2, EAudio.DoorOpen3, EAudio.DoorOpen4};
 
     private void Start()
     {
@@ -36,8 +34,19 @@ public class DoorController : MonoBehaviour
     {
         if (m_IsOpen) return;
 
+        PlaySound();
+
         m_IsOpen = true;
         m_Animator.SetTrigger(GameParametres.AnimationDungeon.TRIGGER_OPEN_DOOR);
         Destroy(GetComponent<BoxCollider>(), 0.5f);
     }
+
+    private void PlaySound()
+    {
+        int i = Random.Range(0, m_DoorAudios.Length);
+
+        AudioManager.Instance.Play(m_DoorAudios[i], transform.position);
+    }
+
+
 }

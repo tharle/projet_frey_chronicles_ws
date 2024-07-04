@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    [SerializeField] GameObject m_Model;
+    [SerializeField] Transform m_Model;
     private bool m_IsShowing = true;
 
     public void Show(bool show)
     {
         m_IsShowing = show;
-        m_Model.SetActive(show);
+        ToogleAllRenderChildsInModel(show);
+    }
+
+    private void ToogleAllRenderChildsInModel(bool show)
+    {
+        foreach (Transform child in m_Model)
+        {
+            if (child.TryGetComponent<MeshRenderer>(out MeshRenderer renderer))
+            {
+                renderer.enabled = show;
+            }
+        }
     }
 }

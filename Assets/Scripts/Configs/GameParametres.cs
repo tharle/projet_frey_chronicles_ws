@@ -38,7 +38,7 @@ public class GameParametres
         public const string PREFAB_ENEMY = "prefab_enemy";
         public const string PREFAB_COMBO = "prefab_combo";
         public const string SFX = "sfx";
-    }
+    } 
 
     public class BundlePath
     {
