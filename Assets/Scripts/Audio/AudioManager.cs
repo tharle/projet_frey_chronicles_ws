@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ public class AudioManager
     private void LoadAllAudioClips()
     {
         m_AudioClips = BundleLoader.Instance.LoadSFX();
+    }
+
+    public AudioSource Play(EAudio audioClipId) 
+    {
+        return Play(audioClipId, Camera.current.transform.position);
     }
 
     public AudioSource Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false)

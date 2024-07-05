@@ -28,10 +28,14 @@ public class HUDComboDisplayInfo : MonoBehaviour
     {
         if (message.Contains<int>(EGameEventMessage.ComboValue, out int comboValue))
         {
-            m_ComboInfoPanel.SetActive(true);
+            if (comboValue < 0) 
+            {
+                StartCoroutine(HideComboDisplay());
+                return;
+            }
 
-            if (comboValue < 0) StartCoroutine(HideComboDisplay());
-            else m_ComboValue.text = comboValue.ToString();
+            m_ComboValue.text = comboValue.ToString();
+            m_ComboInfoPanel.SetActive(true);
         }
     }
 
