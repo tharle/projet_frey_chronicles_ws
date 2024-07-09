@@ -95,7 +95,7 @@ public class ComboState : AGameState
         PlayerAnimation.Instance.Attack();
         PlayerController.Instance.LookToTarget(m_Target);
 
-        AudioManager.Instance.Play(EAudio.Attack);
+
         m_CurrentRoutine = m_Controller.StartCoroutine(DoComboRoutine());
     }
 
@@ -105,8 +105,14 @@ public class ComboState : AGameState
         if (!m_AttackWasPressed) 
         {
             SetWaitHit(true);
-
         }
+
+        // In enemy
+        AudioManager.Instance.Play(EAudio.Attack);
+        Effect effect = EffectPoolManager.Instance.Get(EEffect.Hit);
+        effect.DoEffect(m_Target.transform);
+
+
         yield return new WaitForSeconds(Random.Range(m_WaitCombo.x, m_WaitCombo.y)); // TODO: Calculer à partir de la TENSION
         SetWaitHit(false);
 

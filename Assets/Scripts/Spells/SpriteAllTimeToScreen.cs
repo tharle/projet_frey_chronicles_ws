@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class SpriteAllTimeToScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.forward = GetCinemachineBrain().transform.forward;
