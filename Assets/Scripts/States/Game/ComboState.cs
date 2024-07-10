@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ComboState : AGameState
 {
-    private bool m_Hit;
+    private float m_WaitAttack = 0.3f;
+    private Vector2 m_WaitDamage = new Vector2 (.5f, .7f);
+    private Vector2 m_WaitCombo = new Vector2 (.5f, 1f);
+    private bool m_WaitHit;
     private bool m_Timeout;
     private bool m_AttackWasPressed;
     private int m_ComboCounter;
-    private Coroutine m_Coroutine;
+    private Coroutine m_CurrentRoutine;
     private ATargetController m_Target;
     public ComboState(GameStateController controller) : base(controller, EGameState.Combo)
     {
@@ -18,14 +21,13 @@ public class ComboState : AGameState
     {
         base.OnEnter();
         Debug.Log("Combo ENTER");
-        SelectSphere.Instance.HideSphere();
-        m_ComboCounter = 0;
-        m_Hit = true;
-        //m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
-        m_Timeout = false;
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnemyDie, OnEnemyDie);
+        SelectSphere.Instance.HideSphere();
+
+        m_ComboCounter = 0;
+        m_Timeout = false;
         m_Target = DungeonTargetManager.Instance.TargetSelected;
-        m_Controller.StartCoroutine(CastComboRoutine());
+        m_Controller.StartCoroutine(DoAttack());
     }
 
     private void OnEnemyDie(GameEventMessage message)
@@ -45,77 +47,74 @@ public class ComboState : AGameState
     {
         base.UpdateState();
 
-        //m_Controller.ChangeState(EGameState.None);
-
         if (m_Timeout || !m_Target.IsAlive())
         {
             m_Controller.ChangeState(EGameState.None);
             return;
         }
 
-
+        
+        if (m_AttackWasPressed) return;
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown((int)MouseButton.Left))
         {
-            GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboTimerToggle, new GameEventMessage(EGameEventMessage.ComboTimerToggle, false));
-            if(m_Coroutine != null) m_Controller.StopCoroutine(m_Coroutine);
-            if (!m_AttackWasPressed && m_Hit)
-            {
-                m_Hit = false;
-                m_ComboCounter++;
-                GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboInfoHUD, new GameEventMessage(EGameEventMessage.ComboValue, m_ComboCounter));
 
-                //m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
-                m_Controller.StartCoroutine(CastComboRoutine());
-            }else if (!m_AttackWasPressed)
-            {
-                m_AttackWasPressed = true;
-            }
-            else if (m_Timeout && m_AttackWasPressed)
-            {
-                m_Controller.ChangeState(EGameState.None);
-            }
+            m_AttackWasPressed = true;
 
+            if (m_WaitHit)
+            {
+                SetWaitHit(false);
+                m_Controller.StopCoroutine(m_CurrentRoutine);
+                AddComboCounter();
+                m_Controller.StartCoroutine(DoAttack());
+            }
         }
     }
 
-    private IEnumerator CastComboRoutine()
+    private void SetWaitHit(bool value)
     {
+        m_WaitHit = value;
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboTimerToggle, new GameEventMessage(EGameEventMessage.ComboTimerToggle, value));
+    }
+
+    private void AddComboCounter()
+    {
+        m_ComboCounter++;
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboInfoHUD, new GameEventMessage(EGameEventMessage.ComboValue, m_ComboCounter));
+    }
+
+    private IEnumerator DoAttack()
+    {
+        
+        yield return null;
+        m_CurrentRoutine = null;
+
+        m_AttackWasPressed = false;
+        yield return new WaitForSeconds(Random.Range(m_WaitDamage.x, m_WaitDamage.y));  //  give time for sounds and damage calculs
+
         // Animation
         PlayerAnimation.Instance.Attack();
-
         PlayerController.Instance.LookToTarget(m_Target);
 
-        yield return new WaitForSeconds(0.3f);
 
-        //Logic
-        GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_COMBO, "Attack");
-        go.transform.position = PlayerController.Instance.PlayerHand.position;
-
-        if(go.TryGetComponent<ProjectilCombo>(out ProjectilCombo projectil))
-        {
-            projectil.Lauch(m_Target, 5f, OnHit);
-        }
-    }
-
-    private void OnHit(ATargetController target)
-    {
-        AudioManager.Instance.Play(EAudio.Attack, m_Controller.transform.position);
-        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, target));
-
-        if(!m_AttackWasPressed) m_Coroutine = m_Controller.StartCoroutine(DoComboRoutine());
-        else m_Controller.ChangeState(EGameState.None);
+        m_CurrentRoutine = m_Controller.StartCoroutine(DoComboRoutine());
     }
 
     private IEnumerator DoComboRoutine()
     {
-        //m_Hit = false;
-        //yield return new WaitForSeconds(Random.Range(0.5f, 2)); // TODO: Calculer à du HIT au ennemi
-        m_Hit =true;
-        m_AttackWasPressed = false;
-        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboTimerToggle, new GameEventMessage(EGameEventMessage.ComboTimerToggle, m_Hit));
-        yield return new WaitForSeconds(Random.Range(0.5f, 1)); // TODO: Calculer à partir de la TENSION
-        m_Hit = false;
-        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboTimerToggle, new GameEventMessage(EGameEventMessage.ComboTimerToggle, m_Hit));
+        yield return new WaitForSeconds(m_WaitAttack);  //  give time for sounds and damage calculs
+        if (!m_AttackWasPressed) 
+        {
+            SetWaitHit(true);
+        }
+
+        // In enemy
+        Effect effect = EffectPoolManager.Instance.Get(EEffect.Hit);
+        effect.DoEffect(m_Target.transform);
+
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, m_Target));
+
+        yield return new WaitForSeconds(Random.Range(m_WaitCombo.x, m_WaitCombo.y)); // TODO: Calculer à partir de la TENSION
+        SetWaitHit(false);
 
         m_Timeout = true;
     }

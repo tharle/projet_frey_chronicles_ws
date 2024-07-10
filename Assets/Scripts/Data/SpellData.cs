@@ -8,10 +8,11 @@ public struct Spell
 {
     public string Name;
     public string Description;
-    // TODO add comands
     public EElemental Type;
     public int BaseDamage;
     public int TensionCost;
+
+    public EEffect Effect;
 }
 
     [CreateAssetMenu]

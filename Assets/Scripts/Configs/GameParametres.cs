@@ -23,6 +23,11 @@ public class GameParametres
         public const string TRIGGER_OPEN_DOOR = "open_door";
     }
 
+    public class AnimationEffect
+    {
+        public const string INT_ID_ANIMATION = "id_animation";
+    }
+
     public class AnimationEnemy
     {
         public const string FLOAT_VELOCITY = "velocity";
@@ -36,7 +41,7 @@ public class GameParametres
     public class BundleNames
     {
         public const string PREFAB_ENEMY = "prefab_enemy";
-        public const string PREFAB_COMBO = "prefab_combo";
+        public const string EFFECTS = "prefab_effects";
         public const string SFX = "sfx";
     } 
 
@@ -46,7 +51,7 @@ public class GameParametres
         public const string STREAMING_ASSETS = "Assets/StreamingAssets";
         public const string DATA = "/Data";
         public const string PREFAB_ENEMY = "/Prefabs/Enemies";
-        public const string PREFAB_COMBO = "/Prefabs/Combo";
+        public const string EFFECTS = "/Prefabs/Effects";
         public const string SFX = "/Sounds/SFX";
     }
 
