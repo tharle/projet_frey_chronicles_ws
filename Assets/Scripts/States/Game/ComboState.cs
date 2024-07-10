@@ -111,6 +111,7 @@ public class ComboState : AGameState
         Effect effect = EffectPoolManager.Instance.Get(EEffect.Hit);
         effect.DoEffect(m_Target.transform);
 
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, m_Target));
 
         yield return new WaitForSeconds(Random.Range(m_WaitCombo.x, m_WaitCombo.y)); // TODO: Calculer à partir de la TENSION
         SetWaitHit(false);
