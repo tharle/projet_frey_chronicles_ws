@@ -108,7 +108,6 @@ public class ComboState : AGameState
         }
 
         // In enemy
-        AudioManager.Instance.Play(EAudio.Attack);
         Effect effect = EffectPoolManager.Instance.Get(EEffect.Hit);
         effect.DoEffect(m_Target.transform);
 

@@ -157,6 +157,7 @@ MonoBehaviour:
   m_VariationCount: 2
   m_FowardToScreen: 10
   m_Animator: {fileID: 2629518383485498923}
+  m_SoundsEffects: 0000000003000000
 --- !u!114 &-6161452515807531593
 MonoBehaviour:
   m_ObjectHideFlags: 0
