@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3635091390
+CRC: 2152318781
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b3945bb5d2c83f847a4c28e923a48501
+    Hash: 76fda0baeb3f6ea30356f797cbfd5df6
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 56894117a4adafeb676d42c946524c74
+    Hash: 48469c41c4c9158202d52c4c5fb11a42
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -37,5 +37,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundleAssets/Prefabs/Effects/Explosion.prefab
 - Assets/BundleAssets/Prefabs/Effects/Hit.prefab
+- Assets/BundleAssets/Prefabs/Effects/Torch.prefab
 Dependencies: []

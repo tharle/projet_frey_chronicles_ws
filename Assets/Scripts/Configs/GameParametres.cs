@@ -23,6 +23,11 @@ public class GameParametres
         public const string TRIGGER_OPEN_DOOR = "open_door";
     }
 
+    public class AnimationEffect
+    {
+        public const string INT_ID_ANIMATION = "id_animation";
+    }
+
     public class AnimationEnemy
     {
         public const string FLOAT_VELOCITY = "velocity";

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 661245890, guid: 81912a137d913f44fa62e97976ce2302, type: 3}
+  m_Sprite: {fileID: 704275730, guid: f32dbf6fc2def6a41916d1f8c15b88e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 5838004352208994734}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0b82f9610dc537d4eb18751f59afde17, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b977fbcd45412849b65914ef0d9d79a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7478097516857997265}
   - component: {fileID: -6161452515807531593}
   m_Layer: 0
-  m_Name: Hit
+  m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LifeTimeInSeconds: 0.5
-  m_Type: 0
-  m_VariationCount: 2
+  m_Type: 1
+  m_VariationCount: 1
   m_FowardToScreen: 10
   m_Animator: {fileID: 2629518383485498923}
 --- !u!114 &-6161452515807531593
