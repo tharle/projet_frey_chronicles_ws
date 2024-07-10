@@ -7,7 +7,9 @@ using UnityEngine;
 
 public enum EAudio
 {
-    Attack,
+    Attack1,
+    Attack2,
+    Attack3,
     Complete,
     GameOver,
     MagicFire,
