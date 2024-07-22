@@ -54,12 +54,34 @@ public class CastSpellState : AGameState
                 if (Input.GetMouseButtonDown((int) mouseButton)) CastRune(rune);
         }
 
-        if(m_CastedRunes.Count >= 6) m_Controller.ChangeState(EGameState.Spell);
+        if (m_CastedRunes.Count >= 6)
+        {
+            if (PlayerController.Instance.GetSpell(m_CastedRunes, out Spell spell))
+            {
+                DoCastSpell(spell);
+            } else
+            {
+                m_Controller.ChangeState(EGameState.None);
+            }
+        }
+    }
+
+    private void DoCastSpell(Spell spell)
+    {
+
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.Spell, spell);
+        message.Add(EGameEventMessage.TargetController, m_Target);
+        m_Controller.ChangeState(EGameState.Spell, message);
     }
 
     private void CastRune(Rune rune)
     {
         m_CastedRunes.Add(rune.Type);
         GameEventSystem.Instance.TriggerEvent(EGameEvent.AddRunes, new GameEventMessage(EGameEventMessage.Rune, rune));
+        
+        if (PlayerController.Instance.GetSpell(m_CastedRunes, out Spell spell))
+        {
+            DoCastSpell(spell);
+        }
     }
 }

@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : ATargetController
 {
 
     [SerializeField] private Transform m_PlayerHand;
-
-    // TODO Temp, that will be changed by BundleResources and magic stands
-    [SerializeField] private SpellData m_FireBallData; // Just for beta
-    public Spell FireBall => m_FireBallData.Value;
+    [SerializeField] private List<SpellData> m_StartedsSpells;
 
     public Transform PlayerHand { get => m_PlayerHand; }
 
@@ -47,9 +45,15 @@ public class PlayerController : ATargetController
     protected override void AfterStart()
     {
         m_Player = new Player(20, 10f); // Temp
+        InitStartSpells();
         SubscribeAllEvents();
         RefreshInfoHUD();
         StartCoroutine(AddActionPointsRoutine());
+    }
+
+    private void InitStartSpells()
+    {
+        
     }
 
     private void Update()
@@ -276,5 +280,10 @@ public class PlayerController : ATargetController
 
         Vector3 direction = GetDirectionFrom(m_Target.transform.position);
         transform.forward = direction;
+    }
+
+    public bool GetSpell(List<ERune> castedRunes, out Spell spell)
+    {
+        return m_Player.GetFirstSpell(castedRunes, out spell);
     }
 }

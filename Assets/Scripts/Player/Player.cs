@@ -24,6 +24,7 @@ public struct Player : ITarget
     public float DistanceAttack;
     public float RefreshTime;
     public Vector2 DamageRange; // TODO: Temp, il faut changer ça dans le systeme de combat
+    public List<Spell> SpellsConnue;
 
     public Player(float hitPointsMax, float distanceAttack)
     {
@@ -38,6 +39,7 @@ public struct Player : ITarget
         ActionPointPerSec = 75;
         RefreshTime = 0.1f;
         DamageRange = new Vector2(3, 15);
+        SpellsConnue = new();
     }
 
     public HudBarData GetHPData()
@@ -106,5 +108,20 @@ public struct Player : ITarget
     public float GetRange()
     {
         return DistanceAttack;
+    }
+
+    public bool GetFirstSpell(List<ERune> castedRunes, out Spell spellOut)
+    {
+        spellOut = new();
+        foreach (Spell spell in SpellsConnue)
+        {
+            if(spell.IsSameRunes(castedRunes))
+            {
+                spellOut = spell;
+                return true;
+            }
+        }
+
+        return false;
     }
 }
