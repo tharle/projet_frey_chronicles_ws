@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class CastSpellState : AGameState
 {
@@ -46,8 +47,11 @@ public class CastSpellState : AGameState
 
         foreach (Rune rune in m_Runes)
         {
-            foreach (KeyCode keyCode in rune.KCodes)
+            foreach (KeyCode keyCode in rune.KCodes) 
                 if (Input.GetKeyDown(keyCode)) CastRune(rune);
+
+            foreach (MouseButton mouseButton in rune.MButtons) 
+                if (Input.GetMouseButtonDown((int) mouseButton)) CastRune(rune);
         }
 
         if(m_CastedRunes.Count >= 6) m_Controller.ChangeState(EGameState.Spell);

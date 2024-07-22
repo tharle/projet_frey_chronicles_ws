@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040564fc1ea79ed45b6c2f9226ee9433, type: 3}
-  m_Name: FireBallData
+  m_Script: {fileID: 11500000, guid: 5c917143b0aa04b49b030286c7c9201a, type: 3}
+  m_Name: Water
   m_EditorClassIdentifier: 
   Value:
-    Name: Fire Ball
-    Description: It's a ball of fire
-    Type: 1
-    BaseDamage: 20
-    TensionCost: 30
-    EffectTrace: 1
-    EffectCollision: 1
-    Runes: 000000000200000005000000
+    Type: 6
+    Icon: {fileID: -1704216311, guid: bfc9af3947b2b494090937ac6117955e, type: 3}
+    KCodes: 3d010000
+    MButtons: 01000000

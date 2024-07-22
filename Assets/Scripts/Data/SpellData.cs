@@ -12,7 +12,10 @@ public struct Spell
     public int BaseDamage;
     public int TensionCost;
 
-    public EEffect Effect;
+    public EEffect EffectTrace;
+    public EEffect EffectCollision;
+
+    public List<ERune> Runes;
 }
 
     [CreateAssetMenu]
