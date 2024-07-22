@@ -71,7 +71,8 @@ public enum EGameState
     Interaction,
     Menu,
     Spell,
-    Touch
+    Touch,
+    CastSpell
 }
 
 public abstract class AGameState

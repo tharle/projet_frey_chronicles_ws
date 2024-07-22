@@ -20,59 +20,57 @@ public enum EAudio
     DoorOpen3,
     DoorOpen4
 }
-public class AudioManager
+public class AudioManager : MonoBehaviour
 {
-    #region Singleton
+    private Dictionary<EAudio, AudioClip> m_AudioClips;
+    private AudioPool m_AudioPool;
+
+    private BundleLoader m_Loader;
+
     private static AudioManager m_Instance;
-    public static AudioManager Instance {
+    public static AudioManager Instance
+    {
         get
         {
-            if (m_Instance == null) m_Instance = new AudioManager();
+            if (m_Instance == null)
+            {
+                GameObject go = new GameObject("AudioManager");
+                go.AddComponent<AudioManager>();
+            }
 
             return m_Instance;
         }
     }
-    #endregion
 
-    private Dictionary<EAudio, AudioClip> m_AudioClips;
-    private Dictionary<EAudio, AudioSource> m_AudioSourcePlaying;
-
-    private AudioPool m_AudioPool;
-
-    private AudioManager()
+    private void Awake()
     {
+        if (m_Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         m_AudioPool = new AudioPool();
-        m_AudioSourcePlaying = new Dictionary<EAudio, AudioSource>();
-        LoadAllAudioClips();
+        m_Loader = BundleLoader.Instance;
+        m_AudioClips = m_Loader.LoadSFX();
+
+        m_Instance = this;
     }
 
-    private void LoadAllAudioClips()
-    {
-        m_AudioClips = BundleLoader.Instance.LoadSFX();
-    }
-
-    public AudioSource Play(EAudio audioClipId) 
+    public AudioSource Play(EAudio audioClipId)
     {
         return Play(audioClipId, Camera.current.transform.position);
     }
 
-    public AudioSource Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false)
+    public AudioSource Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false, float volume = 1f)
     {
         AudioSource audioSource;
-        // TODO: BUG: le son de la magie remplace celui de attack dans le dictionnaire...
-        /*if (m_AudioSourcePlaying.ContainsKey(audioClipId))
-        {
-          audioSource = m_AudioSourcePlaying[audioClipId];
-        }*/
-        //else
-        //{
-        audioSource = m_AudioPool.GetAvailable();
+        audioSource = m_AudioPool.GetAvailable(transform);
         audioSource.clip = m_AudioClips[audioClipId];
         audioSource.transform.position = soundPosition;
-        // m_AudioSourcePlaying.Add(audioClipId, audioSource);
-        //}
+        audioSource.volume = volume;
 
-        if (!audioSource.isPlaying) 
+        if (!audioSource.isPlaying)
         {
             audioSource.Play();
             audioSource.loop = isLooping;
@@ -82,8 +80,8 @@ public class AudioManager
     }
 
 
-    public void Stop(EAudio audioClipId)
+    public void StopAllLooping()
     {
-        if (m_AudioSourcePlaying.ContainsKey(audioClipId)) m_AudioSourcePlaying[audioClipId].Stop();
+        m_AudioPool.StopAllLooping();
     }
 }

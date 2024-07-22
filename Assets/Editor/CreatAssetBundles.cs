@@ -13,6 +13,7 @@ public class CreatAssetBundles
         { GameParametres.BundleNames.PREFAB_ENEMY, GameParametres.BundlePath.PREFAB_ENEMY },
         { GameParametres.BundleNames.EFFECTS, GameParametres.BundlePath.EFFECTS },
         { GameParametres.BundleNames.SFX, GameParametres.BundlePath.SFX },
+        { GameParametres.BundleNames.RUNES, GameParametres.BundlePath.RUNES }
     };
 
     [MenuItem("Tharle/Builld AssetBundles")]
