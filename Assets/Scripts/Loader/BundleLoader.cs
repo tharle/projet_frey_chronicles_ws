@@ -4,21 +4,42 @@ using System;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 
-public class BundleLoader: MonoBehaviour
+public class BundleLoader : MonoBehaviour
 {
 
     private static BundleLoader m_Instance;
     public static BundleLoader Instance
     {
-        get { 
-            if (m_Instance == null) 
+        get
+        {
+            if (m_Instance == null)
             {
                 GameObject go = new GameObject("BundleLoader");
-                m_Instance = go.AddComponent<BundleLoader>();
-            } 
+                go.AddComponent<BundleLoader>();
+            }
 
             return m_Instance;
         }
+    }
+
+    private void Awake()
+    {
+        if (m_Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        CleanData();
+
+        m_Instance = this;
+    }
+
+    public T Load<T, E>(string bundleName, E type) where T : UnityEngine.Object where E : Enum
+    {
+        string assetName = Enum.GetName(typeof(E), type);
+
+        return Load<T>(bundleName, assetName);
     }
 
     public T Load<T>(string bundleName, string assetName) where T : UnityEngine.Object
@@ -45,9 +66,10 @@ public class BundleLoader: MonoBehaviour
 
         string[] assetNames = Enum.GetNames(typeof(EAudio));
         List<AudioClip> audioClips = LoadAll<AudioClip>(GameParametres.BundleNames.SFX, false, assetNames);
+
         foreach (AudioClip clip in audioClips)
         {
-            if(Enum.TryParse(clip.name, out EAudio audioId))
+            if (Enum.TryParse(clip.name, out EAudio audioId))
             {
                 AudioClip newClip = Instantiate(clip);
                 newClip.name = clip.name;
@@ -57,6 +79,13 @@ public class BundleLoader: MonoBehaviour
         }
 
         return audioClipsBundle;
+    }
+
+    public List<T> LoadAll<T, E>(string bundleName, bool IsCallUnload = true) where T : UnityEngine.Object where E : Enum
+    {
+        string[] assetNames = Enum.GetNames(typeof(E));
+
+        return LoadAll<T>(bundleName, IsCallUnload, assetNames);
     }
 
     private List<T> LoadAll<T>(string bundleName, bool IsCallUnload, params string[] assetNames) where T : UnityEngine.Object
@@ -81,43 +110,12 @@ public class BundleLoader: MonoBehaviour
         return assets;
     }
 
-    /*
-
-    
-
-    public Dictionary<ERank, Sprite> LoadAllRankStamps()
+    public void CleanData()
     {
-        Dictionary<ERank, Sprite> rankStampBundle = new();
-
-        string[] spriteNames = { nameof(ERank.S), nameof(ERank.A), nameof(ERank.B), nameof(ERank.C), nameof(ERank.NONE) };
-        List<Sprite> sprites = LoadAll<Sprite>(GameParameters.BundleNames.SPRITE_STAMP, true, spriteNames);
-        foreach (Sprite sprite in sprites)
+        foreach (var assetBundle in AssetBundle.GetAllLoadedAssetBundles())
         {
-            ERank rankId = ERank.NONE;
-            switch (sprite.name)
-            {
-                case nameof(ERank.S):
-                    rankId = ERank.S;
-                    break;
-                case nameof(ERank.A):
-                    rankId = ERank.A;
-                    break;
-                case nameof(ERank.B):
-                    rankId = ERank.B;
-                    break;
-                case nameof(ERank.C):
-                    rankId = ERank.C;
-                    break;
-                default:
-                    rankId = ERank.NONE;
-                    break;
-            }
-
-            Sprite newSprite = Instantiate(sprite);
-            newSprite.name = sprite.name;
-            rankStampBundle.Add(rankId, newSprite);
+            assetBundle.Unload(true);
         }
-
-        return rankStampBundle;
-    }*/
+    }
 }
+

@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 473494420
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 68732f67dbd727c9047f5ca800ba983f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1fe0142903e8e068989287f70b87e74c
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5c917143b0aa04b49b030286c7c9201a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Rune
+Assets:
+- Assets/BundleAssets/Data/Runes/Fire.asset
+- Assets/BundleAssets/Data/Runes/Left.asset
+- Assets/BundleAssets/Data/Runes/Air.asset
+- Assets/BundleAssets/Data/Runes/Water.asset
+- Assets/BundleAssets/Data/Runes/Right.asset
+- Assets/BundleAssets/Data/Runes/Up.asset
+- Assets/BundleAssets/Data/Runes/Down.asset
+Dependencies: []

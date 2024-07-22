@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2579268632
+CRC: 2222696030
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 43cde15f55109656481e2af45852ff9c
+    Hash: 7679bdd5a132f5fac77da43f2b462d69
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9a2ca7bdbd1871f7131daf57de908e0c
@@ -13,15 +13,18 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundleAssets/Sounds/SFX/Attack2.ogg
 - Assets/BundleAssets/Sounds/SFX/DoorOpen3.ogg
 - Assets/BundleAssets/Sounds/SFX/MusicFight.mp3
 - Assets/BundleAssets/Sounds/SFX/Night Ambient 4 (Loop).ogg
 - Assets/BundleAssets/Sounds/SFX/MagicFire.wav
-- Assets/BundleAssets/Sounds/SFX/Attack.wav
+- Assets/BundleAssets/Sounds/SFX/AttackOld.wav
 - Assets/BundleAssets/Sounds/SFX/MainMenu.ogg
 - Assets/BundleAssets/Sounds/SFX/DoorOpen4.ogg
 - Assets/BundleAssets/Sounds/SFX/DoorOpen2.ogg
 - Assets/BundleAssets/Sounds/SFX/MusicAmbient_1.wav
+- Assets/BundleAssets/Sounds/SFX/Attack1.ogg
+- Assets/BundleAssets/Sounds/SFX/Attack3.ogg
 - Assets/BundleAssets/Sounds/SFX/Complete.ogg
 - Assets/BundleAssets/Sounds/SFX/DoorOpen1.ogg
 - Assets/BundleAssets/Sounds/SFX/GameOver.wav

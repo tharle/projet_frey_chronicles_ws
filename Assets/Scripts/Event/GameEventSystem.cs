@@ -18,7 +18,10 @@ public enum EGameEvent
     EnemyDie,
     SelectTarget,
     CastMagic,
-    BattleMode
+    BattleMode,
+    NotifyRunes,
+    AddRunes,
+    CleanRunes
 }
 
 public class GameEventSystem

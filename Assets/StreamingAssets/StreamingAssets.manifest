@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2463514271
+CRC: 1099627574
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -9,5 +9,8 @@ AssetBundleManifest:
       Name: sfx
       Dependencies: {}
     Info_2:
-      Name: prefab_combo
+      Name: prefab_effects
+      Dependencies: {}
+    Info_3:
+      Name: rune
       Dependencies: {}

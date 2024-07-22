@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,8 @@ public enum EGameEventMessage
     HudBarData,
     TargetController,
     Target,
-    Spell
+    Spell,
+    Rune
 }
 
 public class GameEventMessage

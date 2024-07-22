@@ -7,11 +7,14 @@ using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
+    private const float ANGLE_TO_HIDE_WALLS_RIGHT = -30.0f * Mathf.Deg2Rad;
+    private const float ANGLE_TO_HIDE_WALLS_LEFT = 30.0f * Mathf.Deg2Rad;
+
     private Transform m_LookAtDefault;
     private CinemachineVirtualCamera m_Camera;
     private Transform m_LookAtCurrent;
 
-    private List<Wall> m_WallHiddings = new ();
+    private List<Wall> m_WallHiddings = new ();    
 
     int m_LayerMaskWall;
 
@@ -84,14 +87,29 @@ public class CameraController : MonoBehaviour
 
     private void HideWalls()
     {
-        
+        Vector3 catetusForwardRight = -transform.forward;
+        catetusForwardRight.x = catetusForwardRight.x * Mathf.Cos(ANGLE_TO_HIDE_WALLS_RIGHT)
+                                + catetusForwardRight.z * Mathf.Sin(ANGLE_TO_HIDE_WALLS_RIGHT);
+        catetusForwardRight.y = 0;
+        catetusForwardRight.z = catetusForwardRight.z * Mathf.Cos(ANGLE_TO_HIDE_WALLS_RIGHT)
+                                - catetusForwardRight.x * Mathf.Sin(ANGLE_TO_HIDE_WALLS_RIGHT);
+        Debug.DrawRay(transform.position, catetusForwardRight * 50f, Color.green);
 
-        Vector3 catetusForward = -transform.forward;
-        catetusForward.y = 0;
-        Debug.DrawRay(transform.position, catetusForward * 50f, Color.green);
+        Vector3 catetusForwardLeft = -transform.forward;
+        catetusForwardLeft.x = catetusForwardLeft.x * Mathf.Cos(ANGLE_TO_HIDE_WALLS_LEFT)
+                                + catetusForwardLeft.z * Mathf.Sin(ANGLE_TO_HIDE_WALLS_LEFT);
+        catetusForwardLeft.y = 0;
+        catetusForwardLeft.z = catetusForwardLeft.z * Mathf.Cos(ANGLE_TO_HIDE_WALLS_LEFT)
+                                - catetusForwardLeft.x * Mathf.Sin(ANGLE_TO_HIDE_WALLS_LEFT);
+        Debug.DrawRay(transform.position, catetusForwardLeft * 50f, Color.yellow);
 
+        DetectAndHideAllWalls(catetusForwardRight);
+        DetectAndHideAllWalls(catetusForwardLeft);
+    }
 
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, catetusForward, 50f, m_LayerMaskWall);
+    private void DetectAndHideAllWalls(Vector3 direction)
+    {
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, 50f, m_LayerMaskWall);
         foreach (RaycastHit hit in hits)
         {
             Wall wall = hit.collider.gameObject.GetComponent<Wall>();

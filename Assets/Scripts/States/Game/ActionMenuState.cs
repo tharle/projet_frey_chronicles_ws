@@ -46,7 +46,7 @@ public class ActionMenuState : AGameState
 
     private void OnClickSpell()
     {
-        m_Controller.ChangeState(EGameState.Spell);
+        m_Controller.ChangeState(EGameState.CastSpell);
     }
 
 }

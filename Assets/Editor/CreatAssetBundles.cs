@@ -11,8 +11,9 @@ public class CreatAssetBundles
     static Dictionary<string, string> bundles = new Dictionary<string, string>() 
     {
         { GameParametres.BundleNames.PREFAB_ENEMY, GameParametres.BundlePath.PREFAB_ENEMY },
-        { GameParametres.BundleNames.PREFAB_COMBO, GameParametres.BundlePath.PREFAB_COMBO },
+        { GameParametres.BundleNames.EFFECTS, GameParametres.BundlePath.EFFECTS },
         { GameParametres.BundleNames.SFX, GameParametres.BundlePath.SFX },
+        { GameParametres.BundleNames.RUNES, GameParametres.BundlePath.RUNES }
     };
 
     [MenuItem("Tharle/Builld AssetBundles")]
