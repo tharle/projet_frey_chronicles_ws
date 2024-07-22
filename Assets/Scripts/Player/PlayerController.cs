@@ -53,7 +53,10 @@ public class PlayerController : ATargetController
 
     private void InitStartSpells()
     {
-        
+        foreach(SpellData spellData in m_StartedsSpells)
+        {
+            m_Player.SpellTome.Add(spellData.Value);
+        }
     }
 
     private void Update()
