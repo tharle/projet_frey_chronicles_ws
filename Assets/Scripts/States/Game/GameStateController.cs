@@ -25,6 +25,7 @@ public class GameStateController: MonoBehaviour
         m_States.Add(EGameState.Interaction, new InteractionState(this));
         m_States.Add(EGameState.Combo, new ComboState(this));
         m_States.Add(EGameState.Spell, new SpellState(this));
+        m_States.Add(EGameState.CastSpell, new CastSpellState(this));
         m_States.Add(EGameState.Touch, new TouchState(this));
 
         ChangeState(EGameState.None);
@@ -35,11 +36,17 @@ public class GameStateController: MonoBehaviour
         if (m_CurrentState != null) m_CurrentState.UpdateState();
     }
 
-    public void ChangeState(EGameState gameStateId) 
+    public void ChangeState(EGameState gameStateId)
+    {
+        ChangeState(gameStateId, new());
+    }
+
+    public void ChangeState(EGameState gameStateId, GameEventMessage message) 
     {
      //   Debug.Log($"CHANGE STATE FROM {m_CurrentState?.GetState()} --> {gameStateId}");
         m_CurrentState?.OnExit();
         m_CurrentState = m_States[gameStateId];
+        m_CurrentState.SetMessage(message);
         m_CurrentState?.OnEnter();
         //StartCoroutine(ChangeStateRoutine(gameStateId));
     }
@@ -58,7 +65,6 @@ public class GameStateController: MonoBehaviour
         m_CurrentState = m_States[gameStateId];
         m_CurrentState?.OnEnter();
     }
-
 }
 
 
@@ -71,14 +77,15 @@ public enum EGameState
     Interaction,
     Menu,
     Spell,
-    Touch,
-    CastSpell
+    CastSpell,
+    Touch
 }
 
 public abstract class AGameState
 {
     protected EGameState m_GameStateId;
     protected GameStateController m_Controller;
+    protected GameEventMessage m_Message;
 
     public EGameState GetState() { return m_GameStateId; }
 
@@ -88,6 +95,7 @@ public abstract class AGameState
         m_GameStateId = gameStateId;
     }
     public virtual void UpdateState(){}
+
 
     public virtual void OnEnter()
     {
@@ -103,5 +111,10 @@ public abstract class AGameState
     }
 
     public virtual void OnCollisionEnter(Collision collision){}
+
+    public void SetMessage(GameEventMessage message)
+    {
+        m_Message = message;
+    }
 }
 

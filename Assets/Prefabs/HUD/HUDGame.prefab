@@ -72,14 +72,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2128465815962460304}
   - component: {fileID: 1181224437667273047}
-  - component: {fileID: 2242576502659760276}
   m_Layer: 5
   m_Name: CastSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128465815962460304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -109,19 +108,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711173767831903811}
   m_CullTransparentMesh: 1
---- !u!114 &2242576502659760276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711173767831903811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a61c35a3f17c16479be80c77f471e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Container: {fileID: 61529435320918067}
 --- !u!1 &1093245871769709136
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +478,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2262941437851255858}
         m_TargetAssemblyTypeName: HUDActionMenu, Assembly-CSharp
-        m_MethodName: OnClickAttack
+        m_MethodName: OnClickSpell
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -861,7 +847,7 @@ RectTransform:
   m_AnchorMin: {x: 0.8, y: 0.5}
   m_AnchorMax: {x: 0.98, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -6.3000064, y: 0}
+  m_SizeDelta: {x: -10.859988, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4285654755949670446
 MonoBehaviour:
@@ -1063,6 +1049,7 @@ GameObject:
   - component: {fileID: 3767454987351450038}
   - component: {fileID: 1802637263825609469}
   - component: {fileID: 1863832250890664153}
+  - component: {fileID: 2024875804910029616}
   m_Layer: 5
   m_Name: HUDGame
   m_TagString: Untagged
@@ -1168,6 +1155,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BattleModeDisplay: {fileID: 7818504707393853699}
   m_AmbianceMusic: 0
+--- !u!114 &2024875804910029616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706153594126118004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a61c35a3f17c16479be80c77f471e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RunesContainer: {fileID: 61529435320918067}
+  m_SpellCastBoard: {fileID: 711173767831903811}
 --- !u!1 &4731858110417290113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,9 +1672,8 @@ GameObject:
   - component: {fileID: 2894793613814210431}
   - component: {fileID: 7580992168459919605}
   - component: {fileID: 6057143295558171301}
-  - component: {fileID: 3258852705188194734}
   m_Layer: 5
-  m_Name: BtnToMainMenu
+  m_Name: BtnQuit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1697,7 +1697,7 @@ RectTransform:
   m_AnchorMin: {x: 0.87, y: 0.01}
   m_AnchorMax: {x: 0.99, y: 0.15}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -27.439983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2894793613814210431
 CanvasRenderer:
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.023584902, g: 0.5336915, b: 1, a: 1}
+  m_Color: {r: 0.03734909, g: 0, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1783,7 +1783,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1802637263825609469}
         m_TargetAssemblyTypeName: HUDSceneManager, Assembly-CSharp
-        m_MethodName: OnMainMenu
+        m_MethodName: OnQuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1793,20 +1793,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3258852705188194734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6165285423021389809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 1
-  m_AspectRatio: 2
 --- !u!1 &7490981446356346349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,7 +2167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ae34597760c48942868aed4525dc230, type: 2}
   m_sharedMaterial: {fileID: -3587541092998281553, guid: 6ae34597760c48942868aed4525dc230, type: 2}
@@ -2208,7 +2194,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.45
+  m_fontSize: 30
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2400,7 +2386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSize
-      value: 16.25
+      value: 15.35
       objectReference: {fileID: 0}
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSizeMin
@@ -2558,7 +2544,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSize
-      value: 18.95
+      value: 17.9
       objectReference: {fileID: 0}
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSizeMin
@@ -2684,7 +2670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSize
-      value: 20.65
+      value: 19.55
       objectReference: {fileID: 0}
     - target: {fileID: 1095143678034620385, guid: a0fcbd1d8282ea44a8c9795da3c2ed70, type: 3}
       propertyPath: m_fontSizeMin

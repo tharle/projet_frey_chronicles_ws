@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2323072773
+CRC: 473494420
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8d3434b089e0f6e230ddda7a2e316c39
+    Hash: 68732f67dbd727c9047f5ca800ba983f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 63791fb699f68f977432197c57918cc4
+    Hash: 1fe0142903e8e068989287f70b87e74c
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -21,7 +21,10 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Assembly-CSharp
   ClassName: Rune
 Assets:
+- Assets/BundleAssets/Data/Runes/Fire.asset
 - Assets/BundleAssets/Data/Runes/Left.asset
+- Assets/BundleAssets/Data/Runes/Air.asset
+- Assets/BundleAssets/Data/Runes/Water.asset
 - Assets/BundleAssets/Data/Runes/Right.asset
 - Assets/BundleAssets/Data/Runes/Up.asset
 - Assets/BundleAssets/Data/Runes/Down.asset
