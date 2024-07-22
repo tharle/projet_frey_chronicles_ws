@@ -10,6 +10,8 @@ using UnityEngine;
 public class SpellState : AGameState
 {
     private ATargetController m_Target; // Last target selected in Sphere
+    private List<Rune> m_Runes;
+
     public SpellState(GameStateController controller) : base(controller, EGameState.Spell)
     {
 

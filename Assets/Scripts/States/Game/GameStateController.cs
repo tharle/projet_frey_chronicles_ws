@@ -25,6 +25,7 @@ public class GameStateController: MonoBehaviour
         m_States.Add(EGameState.Interaction, new InteractionState(this));
         m_States.Add(EGameState.Combo, new ComboState(this));
         m_States.Add(EGameState.Spell, new SpellState(this));
+        m_States.Add(EGameState.CastSpell, new CastSpellState(this));
         m_States.Add(EGameState.Touch, new TouchState(this));
 
         ChangeState(EGameState.None);
@@ -71,8 +72,8 @@ public enum EGameState
     Interaction,
     Menu,
     Spell,
-    Touch,
-    CastSpell
+    CastSpell,
+    Touch
 }
 
 public abstract class AGameState
