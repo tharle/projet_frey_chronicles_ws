@@ -21,7 +21,8 @@ public enum EGameEvent
     BattleMode,
     NotifyRunes,
     AddRunes,
-    CleanRunes
+    CleanRunes,
+    ResultSpell
 }
 
 public class GameEventSystem

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct Spell
+public class Spell
 {
     public string Name;
     public string Description;

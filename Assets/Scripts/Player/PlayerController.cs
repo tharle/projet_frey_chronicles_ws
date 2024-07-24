@@ -289,4 +289,9 @@ public class PlayerController : ATargetController
     {
         return m_Player.GetFirstSpell(castedRunes, out spell);
     }
+
+    public bool HasPlayerTPForSpell(Spell spell)
+    {
+        return spell != null && m_Player.TensionPoints >= spell.TensionCost;
+    }
 }
