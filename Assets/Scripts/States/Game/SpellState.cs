@@ -17,6 +17,7 @@ public class SpellState : AGameState
 
     public override void OnEnter()
     {
+        PlayerAnimation.Instance.SpellCast();
         m_Controller.StartCoroutine(DoSpellRoutine());
         base.OnEnter();
     }

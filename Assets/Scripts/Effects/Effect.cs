@@ -8,7 +8,8 @@ public enum EEffect
 {
     Hit,
     Torch,
-    Explosion
+    Explosion,
+    Preparing
 }
 
 public class Effect : MonoBehaviour
@@ -20,9 +21,11 @@ public class Effect : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private List<EAudio> m_SoundsEffects;
 
-    public void DoEffect(Transform parent)
+    private System.Action<Collider> OnTriggerEnterAction;
+
+    public void DoEffect(Transform parent,System.Action<Collider> OnTriggerEnter = null)
     {
-        SetPosition(parent);
+        SetParent(parent);
 
         // Show
         gameObject.SetActive(true);
@@ -32,6 +35,13 @@ public class Effect : MonoBehaviour
 
         // Destroy object after life time 
         if (m_LifeTimeInSeconds > 0) Destroy(gameObject, m_LifeTimeInSeconds);
+
+        if(OnTriggerEnter != null) OnTriggerEnterAction += OnTriggerEnter;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        OnTriggerEnterAction?.Invoke(other);
     }
 
     private void PlaySound()
@@ -52,19 +62,27 @@ public class Effect : MonoBehaviour
         m_Animator.SetInteger(GameParametres.AnimationEffect.INT_ID_ANIMATION, idAnimation);
     }
 
-    private void SetPosition(Transform parent)
+    private void SetParent(Transform parent)
     {
         // Set position
-        transform.parent = parent;
-        transform.position = parent.transform.position;
+        transform.position = parent.position;
+        transform.SetParent(parent);
 
-        // Move foward for aways display
-        Vector3 directionToCamera = -GetCinemachineBrain().transform.forward;
-        transform.Translate(directionToCamera * m_FowardToScreen);
+        if(m_FowardToScreen != 0)
+        {
+            // Move foward for aways display
+            Vector3 directionToCamera = -GetCinemachineBrain().transform.forward;
+            transform.Translate(directionToCamera * m_FowardToScreen);
+        }
     }
 
     private CinemachineBrain GetCinemachineBrain()
     {
         return CinemachineCore.Instance.GetActiveBrain(0);
+    }
+
+    public void DestroyIt(float delay)
+    {
+        Destroy(gameObject, delay);
     }
 }

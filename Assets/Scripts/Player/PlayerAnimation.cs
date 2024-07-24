@@ -56,8 +56,18 @@ public class PlayerAnimation : MonoBehaviour
         m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_HIT_STRONG);
     }
 
-    internal void Touch()
+    public void Touch()
     {
         m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_TOUCH);
+    }
+
+    public void SpellCast()
+    {
+        m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_SPELL_CAST);
+    }
+
+    public void SpellPreparing()
+    {
+        m_Animator.SetTrigger(GameParametres.AnimationPlayer.TRIGGER_SPELL_PREPARING);
     }
 }

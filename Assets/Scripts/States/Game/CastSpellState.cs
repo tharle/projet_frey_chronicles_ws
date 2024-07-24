@@ -12,6 +12,8 @@ public class CastSpellState : AGameState
     private List<ERune> m_CastedRunes;
     private List<Rune> m_Runes;
 
+    private Effect m_PreparingEffect;
+
     public CastSpellState(GameStateController controller) : base(controller, EGameState.CastSpell)
     {
 
@@ -29,7 +31,19 @@ public class CastSpellState : AGameState
     public override void OnEnter()
     {
         base.OnEnter();
+        PlayerAnimation.Instance.SpellPreparing();
         m_CastedRunes = new List<ERune>();
+
+        PlayerController.Instance.LookToTarget(m_Target);
+
+        m_PreparingEffect = EffectPoolManager.Instance.Get(EEffect.Preparing);
+        m_PreparingEffect.DoEffect(m_Controller.transform);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        m_PreparingEffect.DestroyIt(0.01f);
     }
 
 
