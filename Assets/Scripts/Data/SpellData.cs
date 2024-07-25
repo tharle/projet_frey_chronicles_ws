@@ -15,6 +15,8 @@ public class Spell
     public EEffect EffectTrace;
     public EEffect EffectCollision;
 
+    public bool IsJustTarget = false;
+
     public List<ERune> Runes;
 
     public bool IsSameRunes(List<ERune> otherRunes)

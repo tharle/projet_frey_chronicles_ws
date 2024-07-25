@@ -15,15 +15,18 @@ public enum EEffect
 public class Effect : MonoBehaviour
 {
     [SerializeField] private float m_LifeTimeInSeconds;
+    public float LifeTimeInSeconds { get => m_LifeTimeInSeconds; set { m_LifeTimeInSeconds = value; } }
     [SerializeField] private EEffect m_Type;
     [SerializeField] private int m_VariationCount = 1;
     [SerializeField] private float m_FowardToScreen = 5f;
+    public float FowardToScreen { get => m_FowardToScreen; set { m_FowardToScreen = value; } }
     [SerializeField] private Animator m_Animator;
-    [SerializeField] private List<EAudio> m_SoundsEffects;
+    [SerializeField] private List<EAudio> m_SoundsEffects = new();
+    public List<EAudio> SoundsEffects { get => m_SoundsEffects; set { m_SoundsEffects = value; } }
 
-    private System.Action<Collider> OnTriggerEnterAction;
+    private System.Action<Effect, Collider> OnTriggerEnterAction;
 
-    public void DoEffect(Transform parent,System.Action<Collider> OnTriggerEnter = null)
+    public void DoEffect(Transform parent,System.Action<Effect, Collider> OnTriggerEnter = null)
     {
         SetParent(parent);
 
@@ -41,7 +44,7 @@ public class Effect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnTriggerEnterAction?.Invoke(other);
+        OnTriggerEnterAction?.Invoke(this, other);
     }
 
     private void PlaySound()
@@ -81,7 +84,7 @@ public class Effect : MonoBehaviour
         return CinemachineCore.Instance.GetActiveBrain(0);
     }
 
-    public void DestroyIt(float delay)
+    public void DestroyIt(float delay = 0)
     {
         Destroy(gameObject, delay);
     }
