@@ -95,6 +95,17 @@ public class PlayerController : ATargetController
         //GameEventSystem.Instance.SubscribeTo(EGameEvent.CastMagic, OnCastMagic);
     }
 
+    private void OnDestroy()
+    {
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Interaction, OnInterractionState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Spell, OnSpellState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Combo, OnComboState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.None, OnNoneState);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.EnterRoom, EnterRoom);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.DamageToPlayer, TakeDamage);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
+    }
+
     private void EnterRoom(GameEventMessage message)
     {
         if (message.Contains<RoomController>(EGameEventMessage.Room, out RoomController room))
@@ -213,6 +224,15 @@ public class PlayerController : ATargetController
             }
         }
     }*/
+
+    public override void ReciveSpell(Spell spell)
+    {
+        base.ReciveSpell(spell);
+        m_Player.HitPoints -= spell.BaseDamage;
+
+        PlayerAnimation.Instance.TakeDamage();
+        RefreshInfoHUDHP();
+    }
 
 
     public void AddTension(int tension)
