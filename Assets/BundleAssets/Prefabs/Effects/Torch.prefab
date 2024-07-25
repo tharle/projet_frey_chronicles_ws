@@ -152,11 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6e7d939a750794193db85aa2237277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LifeTimeInSeconds: 0.5
+  m_LifeTimeInSeconds: 0
   m_Type: 1
   m_VariationCount: 1
   m_FowardToScreen: 10
   m_Animator: {fileID: 2629518383485498923}
+  m_SoundsEffects: 
 --- !u!114 &-6161452515807531593
 MonoBehaviour:
   m_ObjectHideFlags: 0

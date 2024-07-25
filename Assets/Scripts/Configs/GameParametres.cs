@@ -15,7 +15,9 @@ public class GameParametres
         public static string TRIGGER_INTERRACT = "interract";
         public static string TRIGGER_HIT_STRONG = "hit_strong";
         public static string TRIGGER_HIT_WEAK = "hit_weak";
-        public static string TRIGGER_TOUCH = "touch"; 
+        public static string TRIGGER_TOUCH = "touch";
+        public static string TRIGGER_SPELL_CAST = "spell_cast";
+        public static string TRIGGER_SPELL_PREPARING = "spell_preparing";
     }
 
     public class AnimationDungeon

@@ -94,7 +94,7 @@ public class PlayerController : ATargetController
         GameEventSystem.Instance.SubscribeTo(EGameEvent.EnterRoom, EnterRoom);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
-        GameEventSystem.Instance.SubscribeTo(EGameEvent.CastMagic, OnCastMagic);
+        //GameEventSystem.Instance.SubscribeTo(EGameEvent.CastMagic, OnCastMagic);
     }
 
     private void EnterRoom(GameEventMessage message)
@@ -199,7 +199,7 @@ public class PlayerController : ATargetController
         }
     }
 
-    private void OnCastMagic(GameEventMessage message)
+    /*private void OnCastMagic(GameEventMessage message)
     {
         if (message.Contains<ATargetController>(EGameEventMessage.TargetController, out ATargetController targetController))
         {
@@ -214,7 +214,7 @@ public class PlayerController : ATargetController
                 targetController.ReciveSpell(spell);
             }
         }
-    }
+    }*/
 
 
     public void AddTension(int tension)
@@ -288,5 +288,10 @@ public class PlayerController : ATargetController
     public bool GetSpell(List<ERune> castedRunes, out Spell spell)
     {
         return m_Player.GetFirstSpell(castedRunes, out spell);
+    }
+
+    public bool HasPlayerTPForSpell(Spell spell)
+    {
+        return spell != null && m_Player.TensionPoints >= spell.TensionCost;
     }
 }

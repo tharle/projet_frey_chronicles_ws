@@ -12,6 +12,8 @@ public class CastSpellState : AGameState
     private List<ERune> m_CastedRunes;
     private List<Rune> m_Runes;
 
+    private Effect m_PreparingEffect;
+
     public CastSpellState(GameStateController controller) : base(controller, EGameState.CastSpell)
     {
 
@@ -29,7 +31,19 @@ public class CastSpellState : AGameState
     public override void OnEnter()
     {
         base.OnEnter();
+        PlayerAnimation.Instance.SpellPreparing();
         m_CastedRunes = new List<ERune>();
+
+        PlayerController.Instance.LookToTarget(m_Target);
+
+        m_PreparingEffect = EffectPoolManager.Instance.Get(EEffect.Preparing);
+        m_PreparingEffect.DoEffect(m_Controller.transform);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        m_PreparingEffect.DestroyIt(0.01f);
     }
 
 
@@ -58,20 +72,12 @@ public class CastSpellState : AGameState
         {
             if (PlayerController.Instance.GetSpell(m_CastedRunes, out Spell spell))
             {
-                DoCastSpell(spell);
+                NotifyResult(spell);
             } else
             {
-                m_Controller.ChangeState(EGameState.None);
+                NotifyResult(null);
             }
         }
-    }
-
-    private void DoCastSpell(Spell spell)
-    {
-
-        GameEventMessage message = new GameEventMessage(EGameEventMessage.Spell, spell);
-        message.Add(EGameEventMessage.TargetController, m_Target);
-        m_Controller.ChangeState(EGameState.Spell, message);
     }
 
     private void CastRune(Rune rune)
@@ -81,7 +87,36 @@ public class CastSpellState : AGameState
         
         if (PlayerController.Instance.GetSpell(m_CastedRunes, out Spell spell))
         {
-            DoCastSpell(spell);
+            NotifyResult(spell);
         }
     }
+
+    private void NotifyResult(Spell spell)
+    {
+        bool sucess = PlayerController.Instance.HasPlayerTPForSpell(spell);
+
+        GameEventMessage message = new GameEventMessage();
+        if (spell != null) message.Add(EGameEventMessage.SpellName, spell.Name);
+        if (spell != null && !sucess) message.Add(EGameEventMessage.TensionCost, spell.TensionCost);
+
+        GameEventSystem.Instance.TriggerEvent(EGameEvent.ResultSpell, message);
+
+        m_Controller.StartCoroutine(WaitAndCloseRoutine(sucess, spell));
+    }
+
+    private IEnumerator WaitAndCloseRoutine(bool sucess, Spell spell)
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (sucess) DoCastSpell(spell);
+        else m_Controller.ChangeState(EGameState.None);
+    }
+
+    private void DoCastSpell(Spell spell)
+    {
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.Spell, spell);
+        message.Add(EGameEventMessage.TargetController, m_Target);
+        m_Controller.ChangeState(EGameState.Spell, message);
+    }
+
 }

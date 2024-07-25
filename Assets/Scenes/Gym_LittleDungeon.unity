@@ -1260,10 +1260,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 910021806103017264, guid: 1a8e1ea2dabaad849b38ff30aa28f8da, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5597627719002115982, guid: 1a8e1ea2dabaad849b38ff30aa28f8da, type: 3}
       propertyPath: m_Name
       value: VirtualCameras
