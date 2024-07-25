@@ -9,7 +9,9 @@ public enum EEffect
     Hit,
     Torch,
     Explosion,
-    Preparing
+    Preparing,
+    WindBall,
+    WaterBall
 }
 
 public class Effect : MonoBehaviour

@@ -38,7 +38,7 @@ public struct Player : ITarget
         ActionPointsMax = 100;
         ActionPointPerSec = 75;
         RefreshTime = 0.1f;
-        DamageRange = new Vector2(3, 15);
+        DamageRange = new Vector2(3, 5);
         SpellTome = new();
     }
 
@@ -71,7 +71,8 @@ public struct Player : ITarget
 
     public int GetDamage()
     {
-        return UnityEngine.Random.Range(Mathf.FloorToInt(DamageRange.x), Mathf.FloorToInt(DamageRange.y));
+        float damage = UnityEngine.Random.Range(DamageRange.x, DamageRange.y) * (1f - GetTensionRatio());
+        return Mathf.FloorToInt(damage);
     }
 
     public void AddActionPoints()
@@ -123,5 +124,10 @@ public struct Player : ITarget
         }
 
         return false;
+    }
+
+    internal float GetTensionRatio()
+    {
+        return (float) TensionPoints / (float) TensionPointsMax;
     }
 }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 040564fc1ea79ed45b6c2f9226ee9433, type: 3}
-  m_Name: FireBallData
+  m_Name: WindBallData
   m_EditorClassIdentifier: 
   Value:
-    Name: Fire Ball
-    Description: It's a ball of fire
-    Type: 1
-    BaseDamage: 20
-    TensionCost: 30
-    EffectTrace: 1
-    EffectCollision: 2
+    Name: WindBall
+    Description: Its just the wind
+    Type: 0
+    BaseDamage: 15
+    TensionCost: 15
+    EffectTrace: 4
+    EffectCollision: 4
     IsJustTarget: 0
-    Runes: 020000000000000005000000
+    Runes: 010000000200000004000000

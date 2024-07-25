@@ -978,12 +978,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1083562189729293796, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
       propertyPath: m_StartedsSpells.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1083562189729293796, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
       propertyPath: m_StartedsSpells.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 4e19f50518ffe1247b4e82c895f8f30d, type: 2}
+    - target: {fileID: 1083562189729293796, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
+      propertyPath: m_StartedsSpells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b35ac10ab540324b96253969b2185fb, type: 2}
+    - target: {fileID: 1083562189729293796, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
+      propertyPath: m_StartedsSpells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5dad9e951f9d20b4ab781598fe9a90c3, type: 2}
     - target: {fileID: 2929529476065059548, guid: d901d3e24daabdc4f9bce2ca13003e70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.18

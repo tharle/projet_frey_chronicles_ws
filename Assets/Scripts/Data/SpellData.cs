@@ -30,6 +30,26 @@ public class Spell
 
         return true;
     }
+
+    public int GetDamage(EElemental elementalId)
+    {
+        int damage = BaseDamage;
+        if ((elementalId == EElemental.Fire && Type == EElemental.Water)
+            || (elementalId == EElemental.Water && Type == EElemental.Air)
+            || (elementalId == EElemental.Air && Type == EElemental.Fire)
+            )
+            damage *= 2;
+
+        if ((elementalId == EElemental.Fire && Type == EElemental.Air)
+            || (elementalId == EElemental.Water && Type == EElemental.Fire)
+            || (elementalId == EElemental.Air && Type == EElemental.Water)
+            )
+            damage = (int) (damage * 0.5f);
+
+        if (damage <= 0) damage = 1;
+
+        return damage;
+    }
 }
 
 [CreateAssetMenu]

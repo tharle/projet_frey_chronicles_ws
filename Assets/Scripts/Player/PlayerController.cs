@@ -25,8 +25,6 @@ public class PlayerController : ATargetController
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
 
-    public event Action<int, EElemental> OnSpell;
-
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
 
@@ -184,7 +182,7 @@ public class PlayerController : ATargetController
         {
             // TODO : Calculer fablisse (?)
             PlayerAnimation.Instance.TakeDamage();
-            m_Player.HitPoints -= damage;
+            m_Player.HitPoints -= damage * (2 * TensionRatio());
         }
         // TODO : Add die
         //RefreshInfoHUD();
@@ -224,6 +222,11 @@ public class PlayerController : ATargetController
 
         //RefreshInfoHUD();
         RefreshInfoHUDTP();
+    }
+
+    public float TensionRatio()
+    {
+        return (float)m_Player.TensionPoints / (float)m_Player.TensionPointsMax;
     }
 
     public bool ConsumeTension(int tension)
