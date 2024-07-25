@@ -17,7 +17,9 @@ public enum EGameEventMessage
     TargetController,
     Target,
     Spell,
-    Rune
+    Rune,
+    TensionCost,
+    SpellName
 }
 
 public class GameEventMessage

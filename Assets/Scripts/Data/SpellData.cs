@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct Spell
+public class Spell
 {
     public string Name;
     public string Description;
@@ -14,6 +14,8 @@ public struct Spell
 
     public EEffect EffectTrace;
     public EEffect EffectCollision;
+
+    public bool IsJustTarget = false;
 
     public List<ERune> Runes;
 
