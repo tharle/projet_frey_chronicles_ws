@@ -22,7 +22,7 @@ public enum EAudio
 }
 public class AudioManager : MonoBehaviour
 {
-    private Dictionary<EAudio, AudioClip> m_AudioClips;
+    private Dictionary<EAudio, AudioClip> m_AudioClips = new();
     private AudioPool m_AudioPool;
 
     private BundleLoader m_Loader;
@@ -52,20 +52,33 @@ public class AudioManager : MonoBehaviour
 
         m_AudioPool = new AudioPool();
         m_Loader = BundleLoader.Instance;
-        m_AudioClips = m_Loader.LoadSFX();
+        
 
         m_Instance = this;
     }
 
     public AudioSource Play(EAudio audioClipId)
     {
-        return Play(audioClipId, Camera.current.transform.position);
+        return Play(audioClipId, Camera.main.transform.position);
     }
 
     public AudioSource Play(EAudio audioClipId, Vector3 soundPosition, bool isLooping = false, float volume = 1f)
     {
+        if (m_AudioClips == null || m_AudioClips.Count <= 0) 
+        {
+            m_AudioClips = new();
+            m_AudioClips = m_Loader.LoadSFX();
+        } 
+
+        Debug.Log($"AUDIO: {Enum.GetName(typeof(EAudio), audioClipId)}");
         AudioSource audioSource;
         audioSource = m_AudioPool.GetAvailable(transform);
+
+        if (audioSource == null) {
+            audioSource = new AudioSource();
+            isLooping = false;
+        } 
+
         audioSource.clip = m_AudioClips[audioClipId];
         audioSource.transform.position = soundPosition;
         audioSource.volume = volume;

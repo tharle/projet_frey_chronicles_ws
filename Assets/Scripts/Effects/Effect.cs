@@ -47,7 +47,7 @@ public class Effect : MonoBehaviour
         OnTriggerEnterAction?.Invoke(this, other);
     }
 
-    private void PlaySound()
+    public void PlaySound()
     {
         if (m_SoundsEffects.Count <= 0) return;
         
