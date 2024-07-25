@@ -851,6 +851,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 519633259}
     m_Modifications:
+    - target: {fileID: 2887501632878509672, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_text
+      value: 0/100
+      objectReference: {fileID: 0}
     - target: {fileID: 3796464685288867597, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -943,6 +947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUDGame
       objectReference: {fileID: 0}
+    - target: {fileID: 5744476177097026305, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_text
+      value: 20/20
+      objectReference: {fileID: 0}
     - target: {fileID: 5982413415735349860, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -961,6 +969,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8207956100241612817, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8344560482120109754, guid: 7ae134cfa1522314b8a64cc959cf846d, type: 3}
+      propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

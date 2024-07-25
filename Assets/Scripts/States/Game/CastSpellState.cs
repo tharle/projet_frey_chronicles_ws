@@ -109,7 +109,10 @@ public class CastSpellState : AGameState
         yield return new WaitForSeconds(3f);
 
         if (sucess) DoCastSpell(spell);
-        else m_Controller.ChangeState(EGameState.None);
+        else {
+            m_Controller.StopAllCoroutines();
+            m_Controller.ChangeState(EGameState.None);
+        } 
     }
 
     private void DoCastSpell(Spell spell)

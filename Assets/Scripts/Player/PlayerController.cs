@@ -226,7 +226,7 @@ public class PlayerController : ATargetController
 
     public float TensionRatio()
     {
-        return (float)m_Player.TensionPoints / (float)m_Player.TensionPointsMax;
+        return m_Player.GetTensionRatio();
     }
 
     public bool ConsumeTension(int tension)
