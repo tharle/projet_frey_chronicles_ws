@@ -52,43 +52,15 @@ public class SpellState : AGameState
 
         Effect effectCollition = EffectPoolManager.Instance.Get(m_Spell.EffectCollision);
         effectCollition.LifeTimeInSeconds = 2.5f;
+        effectCollition.FowardToScreen = 0;
         effectCollition.transform.localScale = Vector3.one * 20f;
         effectCollition.DoEffect(m_Target.transform);
 
         yield return new WaitForSeconds(effectCollition.LifeTimeInSeconds + 0.01f);
 
         m_Target.ReciveSpell(m_Spell);
-        yield return new WaitForSeconds(2f);
+        PlayerController.Instance.ConsumeTension(m_Spell.TensionCost);
+        yield return new WaitForSeconds(1f);
         m_Controller.ChangeState(EGameState.None);
     }
-
-
-    //TODO use that for magic
-    /*    private IEnumerator CastComboRoutine()
-        {
-            // Animation
-            PlayerAnimation.Instance.Attack();
-
-            PlayerController.Instance.LookToTarget(m_Target);
-
-            yield return new WaitForSeconds(0.3f);
-
-            //Logic
-            GameObject go = BundleLoader.Instance.Load<GameObject>(GameParametres.BundleNames.PREFAB_COMBO, "Attack");
-            go.transform.position = PlayerController.Instance.PlayerHand.position;
-
-            if(go.TryGetComponent<ProjectilCombo>(out ProjectilCombo projectil))
-            {
-                projectil.Lauch(m_Target, 5f, OnHit);
-            }
-        }
-
-        private void OnHit(ATargetController target)
-        {
-            AudioManager.Instance.Play(EAudio.Attack, m_Controller.transform.position);
-            GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, target));
-
-            if(!m_AttackWasPressed) m_CurrentRoutine = m_Controller.StartCoroutine(DoComboRoutine());
-            else m_Controller.ChangeState(EGameState.None);
-        }*/
 }
