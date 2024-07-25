@@ -241,7 +241,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,6 +249,48 @@ TextureImporter:
       bones: []
       spriteID: 0d74fc37ec0cc0e48909f87d3c837ae4
       internalID: -219718907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rune_wind_0
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 739
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be369890791c148459123e056871b358
+      internalID: 1837880495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rune_water_0
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 165
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ad02ac084e1e6409803c583aee94f2
+      internalID: -1117373166
       vertices: []
       indices: 
       edges: []
@@ -270,6 +312,8 @@ TextureImporter:
       icon_attack_0: 1636568550
       icon_combo_: -1595286947
       icon_combo_1: 631855168
+      rune_water_0: -1117373166
+      rune_wind_0: 1837880495
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

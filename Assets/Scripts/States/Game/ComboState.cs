@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ComboState : AGameState
 {
     private float m_WaitAttack = 0.3f;
     private Vector2 m_WaitDamage = new Vector2 (.5f, .7f);
-    private Vector2 m_WaitCombo = new Vector2 (.5f, 1f);
+    private Vector2 m_WaitCombo = new Vector2 (0.1f, 0.2f);
     private bool m_WaitHit;
     private bool m_Timeout;
     private bool m_AttackWasPressed;
@@ -28,6 +29,8 @@ public class ComboState : AGameState
         m_Timeout = false;
         m_Target = DungeonTargetManager.Instance.TargetSelected;
         m_Controller.StartCoroutine(DoAttack());
+
+        m_WaitDamage = new Vector2(0.5f, 0.7f);
     }
 
     private void OnEnemyDie(GameEventMessage message)
@@ -63,7 +66,7 @@ public class ComboState : AGameState
             if (m_WaitHit)
             {
                 SetWaitHit(false);
-                m_Controller.StopCoroutine(m_CurrentRoutine);
+                m_Controller.StopAllCoroutines();
                 AddComboCounter();
                 m_Controller.StartCoroutine(DoAttack());
             }
@@ -101,7 +104,7 @@ public class ComboState : AGameState
 
     private IEnumerator DoComboRoutine()
     {
-        yield return new WaitForSeconds(m_WaitAttack);  //  give time for sounds and damage calculs
+        yield return new WaitForSeconds(Random.Range(0.1f, m_WaitAttack) );  //  give time for sounds and damage calculs
         if (!m_AttackWasPressed) 
         {
             SetWaitHit(true);
@@ -110,10 +113,9 @@ public class ComboState : AGameState
         // In enemy
         Effect effect = EffectPoolManager.Instance.Get(EEffect.Hit);
         effect.DoEffect(m_Target.transform);
-
         GameEventSystem.Instance.TriggerEvent(EGameEvent.ComboDamageToEnemy, new GameEventMessage(EGameEventMessage.TargetController, m_Target));
-
-        yield return new WaitForSeconds(Random.Range(m_WaitCombo.x, m_WaitCombo.y)); // TODO: Calculer à partir de la TENSION
+        float delay = m_WaitCombo.y * (1.5f - PlayerController.Instance.TensionRatio());
+        yield return new WaitForSeconds(delay); // TODO: Calculer à partir de la TENSION
         SetWaitHit(false);
 
         m_Timeout = true;

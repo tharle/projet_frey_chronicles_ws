@@ -43,6 +43,9 @@ public class SelectSphere : MonoBehaviour
         if(message.Contains<ATargetController>(EGameEventMessage.TargetController, out ATargetController targetController))
         {
             SelectTarget(targetController);
+        } else
+        {
+            SelectTarget(PlayerController.Instance);
         }
     }
 
@@ -69,9 +72,9 @@ public class SelectSphere : MonoBehaviour
         if (IsTargetSelected()) 
         {
             m_TargetSelected?.DesSelected();
-            m_TargetSelected = target;
         }
 
+        m_TargetSelected = target;
         m_TargetSelected?.ShowSelected();
     }
 

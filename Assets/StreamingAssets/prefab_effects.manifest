@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 67784023
+CRC: 4261864943
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6547a2196bec80796669518c4f6f4298
+    Hash: e35df90a2be547944e62ec271264d139
   TypeTreeHash:
     serializedVersion: 2
     Hash: e363e2a4e2de71f66ffebe52cd18e82f
@@ -38,7 +38,9 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/BundleAssets/Prefabs/Effects/Explosion.prefab
+- Assets/BundleAssets/Prefabs/Effects/WaterBall.prefab
 - Assets/BundleAssets/Prefabs/Effects/Hit.prefab
 - Assets/BundleAssets/Prefabs/Effects/Preparing.prefab
 - Assets/BundleAssets/Prefabs/Effects/Torch.prefab
+- Assets/BundleAssets/Prefabs/Effects/WindBall.prefab
 Dependencies: []

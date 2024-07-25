@@ -127,9 +127,8 @@ public class EnemyController : ATargetController
     public override void ReciveSpell(Spell spell)
     {
         m_Animator.SetTrigger(GameParametres.AnimationEnemy.TRIGGER_HIT);
-
-        // TODO calc speel force
-        m_Enemy.HitPoints -= (int) spell.BaseDamage;
+       
+        m_Enemy.HitPoints -= (int) spell.GetDamage(m_Enemy.ElementalId);
 
         if (!IsAlive()) TargetDie();
     }

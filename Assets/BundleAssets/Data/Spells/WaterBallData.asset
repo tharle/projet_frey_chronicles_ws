@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040564fc1ea79ed45b6c2f9226ee9433, type: 3}
+  m_Name: WaterBallData
+  m_EditorClassIdentifier: 
+  Value:
+    Name: Snowball
+    Description: It's a ball made with snow
+    Type: 2
+    BaseDamage: 10
+    TensionCost: 10
+    EffectTrace: 5
+    EffectCollision: 5
+    IsJustTarget: 0
+    Runes: 030000000300000006000000

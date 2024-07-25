@@ -13,7 +13,7 @@ public class HUDAmbiance : MonoBehaviour
     private void Start()
     {
         GameEventSystem.Instance.SubscribeTo(EGameEvent.BattleMode, OnBattleMode);
-        m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicAmbient_1, Camera.current.transform.position, true);
+        m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicAmbient_1, Camera.main.transform.position, true);
         m_MusicPlaying.volume = m_Volume;
     }
 
@@ -22,12 +22,14 @@ public class HUDAmbiance : MonoBehaviour
         if(message.Contains<bool>(EGameEventMessage.Enter, out bool enter))
         {
             m_BattleModeDisplay.SetActive(enter);
-            
-            m_MusicPlaying.Stop();
-            if (enter) m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicFight, Camera.current.transform.position, true);
-            else  m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicAmbient_1, Camera.current.transform.position, true);
 
-            m_MusicPlaying.volume = m_Volume;
+            if (m_MusicPlaying != null) {
+                m_MusicPlaying?.Stop();
+                if (enter) m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicFight, Camera.main.transform.position, true);
+                else  m_MusicPlaying = AudioManager.Instance.Play(EAudio.MusicAmbient_1, Camera.main.transform.position, true);
+
+                m_MusicPlaying.volume = m_Volume;
+            }
         }
     }
 }

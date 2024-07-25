@@ -53,7 +53,7 @@ public class SpellState : AGameState
         Effect effectCollition = EffectPoolManager.Instance.Get(m_Spell.EffectCollision);
         effectCollition.LifeTimeInSeconds = 2.5f;
         effectCollition.FowardToScreen = 0;
-        effectCollition.transform.localScale = Vector3.one * 20f;
+        effectCollition.transform.localScale = Vector3.one * 10f;
         effectCollition.DoEffect(m_Target.transform);
 
         yield return new WaitForSeconds(effectCollition.LifeTimeInSeconds + 0.01f);

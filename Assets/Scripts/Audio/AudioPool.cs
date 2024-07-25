@@ -11,7 +11,7 @@ public class AudioPool
 
     public AudioSource GetAvailable(Transform parent)
     {
-        CleanAllDestroyed();
+        //CleanAllDestroyed();
         AudioSource audio = m_AudioPool.Find(audio => !audio.isPlaying && !audio.gameObject.IsDestroyed());
         if (audio == null)
         {

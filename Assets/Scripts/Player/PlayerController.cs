@@ -25,8 +25,6 @@ public class PlayerController : ATargetController
     public event Action OnAttackSelected;
     public event Action OnSpellSelected;
 
-    public event Action<int, EElemental> OnSpell;
-
     private static PlayerController m_Instance;
     public static PlayerController Instance { get { return m_Instance; } }
 
@@ -95,6 +93,17 @@ public class PlayerController : ATargetController
         GameEventSystem.Instance.SubscribeTo(EGameEvent.DamageToPlayer, TakeDamage);
         GameEventSystem.Instance.SubscribeTo(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
         //GameEventSystem.Instance.SubscribeTo(EGameEvent.CastMagic, OnCastMagic);
+    }
+
+    private void OnDestroy()
+    {
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Interaction, OnInterractionState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Spell, OnSpellState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.Combo, OnComboState);
+        GameStateEvent.Instance.UnsubscribeFrom(EGameState.None, OnNoneState);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.EnterRoom, EnterRoom);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.DamageToPlayer, TakeDamage);
+        GameEventSystem.Instance.UnsubscribeFrom(EGameEvent.ComboDamageToEnemy, ComboDamageToEnemy);
     }
 
     private void EnterRoom(GameEventMessage message)
@@ -184,7 +193,7 @@ public class PlayerController : ATargetController
         {
             // TODO : Calculer fablisse (?)
             PlayerAnimation.Instance.TakeDamage();
-            m_Player.HitPoints -= damage;
+            m_Player.HitPoints -= damage * (2 * TensionRatio());
         }
         // TODO : Add die
         //RefreshInfoHUD();
@@ -216,6 +225,15 @@ public class PlayerController : ATargetController
         }
     }*/
 
+    public override void ReciveSpell(Spell spell)
+    {
+        base.ReciveSpell(spell);
+        m_Player.HitPoints -= spell.BaseDamage;
+
+        PlayerAnimation.Instance.TakeDamage();
+        RefreshInfoHUDHP();
+    }
+
 
     public void AddTension(int tension)
     {
@@ -224,6 +242,11 @@ public class PlayerController : ATargetController
 
         //RefreshInfoHUD();
         RefreshInfoHUDTP();
+    }
+
+    public float TensionRatio()
+    {
+        return m_Player.GetTensionRatio();
     }
 
     public bool ConsumeTension(int tension)

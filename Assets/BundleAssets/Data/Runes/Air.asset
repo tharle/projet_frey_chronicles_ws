@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value:
     Type: 4
-    Icon: {fileID: -74667665, guid: bfc9af3947b2b494090937ac6117955e, type: 3}
+    Icon: {fileID: 1837880495, guid: 6caf42448f673af448ef57c667f7589a, type: 3}
     KCodes: 20000000
+    MButtons: 

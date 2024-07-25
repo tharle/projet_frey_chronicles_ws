@@ -19,5 +19,6 @@ MonoBehaviour:
     BaseDamage: 20
     TensionCost: 30
     EffectTrace: 1
-    EffectCollision: 1
+    EffectCollision: 2
+    IsJustTarget: 0
     Runes: 020000000000000005000000

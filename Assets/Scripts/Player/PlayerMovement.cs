@@ -85,11 +85,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartMoving()
     {
+        if (m_Rigidbody == null) return;
         m_Rigidbody.useGravity = true;
     }
 
     public void StopMove()
     {
+        if (m_Rigidbody == null) return;
+
         m_Rigidbody.useGravity = false;
         m_Rigidbody.velocity = Vector3.zero;
     }

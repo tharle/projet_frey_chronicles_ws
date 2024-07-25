@@ -101,8 +101,9 @@ public class DungeonTargetManager: MonoBehaviour
 
     private void SelectTarget()
     {
-        GameEventMessage message = new GameEventMessage(EGameEventMessage.TargetController, TargetSelected);
-        message.Add(EGameEventMessage.Target, TargetSelected?.GetTarget());
+        ATargetController target = TargetSelected != null ? TargetSelected : PlayerController.Instance;
+        GameEventMessage message = new GameEventMessage(EGameEventMessage.TargetController, target);
+        message.Add(EGameEventMessage.Target, target?.GetTarget());
         GameEventSystem.Instance.TriggerEvent(EGameEvent.SelectTarget, message);
         //SelectSphere.Instance.SelectTarget(TargetSelected); // pas dde probleme passer null, ça vaut dire quil y a rien pour selectionner
     }
