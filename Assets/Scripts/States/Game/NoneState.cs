@@ -44,6 +44,8 @@ public class NoneState : AGameState
     {
         base.OnCollisionEnter(collision);
 
+        if (DungeonTargetManager.Instance.IsEnemyInTheRoom()) return;
+
         if (collision.collider.TryGetComponent<DoorController>(out DoorController doorController))
         {
             doorController.OpenDoor();

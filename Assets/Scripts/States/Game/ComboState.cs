@@ -7,7 +7,7 @@ public class ComboState : AGameState
 {
     private float m_WaitAttack = 0.3f;
     private Vector2 m_WaitDamage = new Vector2 (.5f, .7f);
-    private Vector2 m_WaitCombo = new Vector2 (0.1f, 0.2f);
+    private Vector2 m_WaitCombo = new Vector2 (0.2f, 0.4f);
     private bool m_WaitHit;
     private bool m_Timeout;
     private bool m_AttackWasPressed;
