@@ -8,6 +8,7 @@ public class PlayerController : ATargetController
 
     [SerializeField] private Transform m_PlayerHand;
     [SerializeField] private List<SpellData> m_StartedsSpells;
+    [SerializeField] private GameObject m_GameOverScreen;
 
     public Transform PlayerHand { get => m_PlayerHand; }
 
@@ -59,6 +60,14 @@ public class PlayerController : ATargetController
 
     private void Update()
     {
+        if (!m_Player.IsAlive()) 
+        {
+            m_GameOverScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        
+
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             AddTension(7);
@@ -316,5 +325,10 @@ public class PlayerController : ATargetController
     public bool HasPlayerTPForSpell(Spell spell)
     {
         return spell != null && m_Player.TensionPoints >= spell.TensionCost;
+    }
+
+    public void ConsumeAP()
+    {
+        m_Player.ActionPoints = 0;
     }
 }

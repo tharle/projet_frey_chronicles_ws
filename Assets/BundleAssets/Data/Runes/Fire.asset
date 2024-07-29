@@ -15,5 +15,5 @@ MonoBehaviour:
   Value:
     Type: 5
     Icon: {fileID: 1998830290, guid: 6caf42448f673af448ef57c667f7589a, type: 3}
-    KCodes: 
+    KCodes: 31000000
     MButtons: 00000000

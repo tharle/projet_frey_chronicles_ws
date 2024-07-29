@@ -7,7 +7,9 @@ public class DoorController : MonoBehaviour
     [SerializeField] private GameObject m_Block;
     [SerializeField] private Animator m_Animator;
     private bool m_IsOpen = false;
-    private EAudio[] m_DoorAudios = { EAudio.DoorOpen1, EAudio.DoorOpen2, EAudio.DoorOpen3, EAudio.DoorOpen4};
+    private EAudio[] m_DoorAudios = { EAudio.DoorOpen1, EAudio.DoorOpen2, EAudio.DoorOpen3, EAudio.DoorOpen4 };
+
+    private bool m_IsBattleMode = false;
 
     private void Start()
     {
@@ -23,16 +25,17 @@ public class DoorController : MonoBehaviour
 
     private void OnBattleMode(GameEventMessage message)
     {
-        if(message.Contains<bool>(EGameEventMessage.Enter, out bool enter))
+        if (message.Contains<bool>(EGameEventMessage.Enter, out bool enter))
         {
             m_Arrow.SetActive(!enter);
             m_Block.SetActive(enter);
+            m_IsBattleMode = enter;
         }
     }
 
     public void OpenDoor()
     {
-        if (m_IsOpen) return;
+        if (m_IsBattleMode || m_IsOpen) return;
 
         PlaySound();
 

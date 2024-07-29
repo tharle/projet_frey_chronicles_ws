@@ -262,7 +262,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -283,7 +283,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -291,6 +291,27 @@ TextureImporter:
       bones: []
       spriteID: d9ad02ac084e1e6409803c583aee94f2
       internalID: -1117373166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_spellbook
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 707
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.4999995, y: 0.6900813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780698cc78604ec419490cbb291a0bef
+      internalID: 1465903243
       vertices: []
       indices: 
       edges: []
@@ -314,6 +335,7 @@ TextureImporter:
       icon_combo_1: 631855168
       rune_water_0: -1117373166
       rune_wind_0: 1837880495
+      ui_spellbook: 1465903243
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

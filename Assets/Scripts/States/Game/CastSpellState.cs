@@ -112,6 +112,7 @@ public class CastSpellState : AGameState
         else {
             m_Controller.StopAllCoroutines();
             m_Controller.ChangeState(EGameState.None);
+            PlayerController.Instance.ConsumeAP();
         } 
     }
 
